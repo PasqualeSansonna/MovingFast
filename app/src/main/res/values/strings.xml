@@ -1,3 +1,17 @@
 <resources>
     <string name="app_name">MovingFast</string>
+    <string name="title_activity_splash">SplashActivity</string>
+    <string name="title_activity_login">Login</string>
+
+    <!--Login activity-->
+    <string name="edit_text_email">E-Mail</string>
+    <string name="edit_text_password">Password</string>
+    <string name="login_text">LOGIN</string>
+    <string name="sign_up">SIGN UP</string>
+    <string name="new_user_text">New user?</string>
+    <string name="save_credentials">Save email and password</string>
+    <string name="wrong_login_email">Insert the correct email</string>
+    <string name="wrong_login_password">Insert the correct password</string>
+
+
 </resources>
