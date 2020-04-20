@@ -3,7 +3,7 @@
     <string name="title_activity_splash">SplashActivity</string>
     <string name="title_activity_login">Login</string>
 
-    <!--Login activity-->
+    <!--Login and Signup activity-->
     <string name="edit_text_email">E-Mail</string>
     <string name="edit_text_password">Password</string>
     <string name="login_text">LOGIN</string>
@@ -12,6 +12,12 @@
     <string name="save_credentials">Save email and password</string>
     <string name="wrong_login_email">Insert the correct email</string>
     <string name="wrong_login_password">Insert the correct password</string>
+    <string name="edit_text_name">Name</string>
+    <string name="edit_text_surname">Sourname</string>
+    <string name="email_input_error">Insert a correct email</string>
+    <string name="name_input_error">Insert valid name</string>
+    <string name="surname_input_error">Insert valid surname</string>
+    <string name="password_input_error">Insert valid password</string>
 
 
 </resources>

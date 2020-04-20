@@ -150,7 +150,8 @@ public class LoginActivity extends AppCompatActivity {
     /**
      * Login effettuato -> passaggio all'act principale
      */
-    private void login() {
+    private void login()
+    {
         Intent intent = new Intent(this, MainActivity.class);
         startActivity(intent);
         finish();
@@ -159,7 +160,8 @@ public class LoginActivity extends AppCompatActivity {
 
 
     @Override
-    public void onBackPressed() {
+    public void onBackPressed()
+    {
         super.onBackPressed();
         finish();
     }
