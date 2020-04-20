@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Default screen margins, per the Android Design guidelines. -->
+    <dimen name="drawer_header_height">250dp</dimen>
+    <dimen name="activity_horizontal_margin">16dp</dimen>
+    <dimen name="activity_vertical_margin">16dp</dimen>
+    <dimen name="fab_margin">16dp</dimen>
+    <dimen name="standard_elevation">4dp</dimen>
+    <dimen name="input_height">50dp</dimen>
+    <dimen name="input_width">300dp</dimen>
+    <dimen name="text_dimension">20sp</dimen>
+    <dimen name="input_margin_top">25dp</dimen>
+    <dimen name="fab_dimen">50dp</dimen>
+    <dimen name="fab_distance">10dp</dimen>
+    <!-- ALCUNI SONO DA CANCELLARE-->
+    <dimen name="getTorrette_distance">135dp</dimen>
+    <dimen name="getUtenti_distance">75dp</dimen>
+
+    <dimen name="input_width_landscape">250dp</dimen>
+    <array name="radius_dimen">
+        <item>50 m</item>
+        <item>100 m</item>
+        <item>200 m</item>
+        <item>500 m</item>
+        <item>1 Km</item>
+        <item>2 Km</item>
+        <item>5 Km</item>
+    </array>
+    <dimen name="num_box_size">40dp</dimen>
+    <dimen name="image_layout_size">50dp</dimen>
+</resources>
+
