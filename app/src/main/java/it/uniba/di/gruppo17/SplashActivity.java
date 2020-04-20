@@ -7,18 +7,27 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.view.Window;
 import android.view.WindowManager;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
+import android.widget.ImageView;
 
 /**
  * @author Pasquale
  */
 public class SplashActivity extends AppCompatActivity {
 
+    private ImageView image = null;
+    private Animation animation = null;
     private static int SPLASH_TIME_LAYOUT = 4000;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash);
+        image = (ImageView) findViewById(R.id.logo);
+        animation = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.logo_scale);
+        avvia();
+
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
@@ -28,4 +37,7 @@ public class SplashActivity extends AppCompatActivity {
             }
         }, SPLASH_TIME_LAYOUT);
 }
+    public void avvia(){
+        image.startAnimation(animation);
+    }
 }
