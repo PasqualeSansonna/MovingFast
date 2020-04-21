@@ -13,11 +13,13 @@
     <string name="wrong_login_email">Insert the correct email</string>
     <string name="wrong_login_password">Insert the correct password</string>
     <string name="edit_text_name">Name</string>
-    <string name="edit_text_surname">Sourname</string>
+    <string name="edit_text_surname">Surname</string>
     <string name="email_input_error">Insert a correct email</string>
     <string name="name_input_error">Insert valid name</string>
     <string name="surname_input_error">Insert valid surname</string>
     <string name="password_input_error">Insert valid password</string>
+    <string name="no_connection_title">Network error</string>
+    <string name="no_connection_message">Is not possible to login without an internet connection.</string>
 
 
 </resources>

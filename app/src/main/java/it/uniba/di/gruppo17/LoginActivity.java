@@ -2,7 +2,9 @@ package it.uniba.di.gruppo17;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
@@ -13,13 +15,27 @@ import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.Switch;
 
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.util.concurrent.ExecutionException;
+
+import it.uniba.di.gruppo17.asynhttp.AsyncLogin;
+import it.uniba.di.gruppo17.util.ConnectionUtil;
+import it.uniba.di.gruppo17.util.Keys;
+
+import static it.uniba.di.gruppo17.util.Keys.EMAIL;
+import static it.uniba.di.gruppo17.util.Keys.PASSWORD;
+
 public class LoginActivity extends AppCompatActivity {
     /**
      * EdiText campi per email e password
      */
     private EditText ETemail, ETpassword;
 
-    private boolean saveCredentials;
+    /**
+     * Sentinella per la memorizzazione delle credentials.
+     */
+    private boolean saveCredential = false;
     private SharedPreferences preferences;
 
     @Override
@@ -30,9 +46,8 @@ public class LoginActivity extends AppCompatActivity {
         ETemail = (EditText) findViewById(R.id.email_login);
         ETpassword = (EditText) findViewById(R.id.password_login);
         /** Controllo delle sharedPref per eventuali credenziali salvate*/
-        /* TODO: 18/04/2020 USA costanti STRINGHE qui */
         preferences = getSharedPreferences("MovingFastPreferences", Context.MODE_PRIVATE);
-        if (preferences.contains("email") && preferences.contains("password")) {
+        if (preferences.contains(EMAIL) && preferences.contains(PASSWORD)) {
             login();
         }
 
@@ -43,7 +58,7 @@ public class LoginActivity extends AppCompatActivity {
             switchCredenziali.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
                 @Override
                 public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                    saveCredentials = isChecked;
+                    saveCredential = isChecked;
                 }
             });
         }
@@ -67,19 +82,26 @@ public class LoginActivity extends AppCompatActivity {
             BTlogin.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    /* TODO: 18/04/2020 have to the check internet connection here */
-                    String email = ETemail.getText().toString();
-                    String password = ETpassword.getText().toString();
-                    /** Controllo credenziali e se sono giuste si fa login*/
-                    if (checkValues(email, password))
-                    {
-                        login();
-                        if (saveCredentials)
-                            writeCredentialsInPreferences(email, password);
-                    }
-                    else
-                    {
-                        wrongCredentials();
+                    if (ConnectionUtil.checkInternetConn(LoginActivity.this)) {
+                        String email = ETemail.getText().toString();
+                        String password = ETpassword.getText().toString();
+                        if (checkValues(email, password)) {
+                            if (isChecked())
+                                writePreferences(email, password);
+                            login();
+                        } else {
+                            wrongCredentials();
+                        }
+                    } else {
+                        new AlertDialog.Builder(LoginActivity.this)
+                                .setTitle(R.string.no_connection_title)
+                                .setMessage(R.string.no_connection_message)
+                                .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialog, int which) {
+
+                                    }
+                                }).create().show();
                     }
                 }
             });
@@ -89,21 +111,20 @@ public class LoginActivity extends AppCompatActivity {
 
 
     /**
-     * Funzione che scrive credenziali nelle Shared Preferences
-     * @param email
-     * @param password
+     * Scrive nelle SharedPreferences email e password in maniera tale da rendere automatico il login al prossimo accesso.
+     *
+     * @param email    email dell'utente.
+     * @param password password dell'utente.
      */
-    private void writeCredentialsInPreferences(String email, String password)
-    {
-        /* TODO: 18/04/2020 USE STRING CONSTants */
-        if (!preferences.contains("email")  && !preferences.contains("password"))
-        {
+    private void writePreferences(String email, String password) {
+        if (!(preferences.contains(EMAIL)) && !(preferences.contains(Keys.PASSWORD))) {
             SharedPreferences.Editor editor = preferences.edit();
-            editor.putString("email", email);
-            editor.putString("password", password);
+            editor.putString(EMAIL, email);
+            editor.putString(Keys.PASSWORD, password);
             editor.apply();
         }
     }
+
 
     /**
      * Funzione che imposta messaggi di errore nelle editText delle credenziali se immesse in modo errato
@@ -130,8 +151,21 @@ public class LoginActivity extends AppCompatActivity {
         boolean checked = false;
         if (!email.equals("") || !password.equals(" "))
         {
-            /* TODO: 18/04/2020 have to check credentials */
-            
+            String str = Keys.SERVER + "login.php?email=" + email + "&pw=" + password;
+            try {
+                SharedPreferences.Editor editor = preferences.edit();
+                URL url = new URL(str);
+                if (preferences.getInt(Keys.ID_UTENTE, -1) == -1) {
+                    AsyncLogin utente = new AsyncLogin();
+                    int id = utente.execute(url).get();
+                    editor.putInt(Keys.ID_UTENTE, id);
+                }
+                editor.apply();
+                checked = true;
+
+            } catch (MalformedURLException | InterruptedException | ExecutionException e) {
+                e.printStackTrace();
+            }
         }
         return checked;
     }
@@ -157,7 +191,13 @@ public class LoginActivity extends AppCompatActivity {
         finish();
     }
 
-
+    /**
+     * Metodo che verifica che lo switch sia attivo o meno.
+     * @return true se lo switch è attivo, false altrimenti.
+     */
+    private boolean isChecked() {
+        return saveCredential;
+    }
 
     @Override
     public void onBackPressed()
