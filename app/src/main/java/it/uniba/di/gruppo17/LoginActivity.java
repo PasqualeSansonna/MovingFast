@@ -149,7 +149,7 @@ public class LoginActivity extends AppCompatActivity {
     private boolean checkValues(String email, String password)
     {
         boolean checked = false;
-        if (!email.equals("") || !password.equals(" "))
+        if (!email.equals("") && !password.equals(""))
         {
             String str = Keys.SERVER + "login.php?email=" + email + "&pw=" + password;
             try {
@@ -159,7 +159,7 @@ public class LoginActivity extends AppCompatActivity {
                     AsyncLogin utente = new AsyncLogin();
                     int id = utente.execute(url).get();
                     editor.putInt(Keys.ID_UTENTE, id);
-                }
+               }
                 editor.apply();
                 checked = true;
 
