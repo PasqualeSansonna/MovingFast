@@ -9,6 +9,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CompoundButton;
@@ -45,6 +46,7 @@ public class LoginActivity extends AppCompatActivity {
 
         ETemail = (EditText) findViewById(R.id.email_login);
         ETpassword = (EditText) findViewById(R.id.password_login);
+
         /** Controllo delle sharedPref per eventuali credenziali salvate*/
         preferences = getSharedPreferences("MovingFastPreferences", Context.MODE_PRIVATE);
         if (preferences.contains(EMAIL) && preferences.contains(PASSWORD)) {
@@ -120,7 +122,7 @@ public class LoginActivity extends AppCompatActivity {
         if (!(preferences.contains(EMAIL)) && !(preferences.contains(Keys.PASSWORD))) {
             SharedPreferences.Editor editor = preferences.edit();
             editor.putString(EMAIL, email);
-            editor.putString(Keys.PASSWORD, password);
+            editor.putString(PASSWORD, password);
             editor.apply();
         }
     }
@@ -155,14 +157,23 @@ public class LoginActivity extends AppCompatActivity {
             try {
                 SharedPreferences.Editor editor = preferences.edit();
                 URL url = new URL(str);
-                if (preferences.getInt(Keys.ID_UTENTE, -1) == -1) {
+
                     AsyncLogin utente = new AsyncLogin();
                     int id = utente.execute(url).get();
                     editor.putInt(Keys.ID_UTENTE, id);
-               }
-                editor.apply();
-                checked = true;
-
+                    editor.apply();
+                /** controllo se l'id utente nelle shared preferences è errato (-1),
+                 *  nel caso in cui è errato lo rimuovo e restituisco false
+                 *  altrimenti true (il suo id resta salvato nelle shared preferences)
+                 *  NB Per controllo shared preferences
+                 *  device file explorer> data> ns package> shared_prefs> MovingFastPreferences.xml
+                 */
+                if (preferences.getInt(Keys.ID_UTENTE, -1) == -1) {
+                        checked = false;
+                        editor.remove(Keys.ID_UTENTE);
+                    }else {
+                        checked = true;
+                    }
             } catch (MalformedURLException | InterruptedException | ExecutionException e) {
                 e.printStackTrace();
             }

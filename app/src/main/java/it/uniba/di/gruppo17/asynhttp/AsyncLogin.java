@@ -1,6 +1,7 @@
 package it.uniba.di.gruppo17.asynhttp;
 
 import android.os.AsyncTask;
+import android.util.Log;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -17,7 +18,7 @@ public class AsyncLogin extends AsyncTask<URL, String, Integer> {
             try {
                 if (!json.getString("id").equals("null") && !json.getString("nome").equals("null"))
                     result = json.getInt("id");
-            } catch (JSONException e) {
+            } catch (Exception e) {
                 result = -1;
             }
         }

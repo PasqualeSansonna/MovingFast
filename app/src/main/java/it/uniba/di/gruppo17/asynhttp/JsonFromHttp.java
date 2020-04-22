@@ -1,5 +1,7 @@
 package it.uniba.di.gruppo17.asynhttp;
 
+import android.util.Log;
+
 import org.json.JSONException;
 import org.json.JSONObject;
 
