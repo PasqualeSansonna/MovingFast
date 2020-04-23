@@ -41,6 +41,7 @@ public class JsonFromHttp {
                     }
                     br.close();
                     object = new JSONObject(sb.toString());
+                    Log.d("CHECK", object.toString());
             }
         } catch (IOException | JSONException e) {
             e.printStackTrace();

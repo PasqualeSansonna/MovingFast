@@ -5,10 +5,20 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.util.Log;
 import android.util.Patterns;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.util.concurrent.ExecutionException;
+
+import it.uniba.di.gruppo17.asynhttp.AsyncSignUp;
+import it.uniba.di.gruppo17.util.Keys;
+
+import static it.uniba.di.gruppo17.util.Keys.EMAIL;
 
 public class SignUpActivity extends AppCompatActivity {
     /**
@@ -37,10 +47,10 @@ public class SignUpActivity extends AppCompatActivity {
                     String email = ETemail.getText().toString();
                     String password = ETpassword.getText().toString();
 
-                    /**Check if the email address pattern is correct*/
+                    /**Controllo se campi email corretti*/
                     if (Patterns.EMAIL_ADDRESS.matcher(email).matches())
                     {
-                        if (signup(name, surname, email, password))
+                        if (signUp(email, name, surname, password))
                         {
                             goToLogin();
                         }
@@ -63,18 +73,29 @@ public class SignUpActivity extends AppCompatActivity {
 
 
     /**
-     * Funzione che registra l'utente inserendo le credenziali nel DB
+     * Funzione per effettuare il sign up di un nuovo utente.
      *
-     * @param name nome utente
-     * @param surname cognome utente
-     * @param email email utente
-     * @param password password utente
-     * @return
+     * @param email    email del nuovo utente.
+     * @param name     nome del nuovo utente.
+     * @param surname  cognome del nuovo utente.
+     * @param password password del nuovo utente.
+     * @return true se l'operazione è andata a buon fine, false altrimenti.
      */
-    private boolean signup(String name, String surname, String email, String password)
-    {
+    private boolean signUp(String email, String name, String surname, String password) {
         boolean result = false;
-        // TODO: 20/04/2020 implement signup method
+        String str = Keys.SERVER
+                .concat("add_utente.php?pw=").concat(password)
+                .concat("&nome=").concat(name)
+                .concat("&cognome=").concat(surname)
+                .concat("&email=").concat(email);
+        try {
+            URL url = new URL(str);
+            AsyncSignUp signUp = new AsyncSignUp();
+            result = signUp.execute(url).get();
+            Log.d("CHECK", String.valueOf(result));
+        } catch (MalformedURLException | InterruptedException | ExecutionException e) {
+            e.printStackTrace();
+        }
         return result;
     }
 
@@ -104,8 +125,7 @@ public class SignUpActivity extends AppCompatActivity {
     private void goToLogin()
     {
         Intent intent = new Intent(this, LoginActivity.class);
-        // TODO: 20/04/2020 Use constant string here
-        intent.putExtra("email", ETemail.getText().toString());
+        intent.putExtra(EMAIL, ETemail.getText().toString());
         startActivity(intent);
         finish();
     }

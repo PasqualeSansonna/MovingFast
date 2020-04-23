@@ -3,6 +3,7 @@ package it.uniba.di.gruppo17;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.AlertDialog;
+import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -11,6 +12,7 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.EditText;
@@ -27,26 +29,44 @@ import it.uniba.di.gruppo17.util.Keys;
 import static it.uniba.di.gruppo17.util.Keys.EMAIL;
 import static it.uniba.di.gruppo17.util.Keys.PASSWORD;
 
+/**
+ * @author Pasquale, Andrea Montemurro
+ */
 public class LoginActivity extends AppCompatActivity {
     /**
      * EdiText campi per email e password
      */
     private EditText ETemail, ETpassword;
-
     /**
      * Sentinella per la memorizzazione delle credentials.
      */
     private boolean saveCredential = false;
     private SharedPreferences preferences;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
+
         ETemail = (EditText) findViewById(R.id.email_login);
         ETpassword = (EditText) findViewById(R.id.password_login);
 
+        /**
+         * Controllo se è presente un'email
+         * passata dalla SingUpActivity andata a buon fine
+         * ed eventualmente la inserisco nella ETemail,
+         * avvio il dialog chiudendo la tastiera
+         */
+        Bundle dati_passati = getIntent().getExtras();
+        if (dati_passati != null) {
+            ETemail.setText(dati_passati.getString(EMAIL));
+            SignUpDialog signUpDialog = new SignUpDialog(LoginActivity.this);
+            signUpDialog.startDialog();
+            InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
+            imm.hideSoftInputFromWindow(findViewById(R.id.email_login).getWindowToken(), 0);
+        }
         /** Controllo delle sharedPref per eventuali credenziali salvate*/
         preferences = getSharedPreferences("MovingFastPreferences", Context.MODE_PRIVATE);
         if (preferences.contains(EMAIL) && preferences.contains(PASSWORD)) {
@@ -209,7 +229,7 @@ public class LoginActivity extends AppCompatActivity {
     private boolean isChecked() {
         return saveCredential;
     }
-
+    
     @Override
     public void onBackPressed()
     {

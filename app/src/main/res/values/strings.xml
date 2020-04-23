@@ -20,6 +20,6 @@
     <string name="password_input_error">Insert valid password</string>
     <string name="no_connection_title">Network error</string>
     <string name="no_connection_message">Is not possible to login without an internet connection.</string>
-
+    <string name="welcome">Welcome in MovingFast</string>
 
 </resources>
