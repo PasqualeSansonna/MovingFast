@@ -13,6 +13,7 @@ import android.widget.ImageView;
 
 /**
  * @author Pasquale
+ * Activity di caricamento iniziale
  */
 public class SplashActivity extends AppCompatActivity {
 

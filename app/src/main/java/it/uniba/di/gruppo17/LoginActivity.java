@@ -31,6 +31,7 @@ import static it.uniba.di.gruppo17.util.Keys.PASSWORD;
 
 /**
  * @author Pasquale, Andrea Montemurro
+ * Activity di Login alla piattaforma
  */
 public class LoginActivity extends AppCompatActivity {
     /**
@@ -64,8 +65,6 @@ public class LoginActivity extends AppCompatActivity {
             ETemail.setText(dati_passati.getString(EMAIL));
             SignUpDialog signUpDialog = new SignUpDialog(LoginActivity.this);
             signUpDialog.startDialog();
-            InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
-            imm.hideSoftInputFromWindow(findViewById(R.id.email_login).getWindowToken(), 0);
         }
         /** Controllo delle sharedPref per eventuali credenziali salvate*/
         preferences = getSharedPreferences("MovingFastPreferences", Context.MODE_PRIVATE);

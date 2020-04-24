@@ -20,6 +20,10 @@ import it.uniba.di.gruppo17.util.Keys;
 
 import static it.uniba.di.gruppo17.util.Keys.EMAIL;
 
+/**
+ * @author Pasquale , Andrea Montemurro
+ * Activity di registrazione alla piattaforma
+ */
 public class SignUpActivity extends AppCompatActivity {
     /**
      * EdiText del form di registrazione

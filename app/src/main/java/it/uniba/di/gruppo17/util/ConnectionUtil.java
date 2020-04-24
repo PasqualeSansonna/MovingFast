@@ -5,6 +5,10 @@ import android.content.Context;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 
+/**
+ * @author Pasquale
+ * Controllo della connessione
+ */
 public class ConnectionUtil {
     public static boolean checkInternetConn(Activity anActivity) {
         ConnectivityManager connectivityManager

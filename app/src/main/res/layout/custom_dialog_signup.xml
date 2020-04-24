@@ -5,7 +5,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/colorPrimaryDark"
-    android:padding="55dp">
+    android:padding="55dp"
+    android:windowSoftInputMode="stateHidden">
 
     <TableLayout
         android:id="@+id/tableLayout"
