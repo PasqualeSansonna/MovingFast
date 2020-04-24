@@ -11,6 +11,7 @@ import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
+import android.util.Patterns;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
@@ -106,13 +107,21 @@ public class LoginActivity extends AppCompatActivity {
                     if (ConnectionUtil.checkInternetConn(LoginActivity.this)) {
                         String email = ETemail.getText().toString();
                         String password = ETpassword.getText().toString();
-                        if (checkValues(email, password)) {
-                            if (isChecked())
-                                writePreferences(email, password);
-                            login();
-                        } else {
-                            wrongCredentials();
+                        if (Patterns.EMAIL_ADDRESS.matcher(email).matches()) /** Check the email address pattern*/
+                        {
+                            if (checkValues(email, password)) {
+                                if (isChecked())
+                                    writePreferences(email, password);
+                                login();
+                            } else {
+                                wrongCredentials();
+                            }
                         }
+                        else
+                        {
+                            wrongEmailAddress();
+                        }
+
                     } else {
                         new AlertDialog.Builder(LoginActivity.this)
                                 .setTitle(R.string.no_connection_title)
@@ -129,6 +138,7 @@ public class LoginActivity extends AppCompatActivity {
         }
 
     }
+
 
 
     /**
@@ -158,6 +168,15 @@ public class LoginActivity extends AppCompatActivity {
         ETpassword.setText("");
         ETpassword.setHint(R.string.wrong_login_password);
         ETpassword.setHintTextColor(Color.RED);
+    }
+
+    /**
+     * Funzione che imposta messaggio d'errore nella editText della mail se non è inserito un indirizzo valido
+     */
+    private void wrongEmailAddress() {
+        ETemail.setText("");
+        ETemail.setHint(R.string.not_valid_email_address);
+        ETemail.setHintTextColor(Color.RED);
     }
 
 

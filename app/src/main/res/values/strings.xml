@@ -21,5 +21,7 @@
     <string name="no_connection_title">Network error</string>
     <string name="no_connection_message">Is not possible to login without an internet connection.</string>
     <string name="welcome">Welcome in MovingFast</string>
+    <string name="not_valid_email_address">Insert a valid email address</string>
+    <string name="not_valid_password">Password too weak</string>
 
 </resources>

@@ -14,6 +14,7 @@ import android.widget.EditText;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.concurrent.ExecutionException;
+import java.util.regex.Pattern;
 
 import it.uniba.di.gruppo17.asynhttp.AsyncSignUp;
 import it.uniba.di.gruppo17.util.Keys;
@@ -25,6 +26,21 @@ import static it.uniba.di.gruppo17.util.Keys.EMAIL;
  * Activity di registrazione alla piattaforma
  */
 public class SignUpActivity extends AppCompatActivity {
+
+    /**
+     * Regex per controllo password
+     */
+    private static final Pattern PASSWORD_PATTERN =
+            Pattern.compile("^" +
+                    "(?=.*[0-9])" +         //at least 1 digit
+                    "(?=.*[a-z])" +         //at least 1 lower case letter
+                    "(?=.*[A-Z])" +         //at least 1 upper case letter
+                    "(?=.*[@#$%^&+=])" +    //at least 1 special character
+                    "(?=\\S+$)" +           //no white spaces
+                    ".{6,}" +               //at least 6 characters
+                    "$");
+
+
     /**
      * EdiText del form di registrazione
      */
@@ -51,22 +67,29 @@ public class SignUpActivity extends AppCompatActivity {
                     String email = ETemail.getText().toString();
                     String password = ETpassword.getText().toString();
 
-                    /**Controllo se campi email corretti*/
+                    /**Controllo  email valida*/
                     if (Patterns.EMAIL_ADDRESS.matcher(email).matches())
                     {
-                        if (signUp(email, name, surname, password))
+                        /**Controllo se password valida*/
+                        if (PASSWORD_PATTERN.matcher(password).matches())
                         {
-                            goToLogin();
+                            /**Eseguo signup*/
+                            if (signUp(email, name, surname, password))
+                            {
+                                goToLogin();  /**Avvenuto con successo, passo a schermata login*/
+                            }
+                            else
+                            {
+                                wrongUserInfo(); /**Errore, segnalo*/
+                            }
                         }
                         else
                         {
-                            wrongUserInfo();
+                            invalidPassword(ETpassword); /**Formato password non valido*/
                         }
                     }else
                     {
-                        ETemail.setText("");
-                        ETemail.setHintTextColor(Color.RED);
-                        ETemail.setHint(R.string.email_input_error);
+                        invalidEmail(ETemail); /**Formato Email non valido*/
                     }
 
                 }
@@ -74,6 +97,27 @@ public class SignUpActivity extends AppCompatActivity {
         }
     }
 
+
+    /**
+     * Funzione che evidenzia errore di input nell'editText email
+     * @param ETemail Edit text email
+     */
+    private void invalidEmail(EditText ETemail) {
+        ETemail.setText("");
+        ETemail.setHintTextColor(Color.RED);
+        ETemail.setHint(R.string.not_valid_email_address);
+    }
+
+
+    /**
+     * Funzione che evidenzia errore di input nell'editText password
+     * @param ETpassword Edit text password
+     */
+    private void invalidPassword(EditText ETpassword) {
+        ETpassword.setText("");
+        ETpassword.setHintTextColor(Color.RED);
+        ETpassword.setHint(R.string.not_valid_password);
+    }
 
 
     /**
