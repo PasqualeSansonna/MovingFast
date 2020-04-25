@@ -24,4 +24,14 @@
     <string name="not_valid_email_address">Insert a valid email address</string>
     <string name="not_valid_password">Password too weak</string>
 
+    <!-- Strings in nav drawer-->
+    <string name="menu_map">Map</string>
+    <string name="menu_rent">Rent scooter</string>
+    <string name="menu_profile">Profile</string>
+
+    <!-- Strings in Main Activity-->
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+
+
 </resources>
