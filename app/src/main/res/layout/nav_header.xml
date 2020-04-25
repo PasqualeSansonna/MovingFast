@@ -11,7 +11,7 @@
     <ImageView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:src="@mipmap/ic_launcher_round"></ImageView>
+        android:src="@mipmap/ic_launcher_foreground"></ImageView>
 
     <TextView
         android:layout_width="wrap_content"

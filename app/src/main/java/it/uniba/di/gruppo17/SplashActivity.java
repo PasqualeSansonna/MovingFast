@@ -12,14 +12,14 @@ import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 
 /**
- * @author Pasquale
+ * @author Pasquale rivisited by Andrea ;)
  * Activity di caricamento iniziale
  */
 public class SplashActivity extends AppCompatActivity {
 
     private ImageView image = null;
     private Animation animation = null;
-    private static int SPLASH_TIME_LAYOUT = 4000;
+    private static int SPLASH_TIME_LAYOUT = 500;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
