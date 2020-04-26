@@ -33,6 +33,7 @@
     <!-- Strings in Main Activity-->
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="email_already_used">This email is already used</string>
 
     <!-- Strings Location permissions and Device Location-->
     <string name="title_locationPermission_alert_dialog">Locations permission are needed</string>
