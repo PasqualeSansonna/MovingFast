@@ -55,7 +55,9 @@
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
                     tools:layout_conversion_absoluteHeight="48dp"
-                    tools:layout_conversion_absoluteWidth="88dp" />
+                    tools:layout_conversion_absoluteWidth="88dp"
+                    android:background="@color/colorPrimary"
+                    android:textColor="@color/white"/>
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -114,7 +116,9 @@
                 android:layout_width="@dimen/input_width"
                 android:layout_height="@dimen/input_height"
                 android:layout_marginTop="15dp"
-                android:text="@string/login_text" />
+                android:text="@string/login_text"
+                android:background="@color/colorPrimary"
+                android:textColor="@color/white"/>
         </TableRow>
 
         <TableRow

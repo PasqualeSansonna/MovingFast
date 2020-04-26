@@ -71,7 +71,7 @@
             android:layout_height="@dimen/input_height"
             android:layout_gravity="center_horizontal"
             android:layout_marginTop="@dimen/input_margin_top"
-            android:background="@color/colorAccent"
+            android:background="@color/colorPrimary"
             android:elevation="@dimen/standard_elevation"
             android:text="@string/sign_up"
             android:textColor="@color/white" />

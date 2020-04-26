@@ -32,6 +32,7 @@
     <!-- Strings in Main Activity-->
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="email_already_used">This email is already used</string>
 
 
 </resources>

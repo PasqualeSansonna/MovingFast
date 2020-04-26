@@ -2,6 +2,8 @@ package it.uniba.di.gruppo17;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -17,7 +19,7 @@ import java.util.concurrent.ExecutionException;
 import java.util.regex.Pattern;
 
 import it.uniba.di.gruppo17.asynhttp.AsyncSignUp;
-import it.uniba.di.gruppo17.util.Keys;
+import it.uniba.di.gruppo17.util.*;
 
 import static it.uniba.di.gruppo17.util.Keys.EMAIL;
 
@@ -73,14 +75,22 @@ public class SignUpActivity extends AppCompatActivity {
                         /**Controllo se password valida*/
                         if (PASSWORD_PATTERN.matcher(password).matches())
                         {
-                            /**Eseguo signup*/
-                            if (signUp(email, name, surname, password))
+                            if (ConnectionUtil.checkInternetConn(SignUpActivity.this))
                             {
-                                goToLogin();  /**Avvenuto con successo, passo a schermata login*/
+                                /**Eseguo signup*/
+                                if (signUp(email, name, surname, password))
+                                {
+                                    goToLogin();  /**Avvenuto con successo, passo a schermata login*/
+                                }
+                                else
+                                {
+                                    /**Errore email già usata (chiave nella tabella db, segnalo*/
+                                    alreadyUsedEmail(ETemail);
+                                }
                             }
                             else
                             {
-                                wrongUserInfo(); /**Errore, segnalo*/
+                                connectionError(); /**Mancanza di connessione, segnalo errore*/
                             }
                         }
                         else
@@ -149,22 +159,13 @@ public class SignUpActivity extends AppCompatActivity {
 
 
     /**
-     * Funzione che evidenzia errori di input per le credenziali
+     * Funzione che l'email scelta è gia in uso
      */
-    private void wrongUserInfo()
+    private void alreadyUsedEmail(EditText ETemail)
     {
         ETemail.setText("");
-        ETname.setText("");
-        ETsurname.setText("");
-        ETpassword.setText("");
         ETemail.setHintTextColor(Color.RED);
-        ETemail.setHint(R.string.email_input_error);
-        ETname.setHintTextColor(Color.RED);
-        ETname.setHint(R.string.name_input_error);
-        ETsurname.setHintTextColor(Color.RED);
-        ETsurname.setHint(R.string.surname_input_error);
-        ETpassword.setHintTextColor(Color.RED);
-        ETpassword.setHint(R.string.password_input_error);
+        ETemail.setHint(R.string.email_already_used);
     }
 
     /**
@@ -189,5 +190,21 @@ public class SignUpActivity extends AppCompatActivity {
         startActivity(intent);
         finish();
     }
+
+    /**
+     * Funzione che segnala l'assenza di connessione alla rete
+     */
+    private void connectionError() {
+        new AlertDialog.Builder(SignUpActivity.this)
+                .setTitle(R.string.no_connection_title)
+                .setMessage(R.string.no_connection_message)
+                .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+
+                    }
+                }).create().show();
+    }
+
 
 }
