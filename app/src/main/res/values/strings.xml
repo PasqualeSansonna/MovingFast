@@ -53,4 +53,11 @@
     <string name="title_marker_map">Scooter</string>
     <string name="snippet_marker_map">Battery level</string>
 
+    <!-- Strings Profile Activity-->
+    <string name="first_name">First name</string>
+    <string name="second_name">Second name</string>
+    <string name="email">Email</string>
+    <string name="edit_profile">Edit profile</string>
+    <string name="change_password">Change password</string>
+    <string name="view_past_rentals">View past rentals</string>
 </resources>
