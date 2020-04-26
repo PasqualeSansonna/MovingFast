@@ -160,12 +160,28 @@ public class MapsFragment extends Fragment {
     {
         if ( Scooter.nearScooters == null )
         {
-            Snackbar.make(getView(),R.string.no_scooter_message,Snackbar.LENGTH_LONG).show();
+            Snackbar.make(getView(),R.string.no_scooter_message,Snackbar.LENGTH_LONG)
+                    .setAction(R.string.snackbar_action, new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            //Provo a ricaricare
+                            getFragmentManager().beginTransaction().detach(MapsFragment.this).attach(MapsFragment.this).commit();
+                        }
+                    })
+                    .show();
             return;
         }
         if ( Scooter.nearScooters.isEmpty() )
         {
-            Snackbar.make(getView(),R.string.no_scooter_message,Snackbar.LENGTH_LONG).show();
+            Snackbar.make(getView(),R.string.no_scooter_message,Snackbar.LENGTH_LONG)
+                    .setAction(R.string.snackbar_action, new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            //Provo a ricaricare
+                            getFragmentManager().beginTransaction().detach(MapsFragment.this).attach(MapsFragment.this).commit();
+                        }
+                    })
+                    .show();
             return;
         }
          for(Scooter m : Scooter.nearScooters )

@@ -48,12 +48,13 @@
 
     <!-- Strings MapsFragment-->
     <string name="device_position_retrieved_message">Device postion retrieved</string>
-    <string name="device_position_NOT_retrieved_message">Device postion NOT retrieved</string>
+    <string name="device_position_NOT_retrieved_message">Device postion NOT retrieved. Check your location settings</string>
     <string name="loading_scooter_message">Loading near scooters</string>
     <string name="completed">Completed</string>
     <string name="title_marker_map">Scooter</string>
     <string name="snippet_marker_map">Battery level</string>
     <string name="no_scooter_message">No scooter avaible here</string>
+    <string name="snackbar_action">RETRY</string>
 
     <!-- Strings Profile Activity-->
     <string name="first_name">First name</string>
@@ -62,4 +63,6 @@
     <string name="edit_profile">Edit profile</string>
     <string name="change_password">Change password</string>
     <string name="view_past_rentals">View past rentals</string>
+
+
 </resources>
