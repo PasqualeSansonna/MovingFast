@@ -45,5 +45,12 @@
     <string name="openSettings_button_deviceLocation_alert_dialog">Settings</string>
     <string name="deny_button_deviceLocation_alert_dialog">No</string>
 
+    <!-- Strings MapsFragment-->
+    <string name="device_position_retrieved_message">Device postion retrieved</string>
+    <string name="device_position_NOT_retrieved_message">Device postion NOT retrieved</string>
+    <string name="loading_scooter_message">Loading near scooters</string>
+    <string name="completed">Completed</string>
+    <string name="title_marker_map">Scooter</string>
+    <string name="snippet_marker_map">Battery level</string>
 
 </resources>

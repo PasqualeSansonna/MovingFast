@@ -12,4 +12,8 @@ public interface Keys {
     String RESOLVING_ERROR_STATE_KEY = "RESOLVING_ERROR_STATE_KEY";
     int REQUEST_ACCESS_LOCATION = 2;
 
+    //Per MapsFragment
+    int RAGGIO = 2;
+    int MAP_ANIMATION_DURATION = 600;
+    float ZOOM = 13.0f;
 }
