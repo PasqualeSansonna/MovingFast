@@ -19,7 +19,7 @@ public class SplashActivity extends AppCompatActivity {
 
     private ImageView image = null;
     private Animation animation = null;
-    private static int SPLASH_TIME_LAYOUT = 500;
+    private static int SPLASH_TIME_LAYOUT = 1000;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
