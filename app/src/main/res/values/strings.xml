@@ -25,6 +25,7 @@
     <string name="not_valid_password">Password too weak</string>
 
     <!-- Strings in nav drawer-->
+    <string name="menu_home">Home</string>
     <string name="menu_map">Map</string>
     <string name="menu_rent">Rent scooter</string>
     <string name="menu_profile">Profile</string>
@@ -32,6 +33,16 @@
     <!-- Strings in Main Activity-->
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
+
+    <!-- Strings Location permissions and Device Location-->
+    <string name="title_locationPermission_alert_dialog">Locations permission are needed</string>
+    <string name="message_locationPermission_alert_dialog">To correctly use the app, you should grant location permissions</string>
+    <string name="grant_button_locationPermission_alert_dialog">Grant</string>
+    <string name="deny_button_locationPermission_alert_dialog">Deny</string>
+    <string name="title_deviceLocation_aler_dialog">Device location is off</string>
+    <string name="message_deviceLocation_alert_dialog">The device location is needed to use the application correctly. Go to settings to turn it on</string>
+    <string name="openSettings_button_deviceLocation_alert_dialog">Settings</string>
+    <string name="deny_button_deviceLocation_alert_dialog">No</string>
 
 
 </resources>
