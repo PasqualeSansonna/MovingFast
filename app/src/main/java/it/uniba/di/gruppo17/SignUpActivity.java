@@ -2,7 +2,9 @@ package it.uniba.di.gruppo17;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.annotation.SuppressLint;
 import android.app.AlertDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
@@ -10,8 +12,10 @@ import android.os.Bundle;
 import android.util.Log;
 import android.util.Patterns;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -123,10 +127,15 @@ public class SignUpActivity extends AppCompatActivity {
      * Funzione che evidenzia errore di input nell'editText password
      * @param ETpassword Edit text password
      */
+    @SuppressLint("WrongConstant")
     private void invalidPassword(EditText ETpassword) {
+
         ETpassword.setText("");
         ETpassword.setHintTextColor(Color.RED);
         ETpassword.setHint(R.string.not_valid_password);
+        Toast.makeText(getApplicationContext(), R.string.toast_password, Toast.LENGTH_LONG).show();
+        InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
+        imm.hideSoftInputFromWindow(findViewById(R.id.password_sign_up).getWindowToken(), 0);
     }
 
 

@@ -23,6 +23,7 @@
     <string name="welcome">Welcome in MovingFast</string>
     <string name="not_valid_email_address">Insert a valid email address</string>
     <string name="not_valid_password">Password too weak</string>
+    <string name="toast_password">Your password must contains plus than 5 charcters, a lowercase and uppercase letter, a number and a special character "@$*%^&amp;+="</string>
 
     <!-- Strings in nav drawer-->
     <string name="menu_home">Home</string>
