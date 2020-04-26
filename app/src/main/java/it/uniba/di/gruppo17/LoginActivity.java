@@ -70,7 +70,16 @@ public class LoginActivity extends AppCompatActivity {
         /** Controllo delle sharedPref per eventuali credenziali salvate*/
         preferences = getSharedPreferences("MovingFastPreferences", Context.MODE_PRIVATE);
         if (preferences.contains(EMAIL) && preferences.contains(PASSWORD)) {
-            login();
+            /**Bisogna controllare la connessione, se c'è è possibile fare il login*/
+            if (ConnectionUtil.checkInternetConn(LoginActivity.this))
+            {
+                login();
+            }
+            else
+            {
+                connectionError();
+            }
+
         }
 
         /**Switch per salvataggio credenziali*/
@@ -123,15 +132,7 @@ public class LoginActivity extends AppCompatActivity {
                         }
 
                     } else {
-                        new AlertDialog.Builder(LoginActivity.this)
-                                .setTitle(R.string.no_connection_title)
-                                .setMessage(R.string.no_connection_message)
-                                .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
-                                    @Override
-                                    public void onClick(DialogInterface dialog, int which) {
-
-                                    }
-                                }).create().show();
+                        connectionError();
                     }
                 }
             });
@@ -139,6 +140,20 @@ public class LoginActivity extends AppCompatActivity {
 
     }
 
+    /**
+     * Funzione che segnala l'assenza di connessione alla rete
+     */
+    private void connectionError() {
+        new AlertDialog.Builder(LoginActivity.this)
+                .setTitle(R.string.no_connection_title)
+                .setMessage(R.string.no_connection_message)
+                .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+
+                    }
+                }).create().show();
+    }
 
 
     /**
