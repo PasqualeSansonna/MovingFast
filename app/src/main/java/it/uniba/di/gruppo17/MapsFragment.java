@@ -30,6 +30,7 @@ import java.net.URL;
 
 import it.uniba.di.gruppo17.asynhttp.AsyncGetScooters;
 import it.uniba.di.gruppo17.util.Scooter;
+import it.uniba.di.gruppo17.services.LocationService;
 
 import static it.uniba.di.gruppo17.util.Keys.MAP_ANIMATION_DURATION;
 import static it.uniba.di.gruppo17.util.Keys.ZOOM;
@@ -77,13 +78,23 @@ public class MapsFragment extends Fragment {
 
             mGoogleMap = googleMap;
             mGoogleMap.setMyLocationEnabled(true);
-            getDeviceLocation();
+           /* getDeviceLocation();
             googleMap.setOnMapLoadedCallback(new GoogleMap.OnMapLoadedCallback() {
                 @Override
                 public void onMapLoaded() {
                    setScootersMarker();
                 }
-            });
+            });*/
+           if ( getDeviceLocation() )
+           {
+               getScooters(LocationService.realTimeDeviceLocation());
+               mGoogleMap.setOnMapLoadedCallback(new GoogleMap.OnMapLoadedCallback() {
+                   @Override
+                   public void onMapLoaded() {
+                       setScootersMarker();
+                   }
+               });
+           }
 
         }
     };
@@ -92,9 +103,9 @@ public class MapsFragment extends Fragment {
      * Metodo per ottenere la poszione corrente del dispositivo
      * @author Francesco Moramarco
      */
-    private void getDeviceLocation()
+    private boolean getDeviceLocation()
     {
-        mFusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this.getContext());
+       /* mFusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this.getContext());
         try{
             Task location = mFusedLocationProviderClient.getLastLocation();
             location.addOnCompleteListener(new OnCompleteListener() {
@@ -103,9 +114,11 @@ public class MapsFragment extends Fragment {
                     if ( task.isSuccessful() )
                     {
                         Location currentLocation = (Location) task.getResult();
-                        cameraAnimation(currentLocation);
-                        Snackbar.make(getView(),R.string.device_position_retrieved_message, Snackbar.LENGTH_LONG).show();
-                    }
+                        if ( currentLocation == null )
+                            return;*/
+                        //cameraAnimation(currentLocation);
+                       // Snackbar.make(getView(),R.string.device_position_retrieved_message, Snackbar.LENGTH_LONG).show();
+              /*      }
                     else
                         Snackbar.make(getView(),R.string.device_position_NOT_retrieved_message,Snackbar.LENGTH_SHORT).show();
                 }
@@ -113,7 +126,18 @@ public class MapsFragment extends Fragment {
         }catch (SecurityException e )
         {
             Log.d(TAG,"Security Exception");
-        }
+        }*/
+              if ( LocationService.realTimeDeviceLocation() != null )
+              {
+                  cameraAnimation( LocationService.realTimeDeviceLocation() );
+                  Snackbar.make(getView(),R.string.device_position_retrieved_message, Snackbar.LENGTH_LONG).show();
+              }
+              else
+              {
+                  Snackbar.make(getView(),R.string.device_position_NOT_retrieved_message,Snackbar.LENGTH_LONG).show();
+                  return false;
+              }
+              return true;
     }
 
     /**
@@ -161,6 +185,16 @@ public class MapsFragment extends Fragment {
      */
     private void setScootersMarker()
     {
+        if ( Scooter.nearScooters == null )
+        {
+            Snackbar.make(getView(),R.string.no_scooter_message,Snackbar.LENGTH_LONG).show();
+            return;
+        }
+        if ( Scooter.nearScooters.isEmpty() )
+        {
+            Snackbar.make(getView(),R.string.no_scooter_message,Snackbar.LENGTH_LONG).show();
+            return;
+        }
          for(Scooter m : Scooter.nearScooters )
         {
             LatLng coordinate = new LatLng( Double.parseDouble( m.getLatitude() ), Double.parseDouble( m.getLongitude() ) );
@@ -174,5 +208,4 @@ public class MapsFragment extends Fragment {
         }
          Snackbar.make(getView(),R.string.completed,Snackbar.LENGTH_SHORT).show();
     }
-
 }

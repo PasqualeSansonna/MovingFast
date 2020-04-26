@@ -12,21 +12,24 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
 
 import android.Manifest;
+import android.app.ActivityManager;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentSender;
 import android.content.pm.PackageManager;
 import android.location.LocationManager;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.MenuItem;
-import android.widget.Toast;
 
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GoogleApiAvailability;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.location.LocationServices;
 import com.google.android.material.navigation.NavigationView;
+
+import it.uniba.di.gruppo17.services.LocationService;
 
 import static it.uniba.di.gruppo17.util.Keys.REQUEST_RESOLVE_ERROR;
 import static it.uniba.di.gruppo17.util.Keys.RESOLVING_ERROR_STATE_KEY;
@@ -289,8 +292,34 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
                     })
                     .show();
         }
-        //Dopo aver controllato sia Google Play services, permissi di posizione e GPS dispositivo, parte il service di posizione
+        //Dopo aver controllato sia Google Play services, permessi di posizione e GPS dispositivo, parte il service di posizione
         //in background per avere aggiornamenti continui sulla posizione del dispositivo
+        startLocationService();
+    }
+
+    private void startLocationService()
+    {
+        if(!isLocationServiceRunning())
+        {
+            Intent locationServiceIntent = new Intent(this, LocationService.class);
+            if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.O)
+            {
+                MainActivity.this.startForegroundService(locationServiceIntent);
+            }
+            else
+                startService(locationServiceIntent);
+        }
+    }
+
+    private boolean isLocationServiceRunning()
+    {
+        ActivityManager manager = (ActivityManager)getSystemService(ACTIVITY_SERVICE);
+        for(ActivityManager.RunningServiceInfo service : manager.getRunningServices(Integer.MAX_VALUE) )
+        {
+            if(LocationService.class.getName().equals(service.service.getClassName()) )
+                return true;
+        }
+        return false;
     }
 
 }
