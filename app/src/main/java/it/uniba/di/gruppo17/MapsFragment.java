@@ -2,11 +2,13 @@ package it.uniba.di.gruppo17;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.core.app.ActivityCompat;
 import androidx.fragment.app.Fragment;
 
+import android.Manifest;
+import android.content.pm.PackageManager;
 import android.location.Location;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -21,8 +23,6 @@ import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
 import com.google.android.material.snackbar.Snackbar;
 
 import java.net.MalformedURLException;
@@ -75,16 +75,11 @@ public class MapsFragment extends Fragment {
          */
         @Override
         public void onMapReady(GoogleMap googleMap) {
-
             mGoogleMap = googleMap;
-            mGoogleMap.setMyLocationEnabled(true);
-           /* getDeviceLocation();
-            googleMap.setOnMapLoadedCallback(new GoogleMap.OnMapLoadedCallback() {
-                @Override
-                public void onMapLoaded() {
-                   setScootersMarker();
-                }
-            });*/
+
+            if (ActivityCompat.checkSelfPermission(getContext(), Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED )
+                mGoogleMap.setMyLocationEnabled(true);
+
            if ( getDeviceLocation() )
            {
                getScooters(LocationService.realTimeDeviceLocation());
@@ -95,7 +90,6 @@ public class MapsFragment extends Fragment {
                    }
                });
            }
-
         }
     };
 
@@ -105,39 +99,17 @@ public class MapsFragment extends Fragment {
      */
     private boolean getDeviceLocation()
     {
-       /* mFusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this.getContext());
-        try{
-            Task location = mFusedLocationProviderClient.getLastLocation();
-            location.addOnCompleteListener(new OnCompleteListener() {
-                @Override
-                public void onComplete(@NonNull Task task) {
-                    if ( task.isSuccessful() )
-                    {
-                        Location currentLocation = (Location) task.getResult();
-                        if ( currentLocation == null )
-                            return;*/
-                        //cameraAnimation(currentLocation);
-                       // Snackbar.make(getView(),R.string.device_position_retrieved_message, Snackbar.LENGTH_LONG).show();
-              /*      }
-                    else
-                        Snackbar.make(getView(),R.string.device_position_NOT_retrieved_message,Snackbar.LENGTH_SHORT).show();
-                }
-            });
-        }catch (SecurityException e )
-        {
-            Log.d(TAG,"Security Exception");
-        }*/
-              if ( LocationService.realTimeDeviceLocation() != null )
-              {
-                  cameraAnimation( LocationService.realTimeDeviceLocation() );
-                  Snackbar.make(getView(),R.string.device_position_retrieved_message, Snackbar.LENGTH_LONG).show();
-              }
-              else
-              {
-                  Snackbar.make(getView(),R.string.device_position_NOT_retrieved_message,Snackbar.LENGTH_LONG).show();
-                  return false;
-              }
-              return true;
+        if ( LocationService.realTimeDeviceLocation() != null )
+          {
+              cameraAnimation( LocationService.realTimeDeviceLocation() );
+              Snackbar.make(getView(),R.string.device_position_retrieved_message, Snackbar.LENGTH_LONG).show();
+          }
+        else
+          {
+              Snackbar.make(getView(),R.string.device_position_NOT_retrieved_message,Snackbar.LENGTH_LONG).show();
+              return false;
+          }
+          return true;
     }
 
     /**
@@ -151,6 +123,7 @@ public class MapsFragment extends Fragment {
         mGoogleMap.animateCamera(cameraUpdate, MAP_ANIMATION_DURATION, new GoogleMap.CancelableCallback() {
             @Override
             public void onFinish() {
+                //Terminata l'animazione sulla posizione corrente, eseguo la richiesta di scooter al server
                 Snackbar.make(getView(),R.string.loading_scooter_message, Snackbar.LENGTH_SHORT).show();
                 getScooters(currentLocation);
             }
