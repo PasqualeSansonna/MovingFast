@@ -57,12 +57,15 @@
     <string name="snackbar_action">RETRY</string>
 
     <!-- Strings Profile Activity-->
-    <string name="first_name">First name</string>
-    <string name="second_name">Second name</string>
+    <string name="first_name">Surname</string>
+    <string name="second_name">Name</string>
     <string name="email">Email</string>
     <string name="edit_profile">Edit profile</string>
     <string name="change_password">Change password</string>
-    <string name="view_past_rentals">View past rentals</string>
+    <string name="past_rentals">Past rentals</string>
+    <string name="discount">Discount</string>
+    <string name="confirm">Confirm</string>
+    <string name="cancel">Cancel</string>
 
 
 </resources>

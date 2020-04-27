@@ -12,6 +12,10 @@
     <dimen name="input_margin_top">25dp</dimen>
     <dimen name="fab_dimen">50dp</dimen>
     <dimen name="fab_distance">10dp</dimen>
+    <dimen name="edit_text_distance">40dp</dimen>
+    <dimen name="edit_text_width">200dp</dimen>
+    <dimen name="buttonConfirm">100dp</dimen>
+
     <!-- ALCUNI SONO DA CANCELLARE-->
     <dimen name="getTorrette_distance">135dp</dimen>
     <dimen name="getUtenti_distance">75dp</dimen>

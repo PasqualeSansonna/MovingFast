@@ -105,6 +105,9 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
             case R.id.nav_map:
                 nextFragment = new MapsFragment();
                 break;
+            case R.id.nav_profile:
+                nextFragment = new ProfileFragment();
+                break;
             default:
                 throw new IllegalArgumentException("No fragment for the given item");
         }

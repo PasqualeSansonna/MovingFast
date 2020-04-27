@@ -5,8 +5,8 @@
     <color name="textPrimaryColor">#212121</color>
     <color name="lightColorPrimary">#C8E6C9</color>
     <color name="colorPrimary">#02D8BD</color>
-    <color name="colorPrimaryDark">#388E3C</color>
-    <color name="colorAccent">#8BC34A</color>
+    <color name="colorPrimaryDark">#3B9C9C</color>
+    <color name="colorAccent">#78C7C7</color>
 
     <color name="background">#FFFFFF</color>
     <color name="white">#f9f6f0</color>
