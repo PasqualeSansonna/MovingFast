@@ -1,7 +1,6 @@
-package it.uniba.di.gruppo17.asynhttp;
+package it.uniba.di.gruppo17.asynchttp;
 
 import android.os.AsyncTask;
-import android.util.Log;
 
 import org.json.JSONObject;
 
@@ -9,6 +8,10 @@ import java.net.URL;
 
 import it.uniba.di.gruppo17.util.UserProfile;
 
+/**@author Pasquale, Sgarra
+ * Async task connessione al db e visualizzazione profilo,
+ * ritorno UserProfile se operazione avvenuta con successo
+ */
 public class AsyncViewProfile extends AsyncTask<URL,String, UserProfile> {
 
     @Override

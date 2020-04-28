@@ -66,6 +66,7 @@
     <string name="discount">Discount</string>
     <string name="confirm">Confirm</string>
     <string name="cancel">Cancel</string>
-
+    <string name="not_valid_name">Insert a valid name</string>
+    <string name="not_valid_surname">Insert a valid surname</string>
 
 </resources>

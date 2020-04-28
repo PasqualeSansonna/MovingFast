@@ -14,7 +14,6 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.google.android.gms.location.FusedLocationProviderClient;
-import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.maps.CameraUpdate;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -28,7 +27,7 @@ import com.google.android.material.snackbar.Snackbar;
 import java.net.MalformedURLException;
 import java.net.URL;
 
-import it.uniba.di.gruppo17.asynhttp.AsyncGetScooters;
+import it.uniba.di.gruppo17.asynchttp.AsyncGetScooters;
 import it.uniba.di.gruppo17.util.Scooter;
 import it.uniba.di.gruppo17.services.LocationService;
 

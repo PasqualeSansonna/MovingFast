@@ -22,7 +22,7 @@ import java.net.URL;
 import java.util.concurrent.ExecutionException;
 import java.util.regex.Pattern;
 
-import it.uniba.di.gruppo17.asynhttp.AsyncSignUp;
+import it.uniba.di.gruppo17.asynchttp.AsyncSignUp;
 import it.uniba.di.gruppo17.util.*;
 
 import static it.uniba.di.gruppo17.util.Keys.EMAIL;
@@ -159,7 +159,6 @@ public class SignUpActivity extends AppCompatActivity {
             URL url = new URL(str);
             AsyncSignUp signUp = new AsyncSignUp();
             result = signUp.execute(url).get();
-            Log.d("CHECK", String.valueOf(result));
         } catch (MalformedURLException | InterruptedException | ExecutionException e) {
             e.printStackTrace();
         }

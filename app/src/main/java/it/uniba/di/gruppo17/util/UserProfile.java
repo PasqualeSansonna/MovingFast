@@ -1,5 +1,6 @@
 package it.uniba.di.gruppo17.util;
 
+/** Classe con informazioni utente per gestione del profilo **/
 public class UserProfile {
 
         private String nome;

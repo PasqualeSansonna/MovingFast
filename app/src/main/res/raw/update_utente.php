@@ -14,7 +14,7 @@ $email = $_GET ["email"];
 if ($nome != null && $cognome != null && $email != null) {
 	$conn = mysqli_connect ( $host, $user, $password, $db_name );
 	$query = "UPDATE utenti SET email='$email', nome='$nome', cognome='$cognome' WHERE id_utente = '$idutente'";
-	$controllo = "SELECT id_utente FROM utenti WHERE email = '$email'";
+	$controllo = "SELECT id_utente FROM utenti WHERE email = '$email' AND id_utente != '$idutente'";
 	
 	// Check connection
 	if (mysqli_connect_errno ()) {

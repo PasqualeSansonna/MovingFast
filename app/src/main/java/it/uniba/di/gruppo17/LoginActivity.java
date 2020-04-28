@@ -3,17 +3,14 @@ package it.uniba.di.gruppo17;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.AlertDialog;
-import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Bundle;
-import android.util.Log;
 import android.util.Patterns;
 import android.view.View;
-import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.EditText;
@@ -23,7 +20,7 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.concurrent.ExecutionException;
 
-import it.uniba.di.gruppo17.asynhttp.AsyncLogin;
+import it.uniba.di.gruppo17.asynchttp.AsyncLogin;
 import it.uniba.di.gruppo17.util.ConnectionUtil;
 import it.uniba.di.gruppo17.util.Keys;
 

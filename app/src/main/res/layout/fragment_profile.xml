@@ -109,7 +109,8 @@
                         android:layout_width="@dimen/edit_text_width"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="37dp"
-                        android:textSize="18dp" />
+                        android:textSize="18dp"
+                        android:inputType="textPersonName"/>
                 </LinearLayout>
             </TableRow>
 
@@ -144,7 +145,8 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="12dp"
-                        android:textSize="18dp" />
+                        android:textSize="18dp"
+                        android:inputType="textPersonName"/>
                 </LinearLayout>
             </TableRow>
 
@@ -179,7 +181,8 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="@dimen/edit_text_distance"
-                        android:textSize="18dp" />
+                        android:textSize="18dp"
+                        android:inputType="textEmailAddress"/>
                 </LinearLayout>
 
             </TableRow>
