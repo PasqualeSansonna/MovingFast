@@ -4,11 +4,11 @@ include 'vars.php';
 
 header ('Content-Type: application/json' );
 
-$id = $_GET ["id_utente"];
+$id = $_GET ["id"];
 
 if ($id != null) {
 	$conn = mysqli_connect ( $host, $user, $password, $db_name );
-	$query = "select nome, cognome, email from utenti where id='$id_utente'";
+	$query = "select nome, cognome, email from utenti where id_utente='$id'";
 
 	// Check connection
 	if (mysqli_connect_errno ()) {
