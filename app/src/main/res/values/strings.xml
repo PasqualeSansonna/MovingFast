@@ -36,6 +36,7 @@
     <string name="navigation_drawer_close">Close navigation drawer</string>
     <string name="email_already_used">This email is already used</string>
     <string name="search_scooter"> Search scooter </string>
+    <string name="wallet">Wallet</string>
     <!-- Strings Location permissions and Device Location-->
     <string name="title_locationPermission_alert_dialog">Locations permission are needed</string>
     <string name="message_locationPermission_alert_dialog">To correctly use the app, you should grant location permissions</string>
