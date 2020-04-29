@@ -49,6 +49,13 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        Fragment homeFragment = new HomeFragment();
+
+        getSupportFragmentManager().beginTransaction()
+                .replace(R.id.fragment_container, homeFragment)
+                .commit();
+
+
         /**Poiché non usiamo ActionBar, usiamo Toolbar*/
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -100,7 +107,7 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
         switch (itemId)
         {
             case R.id.nav_home:
-
+                nextFragment = new HomeFragment();
                 break;
             case R.id.nav_map:
                 nextFragment = new MapsFragment();

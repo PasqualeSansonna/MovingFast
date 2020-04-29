@@ -35,7 +35,7 @@
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
     <string name="email_already_used">This email is already used</string>
-
+    <string name="search_scooter"> Search scooter </string>
     <!-- Strings Location permissions and Device Location-->
     <string name="title_locationPermission_alert_dialog">Locations permission are needed</string>
     <string name="message_locationPermission_alert_dialog">To correctly use the app, you should grant location permissions</string>
@@ -68,5 +68,8 @@
     <string name="cancel">Cancel</string>
     <string name="not_valid_name">Insert a valid name</string>
     <string name="not_valid_surname">Insert a valid surname</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 
 </resources>
