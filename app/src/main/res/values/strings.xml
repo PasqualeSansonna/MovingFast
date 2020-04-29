@@ -36,6 +36,7 @@
     <string name="navigation_drawer_close">Close navigation drawer</string>
     <string name="email_already_used">This email is already used</string>
     <string name="search_scooter"> Search scooter </string>
+
     <!-- Strings Location permissions and Device Location-->
     <string name="title_locationPermission_alert_dialog">Locations permission are needed</string>
     <string name="message_locationPermission_alert_dialog">To correctly use the app, you should grant location permissions</string>
@@ -69,7 +70,19 @@
     <string name="not_valid_name">Insert a valid name</string>
     <string name="not_valid_surname">Insert a valid surname</string>
 
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <!--String in rent e result fragment-->
+    <string name="connection_disabled">Your internet connection is disabled, please activate it to continue</string>
+    <string name="no_chip_nfc">Your device does not have NFC</string>
+    <string name="no_NFC_enabled">Please enable NFC</string>
+    <string name="no_beam_enabled">Please enable Android Beam</string>
+    <string name="map_title">Map</string>
+    <string name="rent_title">Rent a scooter</string>
+    <string name="loading_connection_title">Connecting</string>
+    <string name="loading_connection_msg">Contanting the server. Plese await</string>
+    <string name="rent_ok">Rent succesfully completed</string>
+    <string name="go_to_map">Go to the map</string>
+    <string name="rent_error">Ops! Something went wrong while renting the scooter</string>
+    <string name="retry_rent">Retry to scooter renting</string>
+    <string name="rent_instructions">"Please bring your smartphone next to the scooter and then press the screen when is prompted "</string>
 
 </resources>

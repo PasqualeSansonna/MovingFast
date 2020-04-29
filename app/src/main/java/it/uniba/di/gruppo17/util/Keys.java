@@ -3,7 +3,7 @@ package it.uniba.di.gruppo17.util;
 public interface Keys {
     String EMAIL = "email";
     String PASSWORD = "password";
-    String SERVER = "http://192.168.1.104/";
+    String SERVER = "http://192.168.1.87/";
     String USER_AGENT = "Mozilla/5.0";
     String ID_UTENTE = "id";
     String SHARED_PREFERENCES = "MovingFastPreferences";
@@ -16,4 +16,16 @@ public interface Keys {
     int RAGGIO = 2;
     int MAP_ANIMATION_DURATION = 600;
     float ZOOM = 13.0f;
+
+    //rentFragment
+    String RENT = "rent";
+    //resultfragment
+    String MAP_FRAGMENT = "map_fragment";
+    String IN_RENT = "in_rent";
+    String ID_RENT = "id_rent";
+    String ID_SCOOTER = "id_scooter";
+    String SERVICE = "START_SERVICE";
+    String STOP_UPDATE_POSITION = "Stop update position";
+    String START_UPDATE_POSITION = "Start update position";
+    String RENT_FRAGMENT = "rent_fragment";
 }
