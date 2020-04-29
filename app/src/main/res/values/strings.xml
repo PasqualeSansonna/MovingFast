@@ -70,6 +70,12 @@
     <string name="not_valid_name">Insert a valid name</string>
     <string name="not_valid_surname">Insert a valid surname</string>
 
+    <!--String bottom sheet-->
+    <string name="title_bottomsheet">Information about selected scooter</string>
+    <string name="address_textview">Address</string>
+    <string name="batterylevel_textview">Battery</string>
+    <string name="button_sheet">Directions</string>
+    
     <!--String in rent e result fragment-->
     <string name="connection_disabled">Your internet connection is disabled, please activate it to continue</string>
     <string name="no_chip_nfc">Your device does not have NFC</string>
