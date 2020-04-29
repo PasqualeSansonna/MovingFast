@@ -6,12 +6,17 @@ import androidx.core.app.ActivityCompat;
 import androidx.fragment.app.Fragment;
 
 import android.Manifest;
+import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.location.Address;
+import android.location.Geocoder;
 import android.location.Location;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.maps.CameraUpdate;
@@ -21,11 +26,16 @@ import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.android.material.snackbar.Snackbar;
 
+import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.List;
+import java.util.Locale;
 
 import it.uniba.di.gruppo17.asynchttp.AsyncGetScooters;
 import it.uniba.di.gruppo17.util.Scooter;
@@ -86,6 +96,44 @@ public class MapsFragment extends Fragment {
                    @Override
                    public void onMapLoaded() {
                        setScootersMarker();
+                   }
+               });
+
+               //Bottom Sheet
+               mGoogleMap.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {
+                   @Override
+                   public boolean onMarkerClick(Marker marker) {
+                       marker.hideInfoWindow();
+                       BottomSheetDialog mBottomSheetDialog = new BottomSheetDialog(getContext(), R.style.BottomSheetDialogTheme);
+                       mBottomSheetDialog.setContentView(R.layout.bottomsheet_layout_mapfragment);
+                       TextView address = mBottomSheetDialog.findViewById(R.id.address_textView);
+                       TextView battery = mBottomSheetDialog.findViewById(R.id.battery_textView);
+
+                       //Prendo i dati dal marker
+                       final LatLng mLatLng = new LatLng(marker.getPosition().latitude, marker.getPosition().longitude);
+                       Geocoder mGeocoder = new Geocoder(getContext(), Locale.ITALY);
+                       try {
+                           List<Address> addresses = mGeocoder.getFromLocation(mLatLng.latitude, mLatLng.longitude, 1);
+                           address.setText(addresses.get(0).getAddressLine(0));
+                       } catch (IOException e) {
+                           e.printStackTrace();
+                       }
+                       battery.setText(marker.getSnippet().substring(15));
+
+                       mBottomSheetDialog.findViewById(R.id.directionsButton).setOnClickListener(new View.OnClickListener() {
+                           @Override
+                           public void onClick(View view) {
+                               //Per aprire app google maps
+                               Uri googleMapsIntentUri = Uri.parse("google.navigation:q="+mLatLng.latitude+","+mLatLng.longitude+"&mode=w");
+                               Intent googleMapsIntent = new Intent(Intent.ACTION_VIEW, googleMapsIntentUri);
+                               googleMapsIntent.setPackage("com.google.android.apps.maps");
+                               startActivity(googleMapsIntent);
+                               //Metto il fragment in pausa. Da controllare
+                               MapsFragment.super.onPause();
+                           }
+                       });
+                       mBottomSheetDialog.show();
+                       return true;
                    }
                });
            }
@@ -196,4 +244,5 @@ public class MapsFragment extends Fragment {
         }
          Snackbar.make(getView(),R.string.completed,Snackbar.LENGTH_SHORT).show();
     }
+
 }

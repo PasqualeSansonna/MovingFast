@@ -55,7 +55,6 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
                 .replace(R.id.fragment_container, homeFragment)
                 .commit();
 
-
         /**Poiché non usiamo ActionBar, usiamo Toolbar*/
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -114,6 +113,9 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
                 break;
             case R.id.nav_profile:
                 nextFragment = new ProfileFragment();
+                break;
+            case R.id.nav_rent:
+                nextFragment = new RentFragment();
                 break;
             default:
                 throw new IllegalArgumentException("No fragment for the given item");
