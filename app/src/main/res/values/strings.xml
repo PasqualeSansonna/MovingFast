@@ -1,11 +1,10 @@
 <resources>
-    <string name="app_name">MovingFast</string>
-    <string name="title_activity_splash">SplashActivity</string>
+    <string name="app_name" translatable="false">MovingFast</string>
+    <string name="title_activity_splash" translatable="false">SplashActivity</string>
     <string name="title_activity_login">Login</string>
 
     <!--Login and Signup activity-->
-    <string name="edit_text_email">E-Mail</string>
-    <string name="edit_text_password">Password</string>
+    <string name="edit_text_email" translatable="false">E-Mail</string>
     <string name="login_text">LOGIN</string>
     <string name="sign_up">SIGN UP</string>
     <string name="new_user_text">New user?</string>
@@ -76,7 +75,7 @@
     <string name="address_textview">Address</string>
     <string name="batterylevel_textview">Battery</string>
     <string name="button_sheet">Directions</string>
-    
+
     <!--String in rent e result fragment-->
     <string name="connection_disabled">Your internet connection is disabled, please activate it to continue</string>
     <string name="no_chip_nfc">Your device does not have NFC</string>
@@ -91,5 +90,13 @@
     <string name="rent_error">Ops! Something went wrong while renting the scooter</string>
     <string name="retry_rent">Retry to scooter renting</string>
     <string name="rent_instructions">"Please bring your smartphone next to the scooter and then press the screen when is prompted "</string>
+
+    <!-- String in PastRentals fragment -->
+    <string name="titleDuration">Total duration:</string>
+    <string name="titleStartHour">Start hour:</string>
+    <string name="titleEndhour">End hour:</string>
+    <string name="edit_text_password" translatable="false">Password</string>
+    <string name="titleRentals">Your past rentals</string>
+    <string name="titleNumRentals">Total rentals:</string>
 
 </resources>

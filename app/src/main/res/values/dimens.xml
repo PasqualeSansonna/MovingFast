@@ -32,5 +32,10 @@
     </array>
     <dimen name="num_box_size">40dp</dimen>
     <dimen name="image_layout_size">50dp</dimen>
+    <dimen name="card_elevation">8dp</dimen>
+    <dimen name="card_padding">15dp</dimen>
+    <dimen name="title_card_size">20sp</dimen>
+    <dimen name="subtitle_card_size">16sp</dimen>
+    <dimen name="text_near_text">8dp</dimen>
 </resources>
 

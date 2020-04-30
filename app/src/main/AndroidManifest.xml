@@ -22,6 +22,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="AllowBackup">
+        <activity android:name=".PastRentalsActivity"></activity>
         <!--
                      The API key for Google Maps-based APIs is defined as a string resource.
                      (See the file "res/values/google_maps_api.xml").
@@ -52,12 +53,10 @@
         </activity>
         <activity
             android:name=".MainActivity"
-            android:theme="@style/AppTheme.NoActionBar" />
-
-        <!-- Per definire un servizio come tale -->
-        <service android:name=".services.LocationService"
-            android:stopWithTask="true"/>
-
+            android:theme="@style/AppTheme.NoActionBar" /> <!-- Per definire un servizio come tale -->
+        <service
+            android:name=".services.LocationService"
+            android:stopWithTask="true" />
     </application>
 
 </manifest>
