@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical"
     android:background="@android:color/darker_gray"
     android:layout_width="match_parent"
@@ -22,42 +23,101 @@
             android:layout_height="wrap_content"
             android:padding="@dimen/card_padding">
 
+
             <TextView
                 android:id="@+id/dataTextView"
+                android:layout_width="53dp"
+                android:layout_height="0dp"
+                android:text=""
+                android:textAllCaps="true"
                 android:textSize="@dimen/title_card_size"
+                android:textStyle="bold"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintLeft_toLeftOf="parent"
+                />
+
+            <TextView
+                android:id="@+id/titleDurationTextView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text=""
+                android:text="@string/titleDuration"
+                android:textSize="@dimen/subtitle_card_size"
                 android:textStyle="bold"
                 app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintTop_toTopOf="parent"/>
+                app:layout_constraintTop_toBottomOf="@+id/dataTextView" />
 
             <TextView
-                android:id="@+id/durationTextView"
+                android:id="@+id/valueDurationTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/text_near_text"
+                android:text=""
                 android:textSize="@dimen/subtitle_card_size"
+                app:layout_constraintLeft_toRightOf="@+id/titleDurationTextView"
+                app:layout_constraintTop_toBottomOf="@+id/dataTextView" />
+
+            <TextView
+                android:id="@+id/titleStartHourTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/titleStartHour"
+                android:textSize="@dimen/subtitle_card_size"
+                android:textStyle="bold"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/titleDurationTextView" />
+
+            <TextView
+                android:id="@+id/valueStartHourTextView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text=""
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/dataTextView"/>
+                android:textSize="@dimen/subtitle_card_size"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toEndOf="@+id/titleStartHourTextView"
+                app:layout_constraintTop_toBottomOf="@+id/valueDurationTextView" />
 
             <TextView
-                android:id="@+id/startHourTextView"
+                android:id="@+id/titleEndHourTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/titleEndhour"
                 android:textSize="@dimen/subtitle_card_size"
+                android:textStyle="bold"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/titleStartHourTextView" />
+
+
+            <TextView
+                android:id="@+id/valueEndHourTextView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text=""
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/durationTextView"/>
+                android:textSize="@dimen/subtitle_card_size"
+                app:layout_constraintLeft_toRightOf="@+id/titleEndHourTextView"
+                app:layout_constraintTop_toBottomOf="@+id/valueStartHourTextView" />
 
             <TextView
-                android:id="@+id/endHourTextView"
-                android:textSize="@dimen/subtitle_card_size"
+                android:id="@+id/titleAmountTextView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text=""
+                android:text="@string/titleAmount"
+                android:textSize="@dimen/subtitle_card_size"
+                android:textStyle="bold"
                 app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/startHourTextView"/>
+                app:layout_constraintTop_toBottomOf="@id/titleEndHourTextView"/>
+
+            <TextView
+                android:id="@+id/valueAmountTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="296dp"
+                android:text=""
+                android:textSize="@dimen/subtitle_card_size"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintLeft_toRightOf="@+id/titleAmountTextView"
+                app:layout_constraintTop_toBottomOf="@+id/valueEndHourTextView" />
+
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

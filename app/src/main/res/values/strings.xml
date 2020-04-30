@@ -92,11 +92,14 @@
     <string name="rent_instructions">"Please bring your smartphone next to the scooter and then press the screen when is prompted "</string>
 
     <!-- String in PastRentals fragment -->
-    <string name="titleDuration">Total duration:</string>
+    <string name="titleTotalDuration">Total duration:</string>
     <string name="titleStartHour">Start hour:</string>
     <string name="titleEndhour">End hour:</string>
     <string name="edit_text_password" translatable="false">Password</string>
     <string name="titleRentals">Your past rentals</string>
     <string name="titleNumRentals">Total rentals:</string>
+    <string name="titleDuration">Duration:</string>
+    <string name="titleAmount">Amount:</string>
+
 
 </resources>
