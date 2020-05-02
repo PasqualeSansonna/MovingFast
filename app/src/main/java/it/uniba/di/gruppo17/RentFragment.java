@@ -44,7 +44,6 @@ public class RentFragment extends Fragment implements NfcAdapter.CreateNdefMessa
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        super.onCreate(savedInstanceState);
         prefs = this.getActivity().getSharedPreferences(Keys.SHARED_PREFERENCES, Context.MODE_PRIVATE);
     }
 

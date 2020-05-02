@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name" translatable="false">MovingFast</string>
     <string name="title_activity_splash" translatable="false">SplashActivity</string>
-    <string name="title_activity_login">Login</string>
+    <string name="title_activity_login" translatable="false">Login</string>
 
     <!--Login and Signup activity-->
     <string name="edit_text_email" translatable="false">E-Mail</string>
@@ -25,7 +25,7 @@
     <string name="toast_password">Your password must contains plus than 5 charcters, a lowercase and uppercase letter, a number and a special character "@$*%^&amp;+="</string>
 
     <!-- Strings in nav drawer-->
-    <string name="menu_home">Home</string>
+    <string name="menu_home" translatable="false">Home</string>
     <string name="menu_map">Map</string>
     <string name="menu_rent">Rent scooter</string>
     <string name="menu_profile">Profile</string>
@@ -60,7 +60,7 @@
     <!-- Strings Profile Activity-->
     <string name="first_name">Surname</string>
     <string name="second_name">Name</string>
-    <string name="email">Email</string>
+    <string name="email" translatable="false">Email</string>
     <string name="edit_profile">Edit profile</string>
     <string name="change_password">Change password</string>
     <string name="past_rentals">Past rentals</string>
@@ -84,7 +84,7 @@
     <string name="map_title">Map</string>
     <string name="rent_title">Rent a scooter</string>
     <string name="loading_connection_title">Connecting</string>
-    <string name="loading_connection_msg">Contanting the server. Plese await</string>
+    <string name="loading_connection_msg">Contanting the server. Plese wait</string>
     <string name="rent_ok">Rent succesfully completed</string>
     <string name="go_to_map">Go to the map</string>
     <string name="rent_error">Ops! Something went wrong while renting the scooter</string>

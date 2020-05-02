@@ -55,7 +55,7 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
                 .replace(R.id.fragment_container, homeFragment)
                 .commit();
 
-        /**Poiché non usiamo ActionBar, usiamo Toolbar*/
+        /*Poiché non usiamo ActionBar, usiamo Toolbar*/
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
@@ -63,7 +63,7 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawer, toolbar,
                 R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.addDrawerListener(toggle);
-        toggle.syncState(); /**For hamburger */
+        toggle.syncState(); /*For hamburger */
 
         //Per passare ai fragment delle voci nel menu laterale
         mNavingationView = findViewById(R.id.nav_view);
