@@ -77,4 +77,6 @@
     <string name="titleAmount">Importo dovuto:</string>
     <string name="navigation_drawer_open">Apri navigation drawer</string>
     <string name="navigation_drawer_close">Chiudi navigation drawer</string>
+    <string name="settings_title">Impostazioni</string>
+    <string name="logout_messageDialog">Sei sicuro di voler fare il logout?</string>
 </resources>

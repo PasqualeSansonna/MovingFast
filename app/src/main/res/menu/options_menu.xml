@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/setting_fragment"
+        android:orderInCategory="100"
+        android:title="@string/settings_title"
+        android:textStyle="bold" />
+    <item
+        android:id="@+id/logout_fragment"
+        android:orderInCategory="100"
+        android:title="@string/menu_logout"
+        android:textStyle="bold" />
+
+</menu>

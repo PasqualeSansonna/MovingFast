@@ -101,5 +101,11 @@
     <string name="titleDuration">Duration:</string>
     <string name="titleAmount">Amount:</string>
 
+    <!-- Strings in options menu-->
+    <string name="settings_title">Settings</string>
+    <string name="menu_logout" translatable="false">Logout</string>
+    <string name="logout_title" translatable="false">Logout</string>
+    <string name="logout_messageDialog">Are you sure you to want to logout?</string>
+
 
 </resources>

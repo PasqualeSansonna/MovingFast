@@ -17,10 +17,13 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentSender;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.location.LocationManager;
 import android.os.Build;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 
 import com.google.android.gms.common.ConnectionResult;
@@ -30,6 +33,7 @@ import com.google.android.gms.location.LocationServices;
 import com.google.android.material.navigation.NavigationView;
 
 import it.uniba.di.gruppo17.services.LocationService;
+import it.uniba.di.gruppo17.util.Keys;
 
 import static it.uniba.di.gruppo17.util.Keys.REQUEST_RESOLVE_ERROR;
 import static it.uniba.di.gruppo17.util.Keys.RESOLVING_ERROR_STATE_KEY;
@@ -39,6 +43,8 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
 
     private DrawerLayout drawer;
     private NavigationView mNavingationView;
+    private ActionBarDrawerToggle mDrawerToggle;
+    private SharedPreferences prefs;
 
     //Per controllo Google play services
     private boolean mResolvingError;
@@ -59,11 +65,13 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
+        //Impostazione del navigation Drawer sulla sinistra
         drawer = findViewById(R.id.drawer_layout);
-        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawer, toolbar,
+        drawer.setElevation(16);
+        mDrawerToggle = new ActionBarDrawerToggle(this, drawer, toolbar,
                 R.string.navigation_drawer_open, R.string.navigation_drawer_close);
-        drawer.addDrawerListener(toggle);
-        toggle.syncState(); /*For hamburger */
+        drawer.addDrawerListener(mDrawerToggle);
+        mDrawerToggle.syncState(); /*For hamburger */
 
         //Per passare ai fragment delle voci nel menu laterale
         mNavingationView = findViewById(R.id.nav_view);
@@ -84,6 +92,68 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
 
         if ( savedInstanceState!= null )
             mResolvingError = savedInstanceState.getBoolean(RESOLVING_ERROR_STATE_KEY, false);
+    }
+
+    /**
+     * Metodo che crea il secondo menu (laterale)
+     * @param menu
+     * @return true creazione menu
+     */
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater menuInflater = getMenuInflater();
+        menuInflater.inflate(R.menu.options_menu, menu);
+        return true;
+    }
+
+
+    /**
+     * Metodo che gestisce la selezione degli item del menu dx di impostazioni
+     * @param item
+     * @return
+     */
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+        switch (id) {
+            case R.id.setting_fragment:
+                /* TODO: 02/05/2020 Implementare una pagina di impostazioni */
+                break;
+            case R.id.logout_fragment:
+                logout();
+                break;
+            default:
+                break;
+        }
+        if (mDrawerToggle.onOptionsItemSelected(item)) {
+            return true;
+        }
+        return true;
+    }
+
+    /**
+     * Metodo che effettua logout
+     * Si cancellano i dati dell'utente loggato nelle Shared Preferences e si avvia intent su Login
+     */
+    private void logout() {
+        new AlertDialog.Builder(MainActivity.this)
+                .setTitle(R.string.logout_title)
+                .setMessage(R.string.logout_messageDialog)
+                .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        prefs = getSharedPreferences(Keys.SHARED_PREFERENCES, Context.MODE_PRIVATE);
+                        SharedPreferences.Editor editor = prefs.edit();
+                        editor.remove(Keys.EMAIL);
+                        editor.remove(Keys.PASSWORD);
+                        editor.remove(Keys.ID_UTENTE);
+                        editor.apply();
+                        Intent intent = new Intent(MainActivity.this, LoginActivity.class);
+                        startActivity(intent);
+                        finish();
+                    }
+                }).create().show();
+        // TODO: 03/05/2020 CANCELLARE DATI SHARED PREFS
     }
 
     @Override

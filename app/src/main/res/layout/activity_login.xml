@@ -56,6 +56,7 @@
                     app:layout_constraintTop_toTopOf="parent"
                     tools:layout_conversion_absoluteHeight="48dp"
                     tools:layout_conversion_absoluteWidth="88dp"
+                    android:elevation="@dimen/standard_elevation"
                     android:background="@color/colorPrimary"
                     android:textColor="@color/white"/>
 
@@ -79,6 +80,7 @@
                 android:clickable="true"
                 android:ems="10"
                 android:hint="@string/edit_text_email"
+                android:elevation="@dimen/standard_elevation"
                 android:inputType="textEmailAddress"
                 android:textColor="@color/secondaryTextColor"
                 android:textColorHint="@color/secondaryTextColor"
@@ -99,6 +101,7 @@
                 android:background="@color/white"
                 android:ems="10"
                 android:hint="@string/edit_text_password"
+                android:elevation="@dimen/standard_elevation"
                 android:inputType="textPassword"
                 android:textColor="@color/secondaryTextColor"
                 android:textColorHint="@color/secondaryTextColor"
@@ -117,6 +120,7 @@
                 android:layout_height="@dimen/input_height"
                 android:layout_marginTop="15dp"
                 android:text="@string/login_text"
+                android:elevation="@dimen/standard_elevation"
                 android:background="@color/colorPrimary"
                 android:textColor="@color/white"/>
         </TableRow>
@@ -133,7 +137,8 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
                 android:checked="false"
-                android:text="@string/save_credentials" />
+                android:text="@string/save_credentials"
+                android:elevation="@dimen/standard_elevation"/>
         </TableRow>
 
     </TableLayout>
