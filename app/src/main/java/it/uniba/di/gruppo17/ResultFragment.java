@@ -10,6 +10,7 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 
 import androidx.appcompat.app.ActionBar;
+import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
@@ -53,7 +54,7 @@ public class ResultFragment extends Fragment {
     private ProgressDialog progressDialog;
     private AsyncGet httpGetNoleggio;
     private Drawable drawable;
-    private ActionBar actionBar;
+    private Toolbar toolbar;
     private boolean executed = false;
     private boolean success = false;
 
@@ -63,8 +64,8 @@ public class ResultFragment extends Fragment {
         super.onCreate(savedInstanceState);
         super.onCreate(savedInstanceState);
         prefs = this.getActivity().getSharedPreferences(Keys.SHARED_PREFERENCES, Context.MODE_PRIVATE);
+        toolbar = ((MainActivity) getActivity()).findViewById(R.id.toolbar);
         httpGetNoleggio = new AsyncGet();
-        actionBar = ((MainActivity) getActivity()).getSupportActionBar();
     }
 
     @Override
@@ -85,10 +86,10 @@ public class ResultFragment extends Fragment {
                 Fragment nextFragment;
                 if (next.equals(Keys.MAP_FRAGMENT)) {
                     nextFragment = new MapsFragment();
-                    actionBar.setTitle(R.string.map_title);
+                    toolbar.setTitle(R.string.map_title);
                 } else {
                     nextFragment = new RentFragment();
-                    actionBar.setTitle(R.string.rent_title);
+                    toolbar.setTitle(R.string.rent_title);
                 }
                 getActivity().setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_UNSPECIFIED);
                 FragmentTransaction fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
