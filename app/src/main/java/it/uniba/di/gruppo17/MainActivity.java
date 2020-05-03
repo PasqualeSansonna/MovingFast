@@ -153,7 +153,10 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
                         finish();
                     }
                 }).create().show();
-        // TODO: 03/05/2020 CANCELLARE DATI SHARED PREFS
+        //Setto valori di shared prefs ai valori di default per evitare consistenza
+        prefs = getSharedPreferences(Keys.SHARED_PREFERENCES, Context.MODE_PRIVATE);
+        prefs.edit().putInt(Keys.ID_UTENTE, -1).apply();
+        prefs.edit().putFloat(Keys.WALLET, -1).apply();
     }
 
     @Override

@@ -108,4 +108,10 @@
     <string name="logout_messageDialog">Are you sure you to want to logout?</string>
 
 
+    <!-- String in wallet fragment-->
+    <string name="wallet_value">WALLET AMOUNT</string>
+    <string name="pay_now">PAY NOW</string>
+    <string name="loading_connection_msgWallet">Connection. Updating Wallet</string>
+
+
 </resources>

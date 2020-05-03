@@ -79,8 +79,7 @@ public class HomeFragment extends Fragment {
             }
         });
 
-        /** @TODO fragment portafoglio
-/*
+
         IV_wallet.setOnClickListener(new View.OnClickListener() {
 
 
@@ -94,7 +93,6 @@ public class HomeFragment extends Fragment {
 
             }
         });
-        */
 
 
         return view;

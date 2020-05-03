@@ -79,4 +79,7 @@
     <string name="navigation_drawer_close">Chiudi navigation drawer</string>
     <string name="settings_title">Impostazioni</string>
     <string name="logout_messageDialog">Sei sicuro di voler fare il logout?</string>
+    <string name="wallet_value">SALDO PORTAFOGLIO</string>
+    <string name="pay_now">PAGA ORA</string>
+    <string name="loading_connection_msgWallet">Connessione. Aggiornamento portafoglio</string>
 </resources>

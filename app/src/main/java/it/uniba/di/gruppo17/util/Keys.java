@@ -6,6 +6,7 @@ public interface Keys {
     String SERVER = "http://192.168.1.87/";
     String USER_AGENT = "Mozilla/5.0";
     String ID_UTENTE = "id";
+    String WALLET = "wallet" ;
     String SHARED_PREFERENCES = "MovingFastPreferences";
     //Per controllo Google play services e permessi geolocalizzazione
     int REQUEST_RESOLVE_ERROR =1 ;
@@ -28,4 +29,5 @@ public interface Keys {
     String STOP_UPDATE_POSITION = "Stop update position";
     String START_UPDATE_POSITION = "Start update position";
     String RENT_FRAGMENT = "rent_fragment";
+
 }
