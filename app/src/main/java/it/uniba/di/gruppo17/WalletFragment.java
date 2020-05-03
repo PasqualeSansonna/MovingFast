@@ -15,6 +15,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.android.material.snackbar.Snackbar;
 
@@ -65,10 +66,12 @@ public class WalletFragment extends Fragment {
         if (ConnectionUtil.checkInternetConn(getActivity()))
         {
             //Snackbar.make(getView(),R.string.loading_connection_msgWallet, Snackbar.LENGTH_LONG).show();
+            Toast.makeText(getActivity(), R.string.loading_connection_msgWallet, Toast.LENGTH_LONG);
         }
         else
         {
             //Snackbar.make(getView(),R.string.no_connection_title, Snackbar.LENGTH_LONG).show();
+            Toast.makeText(getActivity(), R.string.no_connection_title, Toast.LENGTH_LONG);
         }
 
         //prendo dati da shared prefs
