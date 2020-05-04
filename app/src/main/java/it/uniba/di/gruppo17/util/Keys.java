@@ -3,7 +3,8 @@ package it.uniba.di.gruppo17.util;
 public interface Keys {
     String EMAIL = "email";
     String PASSWORD = "password";
-    String SERVER = "http://192.168.1.87/";
+    String RENTALS_TOTAL_DURATION = "rentals_total_duration";
+    String SERVER = "http://192.168.178.26/";
     String USER_AGENT = "Mozilla/5.0";
     String ID_UTENTE = "id";
     String WALLET = "wallet" ;

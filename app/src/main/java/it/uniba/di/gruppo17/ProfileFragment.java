@@ -14,6 +14,8 @@ import android.widget.*;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 
 import java.net.URL;
 
@@ -109,6 +111,17 @@ public class ProfileFragment extends Fragment {
             e.printStackTrace();
         }
 
+        BT_pastRentals.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                FragmentManager fragmentManager = getFragmentManager();
+                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                Fragment nextFragment = new PastRentalsFragment();
+                fragmentTransaction.replace(R.id.fragment_container, nextFragment);
+                fragmentTransaction.commit();
+            }
+        });
+
         /**Cliccando sull'imageView viene abilitata la modifica**/
         editProfile.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -199,6 +212,7 @@ public class ProfileFragment extends Fragment {
                     }
                 }
             });
+
 
         /**Al momento del click del bottone cancel vengono annullate tutte le
          * modifiche effettuate in precedenza

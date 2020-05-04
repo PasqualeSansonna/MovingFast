@@ -92,7 +92,7 @@
     <string name="rent_instructions">"Please bring your smartphone next to the scooter and then press the screen when is prompted "</string>
 
     <!-- String in PastRentals fragment -->
-    <string name="titleTotalDuration">Total duration:</string>
+    <string name="titleTotalDuration">Time spent on scooters:</string>
     <string name="titleStartHour">Start hour:</string>
     <string name="titleEndhour">End hour:</string>
     <string name="edit_text_password" translatable="false">Password</string>
@@ -100,12 +100,17 @@
     <string name="titleNumRentals">Total rentals:</string>
     <string name="titleDuration">Duration:</string>
     <string name="titleAmount">Amount:</string>
+    <string name="titleDeparture">Departure</string>
+    <string name="titleArrival">Arrival</string>
+    <string name="travel">This has been your journey</string>
+    <string name="detailJourney">See more details</string>
 
     <!-- Strings in options menu-->
     <string name="settings_title">Settings</string>
     <string name="menu_logout" translatable="false">Logout</string>
     <string name="logout_title" translatable="false">Logout</string>
     <string name="logout_messageDialog">Are you sure you to want to logout?</string>
+    <string name="title_activity_maps_past_rentals">Map</string>
 
 
     <!-- String in wallet fragment-->
