@@ -21,6 +21,10 @@
             android:icon="@drawable/ic_profile"
             android:title="@string/menu_profile"/>
 
+        <item android:id="@+id/nav_wallet"
+            android:icon="@drawable/ic_wallet"
+            android:title="@string/wallet"/>
+
     </group>
 
 </menu>

@@ -82,4 +82,9 @@
     <string name="wallet_value">SALDO PORTAFOGLIO</string>
     <string name="pay_now">PAGA ORA</string>
     <string name="loading_connection_msgWallet">Connessione. Aggiornamento portafoglio</string>
+    <string name="paying_paypal">Sarai indirizzato alla pagina Paypal per il pagamento</string>
+    <string name="amount_lessThanZero">Per favore inserisci un valore maggiore di 0.00</string>
+    <string name="success_transaction">Transazione effettuata con successo</string>
+    <string name="failure_transaction">Errore!! Transazione fallita</string>
+    <string name="add_to_amount">CARICA CONTO</string>
 </resources>

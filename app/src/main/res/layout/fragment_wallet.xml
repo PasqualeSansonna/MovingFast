@@ -47,5 +47,6 @@
         android:clickable="false"
         android:text="@string/pay_now"
         android:textColor="@color/white"
-        android:textSize="@dimen/text_dimension" />
+        android:textSize="@dimen/text_dimension"
+        android:elevation="@dimen/standard_elevation"/>
 </RelativeLayout>

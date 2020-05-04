@@ -10,7 +10,7 @@ import java.net.URL;
 
 import it.uniba.di.gruppo17.WalletFragment;
 
-public class AsyncGetImporto extends AsyncTask<URL, Integer, Double>
+public class AsyncGetBalance extends AsyncTask<URL, Integer, Double>
 {
     @Override
     protected Double doInBackground(URL... params) {

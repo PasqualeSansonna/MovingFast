@@ -113,5 +113,12 @@
     <string name="pay_now">PAY NOW</string>
     <string name="loading_connection_msgWallet">Connection. Updating Wallet</string>
 
+    <!-- Strings in payFragment -->
+    <string name="paying_paypal">You will be directed to the paypal screen for payment</string>
+    <string name="amount_lessThanZero">Please isert a value greater than zero</string>
+    <string name="success_transaction">Transaction succesfully completed</string>
+    <string name="failure_transaction">Error!! Transaction failure</string>
+    <string name="add_to_amount">LOAD TO THE BALANCE</string>
+
 
 </resources>

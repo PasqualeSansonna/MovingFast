@@ -22,7 +22,7 @@ import com.google.android.material.snackbar.Snackbar;
 import java.net.MalformedURLException;
 import java.net.URL;
 
-import it.uniba.di.gruppo17.asynchttp.AsyncGetImporto;
+import it.uniba.di.gruppo17.asynchttp.AsyncGetBalance;
 import it.uniba.di.gruppo17.util.ConnectionUtil;
 import it.uniba.di.gruppo17.util.Keys;
 
@@ -83,7 +83,7 @@ public class WalletFragment extends Fragment {
         try
         {
             url = new URL(str);
-            AsyncGetImporto http = new AsyncGetImporto();
+            AsyncGetBalance http = new AsyncGetBalance();
             http.execute(url);
         } catch (MalformedURLException e)
         {
@@ -104,8 +104,7 @@ public class WalletFragment extends Fragment {
         payBt.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                /* TODO: 03/05/2020   creare fragment per pagamento
-                goToFragment(new PayFragment()); */
+                goToFragment(new  PayFragment());
             }
         });
 
@@ -114,7 +113,7 @@ public class WalletFragment extends Fragment {
 
 
 
-    private void goToFragment(HomeFragment nextFragment) {
+    private void goToFragment(Fragment nextFragment) {
         FragmentTransaction fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
         fragmentTransaction.replace(R.id.fragment_container, nextFragment);
         fragmentTransaction.commit();

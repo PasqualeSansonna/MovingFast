@@ -190,6 +190,9 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
             case R.id.nav_rent:
                 nextFragment = new RentFragment();
                 break;
+            case R.id.nav_wallet:
+                nextFragment = new WalletFragment();
+                break;
             default:
                 throw new IllegalArgumentException("No fragment for the given item");
         }
