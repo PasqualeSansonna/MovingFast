@@ -20,6 +20,9 @@ import it.uniba.di.gruppo17.util.Rental;
 import static it.uniba.di.gruppo17.util.Keys.MAP_ANIMATION_DURATION;
 import static it.uniba.di.gruppo17.util.Keys.ZOOM;
 
+/** Activity che verrà visualizzata al momento del click sull'ImageButton presente
+ * sulla cardView dello storico noleggi che mostrerà posizione partenza e arrivo
+ **/
 public class MapsActivityPastRentals extends FragmentActivity implements OnMapReadyCallback {
 
     private GoogleMap mMap;
@@ -49,9 +52,11 @@ public class MapsActivityPastRentals extends FragmentActivity implements OnMapRe
         mMap = googleMap;
         Rental rental;
 
+        /** Prendo il noleggio di riferimento dalla cardView **/
         Bundle dati_passati = getIntent().getExtras();
         rental = (Rental) dati_passati.getParcelable("rental");
 
+        /** Setto le coordinate ed aggiungo i marker**/
         LatLng partenza = new LatLng(Double.parseDouble(rental.getLatitudine_partenza()), Double.parseDouble(rental.getLongitudine_partenza()));
         mMap.addMarker(new MarkerOptions().position(partenza).title("Departure"));
         LatLng arrivo = new LatLng(Double.parseDouble(rental.getLatitudine_arrivo()), Double.parseDouble(rental.getLongitudine_arrivo()));

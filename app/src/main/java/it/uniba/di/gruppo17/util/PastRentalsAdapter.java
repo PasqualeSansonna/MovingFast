@@ -18,7 +18,9 @@ import it.uniba.di.gruppo17.MapsActivityPastRentals;
 import it.uniba.di.gruppo17.R;
 
 
-
+/** @author Pasquale , sgarra
+ * Passiamo all'adapter della recycler view la lista dei noleggi effettuati (stato = 1) da visualizzare nelle card view
+ **/
 public class PastRentalsAdapter extends RecyclerView.Adapter<PastRentalsAdapter.ViewHolder>{
 
     private List<Rental> rentals;
@@ -63,9 +65,9 @@ public class PastRentalsAdapter extends RecyclerView.Adapter<PastRentalsAdapter.
             public void onClick(View v) {
                 Intent intent = new Intent(context, MapsActivityPastRentals.class);
                 Bundle bundle = new Bundle();
-                bundle.putParcelable("rental", rentals.get(position));
+                bundle.putParcelable("rental", rentals.get(position)); //serializziamo la lista dei noleggi
                 intent.putExtras(bundle);
-                context.startActivity(intent);
+                context.startActivity(intent); //intent all'activity che mostrerà posizione partenza e arrivo
             }
         });
 

@@ -13,9 +13,6 @@ import java.net.URL;
 
 import it.uniba.di.gruppo17.util.Keys;
 
-/**
- * Created by Emiliano on 26/08/2016.
- */
 public class JsonFromHttp {
 
     public static JSONObject getJsonObject(URL param) {

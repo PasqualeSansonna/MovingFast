@@ -1,48 +1,20 @@
 package it.uniba.di.gruppo17;
 
-import android.Manifest;
-import android.content.Context;
-import android.content.Intent;
 import android.content.SharedPreferences;
-import android.content.pm.PackageManager;
-import android.icu.text.Edits;
-import android.location.Address;
-import android.location.Geocoder;
-import android.net.Uri;
 import android.os.Bundle;
-
-import androidx.core.app.ActivityCompat;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-
-import android.os.Environment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-
-import com.google.android.gms.maps.GoogleMap;
-import com.google.android.gms.maps.OnMapReadyCallback;
-import com.google.android.gms.maps.SupportMapFragment;
-import com.google.android.gms.maps.model.LatLng;
-import com.google.android.gms.maps.model.Marker;
-import com.google.android.material.bottomsheet.BottomSheetDialog;
-
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.ObjectOutputStream;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Iterator;
-import java.util.List;
-import java.util.Locale;
-
 import it.uniba.di.gruppo17.asynchttp.AsyncPastRentals;
-import it.uniba.di.gruppo17.services.LocationService;
+
 import it.uniba.di.gruppo17.util.Keys;
 import it.uniba.di.gruppo17.util.PastRentalsAdapter;
 import it.uniba.di.gruppo17.util.Rental;
@@ -51,12 +23,13 @@ import static android.content.Context.MODE_PRIVATE;
 import static it.uniba.di.gruppo17.util.Keys.ID_UTENTE;
 import static it.uniba.di.gruppo17.util.Keys.RENTALS_TOTAL_DURATION;
 
-
+/** @author Pasquale, sgarra
+ *  Fragment contenente la cardView che mostrerò il totale del tempo trascorso
+ *  sui monopattini, il totale dei noleggila e la recycler view che conterrà i noleggi
+ */
 public class PastRentalsFragment extends Fragment {
 
     ArrayList<Rental> rentals = null;
-    ArrayList<Rental> rentals_serializable = null;
-    Rental rental;
     private Integer user_ID;
     private SharedPreferences preferences;
     private TextView TV_total_duration;
@@ -98,13 +71,16 @@ public class PastRentalsFragment extends Fragment {
             url = new URL(str);
             AsyncPastRentals pastRentals = new AsyncPastRentals();
             rentals = new ArrayList<>();
-            rentals = pastRentals.execute(url).get();
+            rentals = pastRentals.execute(url).get(); //lista dei noleggi
 
+            /**creiamo le nostre card view**/
             pastRentalsAdapter = new PastRentalsAdapter(rentals);
 
+            /**Calcolo del totale noleggi **/
             String string = String.valueOf(rentals.size());
             TV_num_rentals.setText(string);
 
+            /**Calcolo durata totale noleggi**/
             for (int i =0; i< rentals.size(); i++) {
                 durata_totale += rentals.get(i).getDurata();
             }
@@ -121,6 +97,7 @@ public class PastRentalsFragment extends Fragment {
             e.printStackTrace();
         }
 
+        /**Settiamo la nostra recylerView passandogli l'adapter con le card**/
         recyclerView = (RecyclerView) view.findViewById(R.id.pastRentalsRecyclerView);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         recyclerView.setItemAnimator(new DefaultItemAnimator());
@@ -128,6 +105,11 @@ public class PastRentalsFragment extends Fragment {
 
     }
 
+    /**
+     *
+     * @param durata_totale
+     * La durata totale viene salvata nelle SharedPreferences
+     */
     private void writePreferences(float durata_totale) {
             SharedPreferences.Editor editor = preferences.edit();
             editor.putFloat(RENTALS_TOTAL_DURATION, Float.parseFloat(String.format("%.2f", durata_totale)));

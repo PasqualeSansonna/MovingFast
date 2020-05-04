@@ -4,8 +4,11 @@ package it.uniba.di.gruppo17.util;
 import android.os.Parcel;
 import android.os.Parcelable;
 
-import androidx.annotation.NonNull;
-
+/** @author Pasquale
+ *  Classe relativa ai noleggi che implementa l'interfaccia Parcelable per la serializzazione
+ *  degli oggetti in quanto utile nel passaggio degli stessi nella intent della cardView
+ *  (all'interno dello storico noleggi)
+ */
 public class Rental implements Parcelable {
 
     private String data;
