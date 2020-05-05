@@ -18,7 +18,6 @@
     <string name="welcome">Benvenuto in MovingFast</string>
     <string name="not_valid_email_address">Inserisci un indirizzo email valido</string>
     <string name="not_valid_password">Password troppo semplice</string>
-    <string name="toast_password">La password deve contenere più di 5 caratteri, una lettera minuscola e maiuscola, un numero e un carattere speciale  @$*%^&amp;+=</string>
     <string name="menu_map">Mappa</string>
     <string name="menu_rent">Noleggia monopattino</string>
     <string name="menu_profile">Profilo</string>
@@ -91,4 +90,9 @@
     <string name="titlePromotion">Promozioni</string>
     <string name="add_promotional_code">Aggiungi un codice promozionale al tuo prossimo noleggio</string>
     <string name="add">Visualizza</string>
+    <string name="detailJourney">Più dettagli</string>
+    <string name="travel">Questo è stato il tuo percorso</string>
+    <string name="titleArrival">Arrivo</string>
+    <string name="titleDeparture">Partenza</string>
+    <string name="toast_password">La password deve contenere più di 5 caratteri, una lettera minuscola e maiuscola, un numero e un carattere speciale  @$*%^&amp;+=</string>
 </resources>

@@ -22,7 +22,6 @@
     <string name="welcome">Welcome in MovingFast</string>
     <string name="not_valid_email_address">Insert a valid email address</string>
     <string name="not_valid_password">Password too weak</string>
-    <string name="toast_password">Your password must contains plus than 5 charcters, a lowercase and uppercase letter, a number and a special character "@$*%^&amp;+="</string>
 
     <!-- Strings in nav drawer-->
     <string name="menu_home" translatable="false">Home</string>
@@ -110,7 +109,7 @@
     <string name="menu_logout" translatable="false">Logout</string>
     <string name="logout_title" translatable="false">Logout</string>
     <string name="logout_messageDialog">Are you sure you to want to logout?</string>
-    <string name="title_activity_maps_past_rentals">Map</string>
+    <string name="title_activity_maps_past_rentals" translatable="false">Map</string>
 
 
     <!-- String in wallet fragment-->
@@ -124,10 +123,11 @@
 
     <!-- Strings in payFragment -->
     <string name="paying_paypal">You will be directed to the paypal screen for payment</string>
-    <string name="amount_lessThanZero">Please isert a value greater than zero</string>
+    <string name="amount_lessThanZero">Please insert a value greater than zero</string>
     <string name="success_transaction">Transaction succesfully completed</string>
     <string name="failure_transaction">Error!! Transaction failure</string>
     <string name="add_to_amount">LOAD TO THE BALANCE</string>
+    <string name="toast_password">The password must contain more than 5 characters, a lowercase and uppercase letter, a number and a special character @ $ *% ^ &amp; amp; + =</string>
 
 
 </resources>
