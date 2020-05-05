@@ -114,6 +114,10 @@
 
 
     <!-- String in wallet fragment-->
+    <string name="titleBalance">Balance</string>
+    <string name="titlePromotion">Promotions</string>
+    <string name="add_promotional_code">Add a promotional code to your next rental </string>
+    <string name="add">Displays</string>
     <string name="wallet_value">WALLET AMOUNT</string>
     <string name="pay_now">PAY NOW</string>
     <string name="loading_connection_msgWallet">Connection. Updating Wallet</string>

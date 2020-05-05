@@ -68,7 +68,7 @@
     <string name="rent_error">Oops! Qualcosa è andato storto durante il noleggio dello scooter</string>
     <string name="retry_rent">Riprovare a noleggiare uno scooter</string>
     <string name="rent_instructions">Porta lo smartphone vicino al monopattino e premi lo schermo quando richiesto</string>
-    <string name="titleTotalDuration">Tempo trascorso sui monopattini:</string>
+    <string name="titleTotalDuration">Totale durata:</string>
     <string name="titleStartHour">Inizio ora:</string>
     <string name="titleEndhour">Fine ora:</string>
     <string name="titleRentals">Tuo storico noleggi</string>
@@ -79,8 +79,16 @@
     <string name="navigation_drawer_close">Chiudi navigation drawer</string>
     <string name="settings_title">Impostazioni</string>
     <string name="logout_messageDialog">Sei sicuro di voler fare il logout?</string>
-    <string name="titleDeparture">Partenza</string>
-    <string name="titleArrival">Arrivo</string>
-    <string name="travel">Questo è stato il tuo tragitto</string>
-    <string name="detailJourney">Dettagli</string>
+    <string name="wallet_value">SALDO PORTAFOGLIO</string>
+    <string name="pay_now">PAGA ORA</string>
+    <string name="loading_connection_msgWallet">Connessione. Aggiornamento portafoglio</string>
+    <string name="paying_paypal">Sarai indirizzato alla pagina Paypal per il pagamento</string>
+    <string name="amount_lessThanZero">Per favore inserisci un valore maggiore di 0.00</string>
+    <string name="success_transaction">Transazione effettuata con successo</string>
+    <string name="failure_transaction">Errore!! Transazione fallita</string>
+    <string name="add_to_amount">CARICA CONTO</string>
+    <string name="titleBalance">Saldo</string>
+    <string name="titlePromotion">Promozioni</string>
+    <string name="add_promotional_code">Aggiungi un codice promozionale al tuo prossimo noleggio</string>
+    <string name="add">Visualizza</string>
 </resources>

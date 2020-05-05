@@ -61,6 +61,9 @@ public class WalletFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View layout =  inflater.inflate(R.layout.fragment_wallet, container, false);
+        amountTv = (TextView) layout.findViewById(R.id.walletAmount);
+        payBt = (Button) layout.findViewById(R.id.ricarica);
+
 
         // Mostro snackbar
         if (ConnectionUtil.checkInternetConn(getActivity()))
@@ -99,8 +102,7 @@ public class WalletFragment extends Fragment {
                     }).create().show();
         }
 
-        amountTv = (TextView) layout.findViewById(R.id.wallet_amount);
-        payBt =  (Button) layout.findViewById(R.id.ricarica);
+
         payBt.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -122,7 +124,7 @@ public class WalletFragment extends Fragment {
 
     public static void afterTask(Double aDouble) {
         String soldiStringa = String.format("%,.2f", aDouble);
-        amountTv.setText(soldiStringa);
+        amountTv.setText("€ " + soldiStringa);
     }
 
 

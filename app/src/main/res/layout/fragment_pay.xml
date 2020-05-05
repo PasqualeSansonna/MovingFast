@@ -45,7 +45,7 @@
         android:elevation="@dimen/standard_elevation" />
 
     <TextView
-        android:id="@+id/textView4"
+        android:id="@+id/addPromotionalCode"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentStart="true"
