@@ -31,7 +31,9 @@ import org.json.JSONObject;
 
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.concurrent.ExecutionException;
 
+import it.uniba.di.gruppo17.asynchttp.AsyncGetRentId;
 import it.uniba.di.gruppo17.asynchttp.JsonFromHttp;
 import it.uniba.di.gruppo17.services.LocationService;
 import it.uniba.di.gruppo17.util.Keys;
@@ -52,7 +54,7 @@ public class ResultFragment extends Fragment {
     private int idScooter;
     private int rentResult;
     private ProgressDialog progressDialog;
-    private AsyncGet httpGetNoleggio;
+    private AsyncGetRentId httpGetNoleggio;
     private Drawable drawable;
     private Toolbar toolbar;
     private boolean executed = false;
@@ -65,7 +67,7 @@ public class ResultFragment extends Fragment {
         super.onCreate(savedInstanceState);
         prefs = this.getActivity().getSharedPreferences(Keys.SHARED_PREFERENCES, Context.MODE_PRIVATE);
         toolbar = ((MainActivity) getActivity()).findViewById(R.id.toolbar);
-        httpGetNoleggio = new AsyncGet();
+        httpGetNoleggio = new AsyncGetRentId();
     }
 
     @Override
@@ -109,6 +111,7 @@ public class ResultFragment extends Fragment {
     @Override
     public void onStart() {
         super.onStart();
+        Integer [] result = new Integer[2];
         if (executed) {
             if (success)
                 goAhead();
@@ -122,15 +125,22 @@ public class ResultFragment extends Fragment {
             progressDialog.setCancelable(false);
 
             int id = prefs.getInt(Keys.ID_UTENTE, -1);
-            String str = Keys.SERVER + "get_idnoleggio.php?id=" + id;
+            String strConnection = Keys.SERVER + "get_idnoleggio.php?id=" + id;
             URL url = null;
 
             try {
-                url = new URL(str);
+                url = new URL(strConnection);
+                result = httpGetNoleggio.execute(url).get();
             } catch (MalformedURLException e) {
                 e.printStackTrace();
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            } catch (ExecutionException e) {
+                e.printStackTrace();
             }
-            httpGetNoleggio.execute(url);
+
+            afterTask(result);
+
         }
     }
 
@@ -194,7 +204,7 @@ public class ResultFragment extends Fragment {
 
 
     /**
-     * Metodo richiamato nell'onPostExecute dell'asyncTask che, in base al risultato dell'asyncTask, procede con il noleggio oppure torna indietro
+     * Metodo richiamato  in base al risultato dell'asyncTask, procede con il noleggio oppure torna indietro
     */
     private void afterTask(Integer[] noleggio) {
 
@@ -212,44 +222,5 @@ public class ResultFragment extends Fragment {
     }
 
 
-    /**
-     * Classe AsyncTask utilizzata per il prelievo dell'id Noleggio in seguito al noleggio del monopattino
-     */
-    private class AsyncGet extends AsyncTask<URL, Integer, Integer[]> {
 
-
-        @Override
-        protected Integer[] doInBackground(URL... params) {
-
-            Integer[] array = {-1, -1};
-            try {
-                Thread.sleep(7000);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-
-            for (URL param : params) {
-                try {
-                    JSONObject j = JsonFromHttp.getJsonObject(param);
-                    array[0] = j.getInt("id");
-                    array[1] = j.getInt("id_scooter");
-                    Log.d("JSON", j.toString());
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
-            }
-            return array;
-        }
-
-        @Override
-        protected void onPreExecute() {
-            super.onPreExecute();
-        }
-
-        @Override
-        protected void onPostExecute(Integer[] integers) {
-            super.onPostExecute(integers);
-            afterTask(integers);
-        }
-    }
 }
