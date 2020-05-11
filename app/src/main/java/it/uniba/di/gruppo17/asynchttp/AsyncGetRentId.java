@@ -16,7 +16,7 @@ public class AsyncGetRentId extends AsyncTask<URL, Integer, Integer[]> {
 
         Integer[] array = {-1, -1};
         try {
-            Thread.sleep(7000);
+            Thread.sleep(5000);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
@@ -24,8 +24,8 @@ public class AsyncGetRentId extends AsyncTask<URL, Integer, Integer[]> {
         for (URL param : params) {
             try {
                 JSONObject j = JsonFromHttp.getJsonObject(param);
-                array[0] = j.getInt("id");
-                array[1] = j.getInt("id_scooter");
+                array[0] = j.getInt("idRent");
+                array[1] = j.getInt("idScooter");
                 Log.d("JSON", j.toString());
             } catch (JSONException e) {
                 e.printStackTrace();

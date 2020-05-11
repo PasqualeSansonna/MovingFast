@@ -125,7 +125,7 @@ public class ResultFragment extends Fragment {
             progressDialog.setCancelable(false);
 
             int id = prefs.getInt(Keys.ID_UTENTE, -1);
-            String strConnection = Keys.SERVER + "get_idnoleggio.php?id=" + id;
+            String strConnection = Keys.SERVER + "get_rentId.php?idU=" + id;
             URL url = null;
 
             try {
