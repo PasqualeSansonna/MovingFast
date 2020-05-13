@@ -19,7 +19,7 @@ if ($raggio != null && $latitudine != null && $longitudine != null) {
 		), JSON_FORCE_OBJECT );
 		echo $post_error;
 	}	
-	$provaCazzo = array();
+
 	$id_array = array ();
 	$lat_array = array ();
 	$lon_array = array ();
