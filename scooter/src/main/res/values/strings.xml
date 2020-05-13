@@ -1,0 +1,40 @@
+<resources>
+    <string name="app_name">Scooter</string>
+
+    <string name="noNfc_message">This device have no NFC chip</string>
+    <string name="noLocation_message">Device location not avaible. Please check location permission for this app and check if location is on</string>
+    <string name="NfcError_message">Device NFC is off. Please check it in settings and be sure AndroidBeam is enabled too</string>
+    <string name="noConnectionAvailable_message">Device internet connection is off</string>
+
+    <string name="noNfc_alertDialog_title">NFC chip not found</string>
+    <string name="noNfc_alerDialog_message">This device have no NFC chip. You can not run this app</string>
+    <string name="noNfc_alertDialog_button">I understand</string>
+
+    <string name="connectionOff_title">Device network is off</string>
+    <string name="connectionOff_message">Device WI-FI / Mobile data is off. Please check it in settings</string>
+    <string name="connectionOff_button">Open Settings</string>
+    <string name="serverError">Server not available or internet connection not working. Try later.</string>
+
+    <string name="locationPermission_title">Permissions not granted</string>
+    <string name="locationPermission_message">Locations permissions are needed to use the app</string>
+    <string name="locationPermission_messageToOpenSettings">Locations permissions are needed to use the app. Gr</string>
+    <string name="locationPermission_positiveButton">Ok</string>
+    <string name="locationPermission_negativeButton">No thanks </string>
+
+    <string name="deviceLocationOn_title">GPS is off</string>
+    <string name="deviceLocationOn_message">Turn on device GPS to allow the application to know the current position</string>
+    <string name="deviceLocationOn_positiveButton">Open settings</string>
+    <string name="deviceLocationOn_negativeButton">No thanks</string>
+
+    <string name="deviceNFC_isOff_title">NFC function is off</string>
+    <string name="deviceNFC_isOff_message">Turn on device NFC. It is required to use the application</string>
+    <string name="deviceNFC_isOff_settingsButton">Open Settings</string>
+
+    <string name="androidBeam_isOff_title">AndroidBeam is off</string>
+    <string name="androidBeam_isOff_message">AndroiBeam is off. Please go to settings and turn it on</string>
+    <string name="androidBeam_isOff_settingsButton">Open settings</string>
+
+    <string name="LocationService_message">Location service is running...</string>
+    <string name="running_text">Application is running</string>
+
+</resources>
