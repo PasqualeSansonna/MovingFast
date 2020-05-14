@@ -55,9 +55,6 @@
     <string name="batterylevel_textview">Batteria</string>
     <string name="button_sheet">Direzione</string>
     <string name="connection_disabled">La tua connessione Internet è disabilitata, per favore attivala per continuare</string>
-    <string name="no_chip_nfc">Il tuo dispositivo non ha l\' NFC</string>
-    <string name="no_NFC_enabled">Per favore abilita l\' NFC</string>
-    <string name="no_beam_enabled">Per favore abilita Android Beam</string>
     <string name="map_title">Mappa</string>
     <string name="rent_title">Noleggia monopattino</string>
     <string name="loading_connection_title">Connessione</string>
@@ -96,4 +93,12 @@
     <string name="titleDeparture">Partenza</string>
     <string name="toast_password">La password deve contenere più di 5 caratteri, una lettera minuscola e maiuscola, un numero e un carattere speciale  @$*%^&amp;+=</string>
     <string name="unlock_button">Sblocca</string>
+    <string name="NoChipNFC_textview">Il tuo dispositivo non è dotato di chip NFC</string>
+    <string name="noNfc_title">NFC non disponibile</string>
+    <string name="noNfc_message">Il tuo dispositivo non è dotato di chip NFC</string>
+    <string name="nfcIsOff_title">NFC non è attivo</string>
+    <string name="nfcIsOff_message">Attiva NFC dalle impostazioni</string>
+    <string name="settingsButton">Apri impostazioni</string>
+    <string name="androidBeamIsOff_title">Android Beam non è attivo</string>
+    <string name="androidBeamIsOff_message">Attiva Android Beam dalle impostazioni</string>
 </resources>
