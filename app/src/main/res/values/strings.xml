@@ -78,9 +78,13 @@
 
     <!--String in rent e result fragment-->
     <string name="connection_disabled">Your internet connection is disabled, please activate it to continue</string>
-    <string name="no_chip_nfc">Your device does not have NFC</string>
-    <string name="no_NFC_enabled">Please enable NFC</string>
-    <string name="no_beam_enabled">Please enable Android Beam</string>
+    <string name="noNfc_title">NFC not supported</string>
+    <string name="noNfc_message">This device does not have NFC chip. Impossibile to rent a scooter</string>
+    <string name="nfcIsOff_title">NFC is off</string>
+    <string name="nfcIsOff_message">Turn on NFC from settings</string>
+    <string name="settingsButton">Open Settings</string>
+    <string name="androidBeamIsOff_title">Android Beam function is off</string>
+    <string name="androidBeamIsOff_message"> Turn on Android Beam from settings</string>
     <string name="map_title">Map</string>
     <string name="rent_title">Rent a scooter</string>
     <string name="loading_connection_title">Connecting</string>
@@ -130,6 +134,7 @@
     <string name="add_to_amount">LOAD TO THE BALANCE</string>
     <string name="toast_password">The password must contain more than 5 characters, a lowercase and uppercase letter, a number and a special character @ $ *% ^ &amp; amp; + =</string>
 
+    <!--Strings for NoChipNFCFragment-->
     <string name="NoChipNFC_textview">Your device does not have NFC chip</string>
 
 

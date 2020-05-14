@@ -109,9 +109,9 @@ public class RentFragment extends Fragment implements NfcAdapter.CreateNdefMessa
     private boolean deviceHasNfc() {
         if (nfcAdapter == null) {
             new android.app.AlertDialog.Builder(getContext())
-                    .setTitle("Chip NFC non disponiible")
+                    .setTitle(R.string.noNfc_title)
                     .setCancelable(false)
-                    .setMessage("Il tuo dispositivo non è dotato di chip NFC. Non è possibile procedere con il noleggio")
+                    .setMessage(R.string.noNfc_message)
                     .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
                         public void onClick(DialogInterface dialogInterface, int i) {
                             Fragment toNoChipNfcFragment = new NoChipNfcFragment();
@@ -136,9 +136,9 @@ public class RentFragment extends Fragment implements NfcAdapter.CreateNdefMessa
         else
         {
             new android.app.AlertDialog.Builder(getContext())
-                    .setTitle("NFC è spento")
-                    .setMessage("Attiva nfc dalle impostazioni")
-                    .setPositiveButton("Impostazioni", new DialogInterface.OnClickListener() {
+                    .setTitle(R.string.nfcIsOff_title)
+                    .setMessage(R.string.nfcIsOff_message)
+                    .setPositiveButton(R.string.settingsButton, new DialogInterface.OnClickListener() {
                         public void onClick(DialogInterface dialogInterface, int i) {
                             if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN)
                                 startActivity(new Intent(Settings.ACTION_NFC_SETTINGS));
@@ -164,9 +164,9 @@ public class RentFragment extends Fragment implements NfcAdapter.CreateNdefMessa
         else
         {
             new android.app.AlertDialog.Builder(getContext())
-                    .setTitle("Android Beam non abilitato")
-                    .setMessage("Android Beam non è attivo. Vai nelle impostazioni")
-                    .setPositiveButton("Impostazioi", new DialogInterface.OnClickListener() {
+                    .setTitle(R.string.androidBeamIsOff_title)
+                    .setMessage(R.string.androidBeamIsOff_message)
+                    .setPositiveButton(R.string.settingsButton, new DialogInterface.OnClickListener() {
                         public void onClick(DialogInterface dialogInterface, int i) {
                             startActivity(new Intent(Settings.ACTION_NFCSHARING_SETTINGS));
                         }
