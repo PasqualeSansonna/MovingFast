@@ -22,7 +22,7 @@ public class AsyncViewProfile extends AsyncTask<URL,String, UserProfile> {
         for (URL param : params) {
             JSONObject utente = new JsonFromHttp().getJsonObject(param);
             try {
-                    user = new UserProfile(utente.getString("nome"), utente.getString("cognome"), utente.getString("email"));
+                    user = new UserProfile(0, utente.getString("nome"), utente.getString("cognome"), utente.getString("email"), false);
             } catch (Exception e) {
                 e.printStackTrace();
             }

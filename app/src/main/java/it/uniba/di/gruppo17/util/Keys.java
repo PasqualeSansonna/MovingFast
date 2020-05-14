@@ -4,9 +4,10 @@ public interface Keys {
     String EMAIL = "email";
     String PASSWORD = "password";
     String RENTALS_TOTAL_DURATION = "rentals_total_duration";
-    String SERVER = "http://192.168.178.26/";
+    String SERVER = "http://192.168.1.87/";
     String USER_AGENT = "Mozilla/5.0";
     String ID_UTENTE = "id";
+    String USER_TYPE = "type";
     String WALLET = "wallet" ;
     String SHARED_PREFERENCES = "MovingFastPreferences";
     //Per controllo Google play services e permessi geolocalizzazione

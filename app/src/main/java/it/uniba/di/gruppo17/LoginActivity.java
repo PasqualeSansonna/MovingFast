@@ -23,6 +23,7 @@ import java.util.concurrent.ExecutionException;
 import it.uniba.di.gruppo17.asynchttp.AsyncLogin;
 import it.uniba.di.gruppo17.util.ConnectionUtil;
 import it.uniba.di.gruppo17.util.Keys;
+import it.uniba.di.gruppo17.util.UserProfile;
 
 import static it.uniba.di.gruppo17.util.Keys.EMAIL;
 import static it.uniba.di.gruppo17.util.Keys.PASSWORD;
@@ -36,6 +37,7 @@ public class LoginActivity extends AppCompatActivity {
      * EdiText campi per email e password
      */
     private EditText ETemail, ETpassword;
+    private boolean isManutentore = false;
     /**
      * Sentinella per la memorizzazione delle credentials.
      */
@@ -208,10 +210,14 @@ public class LoginActivity extends AppCompatActivity {
                 SharedPreferences.Editor editor = preferences.edit();
                 URL url = new URL(str);
 
-                    AsyncLogin utente = new AsyncLogin();
-                    int id = utente.execute(url).get();
-                    editor.putInt(Keys.ID_UTENTE, id);
-                    editor.apply();
+                UserProfile loggedUser = null;
+
+                AsyncLogin utente = new AsyncLogin();
+                loggedUser = utente.execute(url).get();
+                editor.putInt(Keys.ID_UTENTE, loggedUser.getId());
+                //salvo in shared tipo utente
+                editor.putBoolean(Keys.USER_TYPE, loggedUser.isManutentore());
+                editor.apply();
                 /** controllo se l'id utente nelle shared preferences è errato (-1),
                  *  nel caso in cui è errato lo rimuovo e restituisco false
                  *  altrimenti true (il suo id resta salvato nelle shared preferences)
