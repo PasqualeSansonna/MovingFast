@@ -104,7 +104,7 @@ public class MapsFragment extends Fragment {
                    @Override
                    public boolean onMarkerClick(Marker marker) {
                        marker.hideInfoWindow();
-                       BottomSheetDialog mBottomSheetDialog = new BottomSheetDialog(getContext(), R.style.BottomSheetDialogTheme);
+                       final BottomSheetDialog mBottomSheetDialog = new BottomSheetDialog(getContext(), R.style.BottomSheetDialogTheme);
                        mBottomSheetDialog.setContentView(R.layout.bottomsheet_layout_mapfragment);
                        TextView address = mBottomSheetDialog.findViewById(R.id.address_textView);
                        TextView battery = mBottomSheetDialog.findViewById(R.id.battery_textView);
@@ -123,6 +123,7 @@ public class MapsFragment extends Fragment {
                        mBottomSheetDialog.findViewById(R.id.directionsButton).setOnClickListener(new View.OnClickListener() {
                            @Override
                            public void onClick(View view) {
+                               mBottomSheetDialog.dismiss();
                                //Per aprire app google maps
                                Uri googleMapsIntentUri = Uri.parse("google.navigation:q="+mLatLng.latitude+","+mLatLng.longitude+"&mode=w");
                                Intent googleMapsIntent = new Intent(Intent.ACTION_VIEW, googleMapsIntentUri);
@@ -130,6 +131,16 @@ public class MapsFragment extends Fragment {
                                startActivity(googleMapsIntent);
                                //Metto il fragment in pausa. Da controllare
                                MapsFragment.super.onPause();
+                           }
+                       });
+                       mBottomSheetDialog.findViewById(R.id.unlockButton).setOnClickListener(new View.OnClickListener() {
+                           @Override
+                           public void onClick(View view) {
+                               mBottomSheetDialog.dismiss();
+                               //Per sbloccare il monopattino, richiamo rentFragment ed elimino mapsfragment
+                               Fragment toRentFragment = new RentFragment();
+                               getFragmentManager().beginTransaction().replace(R.id.maps_fragment, toRentFragment).commit();
+                               MapsFragment.super.onDestroy();
                            }
                        });
                        mBottomSheetDialog.show();
