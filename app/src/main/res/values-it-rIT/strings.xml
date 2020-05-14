@@ -95,4 +95,5 @@
     <string name="titleArrival">Arrivo</string>
     <string name="titleDeparture">Partenza</string>
     <string name="toast_password">La password deve contenere più di 5 caratteri, una lettera minuscola e maiuscola, un numero e un carattere speciale  @$*%^&amp;+=</string>
+    <string name="unlock_button">Sblocca</string>
 </resources>

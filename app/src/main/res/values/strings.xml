@@ -74,6 +74,7 @@
     <string name="address_textview">Address</string>
     <string name="batterylevel_textview">Battery</string>
     <string name="button_sheet">Directions</string>
+    <string name="unlock_button">Unlock</string>
 
     <!--String in rent e result fragment-->
     <string name="connection_disabled">Your internet connection is disabled, please activate it to continue</string>
