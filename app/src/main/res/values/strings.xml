@@ -130,5 +130,7 @@
     <string name="add_to_amount">LOAD TO THE BALANCE</string>
     <string name="toast_password">The password must contain more than 5 characters, a lowercase and uppercase letter, a number and a special character @ $ *% ^ &amp; amp; + =</string>
 
+    <string name="NoChipNFC_textview">Your device does not have NFC chip</string>
+
 
 </resources>
