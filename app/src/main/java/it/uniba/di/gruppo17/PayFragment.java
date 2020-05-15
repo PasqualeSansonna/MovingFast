@@ -1,5 +1,6 @@
 package it.uniba.di.gruppo17;
 
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -12,12 +13,16 @@ import androidx.fragment.app.FragmentTransaction;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.google.android.material.snackbar.Snackbar;
+
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.Objects;
 import java.util.concurrent.ExecutionException;
 
 import it.uniba.di.gruppo17.util.Keys;
@@ -53,14 +58,20 @@ public class PayFragment extends Fragment {
         // Inflate the layout for this fragment
         View layout = inflater.inflate(R.layout.fragment_pay, container, false);
 
-        idUtente = preferences.getInt(Keys.ID_UTENTE, -1);
         payBt = (Button) layout.findViewById(R.id.addBalanceButton);
         amountEt = (EditText) layout.findViewById(R.id.valueAddBalance);
 
+        return layout;
+    }
+
+    @Override
+    public void onResume() {
+        idUtente = preferences.getInt(Keys.ID_UTENTE, -1);
         payBt.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (ConnectionUtil.checkInternetConn(getActivity()))
+                hideKeyboard(getContext());
+                if (ConnectionUtil.checkInternetConn(Objects.requireNonNull(getActivity())))
                 {
                     Toast.makeText(getActivity(), R.string.loading_connection_msg, Toast.LENGTH_LONG);
                     float amount = Float.parseFloat(amountEt.getText().toString());
@@ -91,21 +102,23 @@ public class PayFragment extends Fragment {
                     else
                     {
                         //errore sull'importo inserito
-                        Toast.makeText(getActivity(), R.string.amount_lessThanZero, Toast.LENGTH_LONG);
+                        //Toast.makeText(getActivity(), R.string.amount_lessThanZero, Toast.LENGTH_LONG);
+                        Snackbar.make(Objects.requireNonNull(getView()), R.string.amount_lessThanZero, Snackbar.LENGTH_LONG).show();
                     }
 
                 }
                 else
                 {
                     //errore no connessione
-                    Toast.makeText(getActivity(), R.string.no_connection_message, Toast.LENGTH_LONG);
+                    //Toast.makeText(getActivity(), R.string.no_connection_message, Toast.LENGTH_LONG);
+                    Snackbar.make(Objects.requireNonNull(getView()), R.string.no_connection_message, Snackbar.LENGTH_LONG).show();
                 }
             }
         });
 
-        return layout;
-    }
 
+        super.onResume();
+    }
 
     /**
      * Metodo che fa cambiare fragment
@@ -156,6 +169,22 @@ public class PayFragment extends Fragment {
         } catch (InterruptedException | ExecutionException | MalformedURLException e) {
             return false;
         }
+    }
+
+
+    /**
+     * Metodo che abbassa la view della tastiera
+     * @param context
+     */
+    private void hideKeyboard(Context context) {
+        InputMethodManager inputManager = (InputMethodManager) context
+                .getSystemService(Context.INPUT_METHOD_SERVICE);
+        // check if no view has focus:
+        View v = ((Activity) context).getCurrentFocus();
+        if (v == null)
+            return;
+        inputManager.hideSoftInputFromWindow(v.getWindowToken(), 0);
+
     }
 
 }

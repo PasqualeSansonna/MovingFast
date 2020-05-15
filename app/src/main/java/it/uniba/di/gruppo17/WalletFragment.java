@@ -21,6 +21,7 @@ import com.google.android.material.snackbar.Snackbar;
 
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.Objects;
 
 import it.uniba.di.gruppo17.asynchttp.AsyncGetBalance;
 import it.uniba.di.gruppo17.util.ConnectionUtil;
@@ -65,16 +66,17 @@ public class WalletFragment extends Fragment {
         payBt = (Button) layout.findViewById(R.id.ricarica);
 
 
+        return layout;
+    }
+
+
+    @Override
+    public void onResume() {
         // Mostro snackbar
-        if (ConnectionUtil.checkInternetConn(getActivity()))
-        {
-            //Snackbar.make(getView(),R.string.loading_connection_msgWallet, Snackbar.LENGTH_LONG).show();
-            Toast.makeText(getActivity(), R.string.loading_connection_msgWallet, Toast.LENGTH_LONG);
-        }
-        else
-        {
-            //Snackbar.make(getView(),R.string.no_connection_title, Snackbar.LENGTH_LONG).show();
-            Toast.makeText(getActivity(), R.string.no_connection_title, Toast.LENGTH_LONG);
+        if (ConnectionUtil.checkInternetConn(Objects.requireNonNull(getActivity()))) {
+            Snackbar.make(Objects.requireNonNull(getView()), R.string.loading_connection_msgWallet, Snackbar.LENGTH_LONG).show();
+        } else {
+            Snackbar.make(Objects.requireNonNull(getView()),R.string.no_connection_title, Snackbar.LENGTH_LONG).show();
         }
 
         //prendo dati da shared prefs
@@ -83,13 +85,11 @@ public class WalletFragment extends Fragment {
 
         //Costruzione stringa HTTP
         String str = Keys.SERVER + "get_portafoglio.php?id=" + id;
-        try
-        {
+        try {
             url = new URL(str);
             AsyncGetBalance http = new AsyncGetBalance();
             http.execute(url);
-        } catch (MalformedURLException e)
-        {
+        } catch (MalformedURLException e) {
             //stampo errore e torno a home Fragment
             new AlertDialog.Builder(getContext())
                     .setTitle(R.string.no_connection_title)
@@ -106,14 +106,12 @@ public class WalletFragment extends Fragment {
         payBt.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                goToFragment(new  PayFragment());
+                goToFragment(new PayFragment());
             }
         });
 
-        return layout;
+        super.onResume();
     }
-
-
 
     private void goToFragment(Fragment nextFragment) {
         FragmentTransaction fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
