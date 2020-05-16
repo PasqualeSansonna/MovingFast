@@ -8,6 +8,7 @@ import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 
 import android.location.LocationManager;
@@ -21,6 +22,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Parcelable;
 import android.util.Log;
+import android.widget.TextView;
 import android.widget.Toast;
 
 
@@ -62,7 +64,7 @@ public class NfcListener extends AppCompatActivity {
     {
         boolean ok;
         int batteria = getBatteryPercentage(this);
-        String SERVER = Keys.SERVER + "checkmonopattino.php?id="+Keys.ID_MONOPATTINO+"&lat="+LocationService.realTimeDeviceLocation().getLatitude()+
+        String SERVER = Keys.SERVER + "checkmonopattino.php?id="+Keys.SCOOTER_ID +"&lat="+LocationService.realTimeDeviceLocation().getLatitude()+
                 "&long="+LocationService.realTimeDeviceLocation().getLongitude()+"&bat="+batteria;
         URL url = null;
         try {
@@ -144,13 +146,14 @@ public class NfcListener extends AppCompatActivity {
                 NdefRecord[] mNdefRecord  = mNdefMessage.getRecords();
                 String receivedData = new String( mNdefRecord[0].getPayload() );
                 String[] data = receivedData.split(":");
-                String requestedOperation = data[0];
+                String requestedOperation = data[Keys.ACTION];
                 switch (requestedOperation)
                 {
-                    case "rent": //noleggio
+                    case Keys.RENT: //noleggio
                         startRent(data);
                         break;
-                    case "close": //chiudi noleggio
+                    case Keys.CLOSE_RENT: //chiudi noleggio
+                        closeRent(data);
                         break;
                     default:
                         Log.d("Codice operazione","Codice operazione strano");
@@ -158,7 +161,7 @@ public class NfcListener extends AppCompatActivity {
                 }
             }
             else
-                Toast.makeText(this,"Non ho ricevuto nulla",Toast.LENGTH_LONG).show();
+                Toast.makeText(this,R.string.nfcBumpNoData_message,Toast.LENGTH_LONG).show();
         }
     }
 
@@ -168,11 +171,11 @@ public class NfcListener extends AppCompatActivity {
         SimpleDateFormat mDateFormat = new SimpleDateFormat("HH:mm:ss");
         String time = mDateFormat.format(mCalendar.getTime());
         String date = new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault()).format(new Date());
-        int idUtente = Integer.parseInt(data[1]);
+        int idUtente = Integer.parseInt(data[Keys.USER_ID]);
         int rentId = 0;
         if ( idUtente >= 0 )
         {
-            String server = Keys.SERVER + "rent.php?idU="+idUtente+"&idM="+Keys.ID_MONOPATTINO+"&data="+date+
+            String server = Keys.SERVER + "rent.php?idU="+idUtente+"&idM="+Keys.SCOOTER_ID +"&data="+date+
                     "&ora="+time+"&lat="+LocationService.realTimeDeviceLocation().getLatitude()+"&long="+LocationService.realTimeDeviceLocation().getLongitude();
             try {
                 URL url = new URL(server);
@@ -190,9 +193,33 @@ public class NfcListener extends AppCompatActivity {
         }
     }
 
-    private void endRent()
+    private void closeRent(String[] data)
     {
-
+        Calendar mCalendar = Calendar.getInstance();
+        SimpleDateFormat mDateFormat = new SimpleDateFormat("HH:mm:ss");
+        String time = mDateFormat.format(mCalendar.getTime());
+        String date = new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault()).format(new Date());
+        int idUtente = Integer.parseInt(data[Keys.USER_ID]);
+        int idNoleggio = Integer.parseInt(data[Keys.RENT_ID]);
+        if ( idUtente > -1 && idNoleggio > -1 )
+        {
+            String server = Keys.SERVER + "close_rent.php?idU="+idUtente+"&idM="+Keys.SCOOTER_ID +"&idN="+idNoleggio+"&data="+date+
+                    "&ora="+time+"&lat="+LocationService.realTimeDeviceLocation().getLatitude()+"&long="+LocationService.realTimeDeviceLocation().getLongitude();
+            try{
+                URL url = new URL(server);
+                AsyncCloseRentFragment mCloseRent = new AsyncCloseRentFragment();
+                if ( mCloseRent.execute().get() )
+                    Toast.makeText(this, R.string.rentClosedSuccessfully_message,Toast.LENGTH_LONG).show();
+                else
+                    Toast.makeText(this,R.string.rentClosedError_message,Toast.LENGTH_LONG).show();
+            } catch (MalformedURLException e) {
+                e.printStackTrace();
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            } catch (ExecutionException e) {
+                e.printStackTrace();
+            }
+        }
     }
 
     //Per ottenere la batteria corrente del monopattino

@@ -33,7 +33,7 @@ import it.uniba.di.gruppo17.util.Keys;
 public class RentFragment extends Fragment implements NfcAdapter.CreateNdefMessageCallback, NfcAdapter.OnNdefPushCompleteCallback {
 
     public static SharedPreferences prefs;
-    private int username;
+    private int userId;
     private NfcAdapter nfcAdapter;
 
     @Override
@@ -185,9 +185,9 @@ public class RentFragment extends Fragment implements NfcAdapter.CreateNdefMessa
      */
     @Override
     public NdefMessage createNdefMessage(NfcEvent event) {
-        username = prefs.getInt(Keys.ID_UTENTE, -1);
+        userId = prefs.getInt(Keys.ID_UTENTE, -1);
         String request;
-        request = Keys.RENT + ":" + username;
+        request = Keys.RENT + ":" + userId;
         NdefRecord ndefRecord = NdefRecord.createMime("text/plain", request.getBytes());
         NdefMessage ndefMessage = new NdefMessage(ndefRecord);
         return ndefMessage;

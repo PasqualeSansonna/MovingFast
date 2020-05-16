@@ -69,7 +69,7 @@ public class MainActivity extends AppCompatActivity {
                             startLocationService();
                             if ( deviceNfcIsOn() && androidBeamIsOn() )
                             {
-                                Toast.makeText(this,R.string.LocationService_message,Toast.LENGTH_SHORT).show();
+                                Toast.makeText(this,R.string.locationService_message,Toast.LENGTH_SHORT).show();
                                 startActivity(new Intent (this, NfcListener.class)
                                         .addFlags(Intent.FLAG_ACTIVITY_NEW_TASK|Intent.FLAG_ACTIVITY_CLEAR_TOP));
                                 finish();
@@ -77,7 +77,7 @@ public class MainActivity extends AppCompatActivity {
                             else
                             {
                                 imageError.setVisibility(View.VISIBLE);
-                                textViewErrorMessage.setText(R.string.NfcError_message);
+                                textViewErrorMessage.setText(R.string.nfcError_message);
                                 textViewErrorMessage.setVisibility(View.VISIBLE);
                             }
                         }

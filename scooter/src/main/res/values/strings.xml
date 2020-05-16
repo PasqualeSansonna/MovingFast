@@ -3,7 +3,7 @@
 
     <string name="noNfc_message">This device have no NFC chip</string>
     <string name="noLocation_message">Device location not avaible. Please check location permission for this app and check if location is on</string>
-    <string name="NfcError_message">Device NFC is off. Please check it in settings and be sure AndroidBeam is enabled too</string>
+    <string name="nfcError_message">Device NFC is off. Please check it in settings and be sure AndroidBeam is enabled too</string>
     <string name="noConnectionAvailable_message">Device internet connection is off</string>
 
     <string name="noNfc_alertDialog_title">NFC chip not found</string>
@@ -34,7 +34,11 @@
     <string name="androidBeam_isOff_message">AndroiBeam is off. Please go to settings and turn it on</string>
     <string name="androidBeam_isOff_settingsButton">Open settings</string>
 
-    <string name="LocationService_message">Location service is running...</string>
+    <string name="locationService_message">Location service is running...</string>
     <string name="running_text">Application is running</string>
 
+    <string name="nfcBumpNoData_message">No data received</string>
+
+    <string name="rentClosedSuccessfully_message">Rent closed successfully</string>
+    <string name="rentClosedError_message">Something went wrong</string>
 </resources>
