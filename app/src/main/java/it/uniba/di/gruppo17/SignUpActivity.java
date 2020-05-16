@@ -22,6 +22,7 @@ import java.net.URL;
 import java.util.concurrent.ExecutionException;
 import java.util.regex.Pattern;
 
+import it.uniba.di.gruppo17.asynchttp.AsyncCheckConnection;
 import it.uniba.di.gruppo17.asynchttp.AsyncSignUp;
 import it.uniba.di.gruppo17.util.*;
 
@@ -33,7 +34,7 @@ import static it.uniba.di.gruppo17.util.Keys.EMAIL;
  */
 public class SignUpActivity extends AppCompatActivity {
 
-    /**
+    /*
      * Regex per controllo password
      */
     private static final Pattern PASSWORD_PATTERN =
@@ -47,10 +48,13 @@ public class SignUpActivity extends AppCompatActivity {
                     "$");
 
 
-    /**
+    /*
      * EdiText del form di registrazione
      */
-    EditText ETemail, ETname, ETsurname, ETpassword;
+    private EditText ETemail, ETname, ETsurname, ETpassword;
+    private Button BTSignUp;
+
+    private AsyncCheckConnection mCheckInternet;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,7 +66,35 @@ public class SignUpActivity extends AppCompatActivity {
         ETsurname = (EditText) findViewById(R.id.surname_sign_up);
         ETpassword = (EditText) findViewById(R.id.password_sign_up);
 
-        Button BTSignUp = (Button) findViewById(R.id.button_sign_up);
+        BTSignUp = (Button) findViewById(R.id.button_sign_up);
+
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        mCheckInternet = new AsyncCheckConnection(this);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        //Verifico che il server risponde
+        try
+        {
+            if (!mCheckInternet.execute().get())
+            {
+                //Se non risponde dopo un timeout di 2,5 sec stampo un messaggio
+                Toast.makeText(SignUpActivity.this, R.string.no_server_response, Toast.LENGTH_LONG).show();
+            }
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        }
+
+
         if (BTSignUp != null)
         {
             BTSignUp.setOnClickListener(new View.OnClickListener() {
@@ -73,44 +105,43 @@ public class SignUpActivity extends AppCompatActivity {
                     String email = ETemail.getText().toString();
                     String password = ETpassword.getText().toString();
 
-                    /**Controllo  email valida*/
+                    /*Controllo  email valida*/
                     if (Patterns.EMAIL_ADDRESS.matcher(email).matches())
                     {
-                        /**Controllo se password valida*/
+                        /*Controllo se password valida*/
                         if (PASSWORD_PATTERN.matcher(password).matches())
                         {
                             if (ConnectionUtil.checkInternetConn(SignUpActivity.this))
                             {
-                                /**Eseguo signup*/
+                                /*Eseguo signup*/
                                 if (signUp(email, name, surname, password))
                                 {
-                                    goToLogin();  /**Avvenuto con successo, passo a schermata login*/
+                                    goToLogin();  /*Avvenuto con successo, passo a schermata login*/
                                 }
                                 else
                                 {
-                                    /**Errore email già usata (chiave nella tabella db, segnalo*/
+                                    /*Errore email già usata (chiave nella tabella db, segnalo*/
                                     alreadyUsedEmail(ETemail);
                                 }
                             }
                             else
                             {
-                                connectionError(); /**Mancanza di connessione, segnalo errore*/
+                                connectionError(); /*Mancanza di connessione, segnalo errore*/
                             }
                         }
                         else
                         {
-                            invalidPassword(ETpassword); /**Formato password non valido*/
+                            invalidPassword(ETpassword); /*Formato password non valido*/
                         }
                     }else
                     {
-                        invalidEmail(ETemail); /**Formato Email non valido*/
+                        invalidEmail(ETemail); /*Formato Email non valido*/
                     }
 
                 }
             });
         }
     }
-
 
     /**
      * Funzione che evidenzia errore di input nell'editText email
@@ -127,9 +158,7 @@ public class SignUpActivity extends AppCompatActivity {
      * Funzione che evidenzia errore di input nell'editText password
      * @param ETpassword Edit text password
      */
-    @SuppressLint("WrongConstant")
     private void invalidPassword(EditText ETpassword) {
-
         ETpassword.setText("");
         ETpassword.setHintTextColor(Color.RED);
         ETpassword.setHint(R.string.not_valid_password);

@@ -102,7 +102,6 @@ public class PayFragment extends Fragment {
                     else
                     {
                         //errore sull'importo inserito
-                        //Toast.makeText(getActivity(), R.string.amount_lessThanZero, Toast.LENGTH_LONG);
                         Snackbar.make(Objects.requireNonNull(getView()), R.string.amount_lessThanZero, Snackbar.LENGTH_LONG).show();
                     }
 

@@ -101,4 +101,5 @@
     <string name="settingsButton">Apri impostazioni</string>
     <string name="androidBeamIsOff_title">Android Beam non è attivo</string>
     <string name="androidBeamIsOff_message">Attiva Android Beam dalle impostazioni</string>
+    <string name="no_server_response">Il server non risponde. Riprova più tardi</string>
 </resources>
