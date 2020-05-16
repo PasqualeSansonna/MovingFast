@@ -2,6 +2,7 @@ package it.uniba.di.gruppo17;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -15,11 +16,15 @@ import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.Switch;
+import android.widget.Toast;
+
+import com.google.android.material.snackbar.Snackbar;
 
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.concurrent.ExecutionException;
 
+import it.uniba.di.gruppo17.asynchttp.AsyncCheckConnection;
 import it.uniba.di.gruppo17.asynchttp.AsyncLogin;
 import it.uniba.di.gruppo17.util.ConnectionUtil;
 import it.uniba.di.gruppo17.util.Keys;
@@ -33,43 +38,72 @@ import static it.uniba.di.gruppo17.util.Keys.PASSWORD;
  * Activity di Login alla piattaforma
  */
 public class LoginActivity extends AppCompatActivity {
-    /**
+    /*
      * EdiText campi per email e password
      */
     private EditText ETemail, ETpassword;
+    private Button BTlogin, BTSignUp;
     private boolean isManutentore = false;
-    /**
-     * Sentinella per la memorizzazione delle credentials.
-     */
+    // Sentinella per la memorizzazione delle credentials.
     private boolean saveCredential = false;
     private SharedPreferences preferences;
+
+    private AsyncCheckConnection mCheckInternet;
+
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-
-
+        /* Campi txt email e password*/
         ETemail = (EditText) findViewById(R.id.email_login);
         ETpassword = (EditText) findViewById(R.id.password_login);
+        /* Bottoni per Login e Registrazione */
+        BTlogin = (Button) findViewById(R.id.login_button);
+        BTSignUp = (Button) findViewById(R.id.button_sign_up);
+    }
 
-        /**
+    @Override
+    protected void onStart() {
+        super.onStart();
+        mCheckInternet = new AsyncCheckConnection(this);
+    }
+
+    @Override
+    protected void onResume() {
+        /*
          * Controllo se è presente un'email
          * passata dalla SingUpActivity andata a buon fine
          * ed eventualmente la inserisco nella ETemail,
          * avvio il dialog chiudendo la tastiera
          */
-        Bundle dati_passati = getIntent().getExtras();
-        if (dati_passati != null) {
-            ETemail.setText(dati_passati.getString(EMAIL));
+
+
+        //Verifico che il server risponde
+        try
+        {
+            if (!mCheckInternet.execute().get())
+            {
+                //Se non risponde dopo un timeout di 2,5 sec stampo un messaggio
+                Toast.makeText(LoginActivity.this, R.string.no_server_response, Toast.LENGTH_LONG).show();
+            }
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        }
+
+        Bundle dataFromSignup = getIntent().getExtras();
+        if (dataFromSignup != null) {
+            ETemail.setText(dataFromSignup.getString(EMAIL));
             SignUpDialog signUpDialog = new SignUpDialog(LoginActivity.this);
             signUpDialog.startDialog();
         }
-        /** Controllo delle sharedPref per eventuali credenziali salvate*/
+        /* Controllo delle sharedPref per eventuali credenziali salvate*/
         preferences = getSharedPreferences("MovingFastPreferences", Context.MODE_PRIVATE);
         if (preferences.contains(EMAIL) && preferences.contains(PASSWORD)) {
-            /**Bisogna controllare la connessione, se c'è è possibile fare il login*/
+            /*Bisogna controllare la connessione, se c'è è possibile fare il login*/
             if (ConnectionUtil.checkInternetConn(LoginActivity.this))
             {
                 login();
@@ -81,7 +115,7 @@ public class LoginActivity extends AppCompatActivity {
 
         }
 
-        /**Switch per salvataggio credenziali*/
+        /*Switch per salvataggio credenziali*/
         Switch switchCredenziali = (Switch) findViewById(R.id.switch_login);
         if (switchCredenziali != null)
         {
@@ -93,11 +127,9 @@ public class LoginActivity extends AppCompatActivity {
             });
         }
 
-        /** Bottoni per Login e Registrazione */
-        Button BTlogin = (Button) findViewById(R.id.login_button);
-        Button BTSignUp = (Button) findViewById(R.id.button_sign_up);
 
-        if (BTSignUp != null) /** Ci si intende registrarew*/
+
+        if (BTSignUp != null) /* Ci si intende registrarew*/
         {
             BTSignUp.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -107,7 +139,7 @@ public class LoginActivity extends AppCompatActivity {
             });
         }
 
-        if (BTlogin != null) /** Ci si intende loggare*/
+        if (BTlogin != null) /* Ci si intende loggare*/
         {
             BTlogin.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -115,7 +147,7 @@ public class LoginActivity extends AppCompatActivity {
                     if (ConnectionUtil.checkInternetConn(LoginActivity.this)) {
                         String email = ETemail.getText().toString();
                         String password = ETpassword.getText().toString();
-                        if (Patterns.EMAIL_ADDRESS.matcher(email).matches()) /** Check the email address pattern*/
+                        if (Patterns.EMAIL_ADDRESS.matcher(email).matches()) /* Check the email address pattern*/
                         {
                             if (checkValues(email, password)) {
                                 if (isChecked())
@@ -136,7 +168,7 @@ public class LoginActivity extends AppCompatActivity {
                 }
             });
         }
-
+        super.onResume();
     }
 
     /**

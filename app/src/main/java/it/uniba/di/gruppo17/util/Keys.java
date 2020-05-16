@@ -10,6 +10,8 @@ public interface Keys {
     String USER_TYPE = "type";
     String WALLET = "wallet" ;
     String SHARED_PREFERENCES = "MovingFastPreferences";
+    //Per check conn
+    int TIMEOUT = 2500;
     //Per controllo Google play services e permessi geolocalizzazione
     int REQUEST_RESOLVE_ERROR =1 ;
     String RESOLVING_ERROR_STATE_KEY = "RESOLVING_ERROR_STATE_KEY";
@@ -31,5 +33,4 @@ public interface Keys {
     String STOP_UPDATE_POSITION = "Stop update position";
     String START_UPDATE_POSITION = "Start update position";
     String RENT_FRAGMENT = "rent_fragment";
-
 }
