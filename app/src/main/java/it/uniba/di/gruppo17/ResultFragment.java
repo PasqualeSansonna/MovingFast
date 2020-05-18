@@ -1,172 +1,165 @@
 package it.uniba.di.gruppo17;
 
-import android.app.ProgressDialog;
+import android.app.AlertDialog;
 import android.content.Context;
-import android.content.Intent;
 import android.content.SharedPreferences;
-import android.content.pm.ActivityInfo;
-import android.graphics.drawable.Drawable;
-import android.os.AsyncTask;
+import android.hardware.Sensor;
+import android.hardware.SensorEvent;
+import android.hardware.SensorEventListener;
+import android.hardware.SensorManager;
 import android.os.Bundle;
 
-import androidx.appcompat.app.ActionBar;
-import androidx.appcompat.widget.Toolbar;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentTransaction;
 
-import android.util.Log;
+import android.os.SystemClock;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.ImageView;
+import android.widget.Chronometer;
 import android.widget.TextView;
 
 import com.google.android.material.navigation.NavigationView;
 
-import org.json.JSONException;
-import org.json.JSONObject;
-
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.util.concurrent.ExecutionException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Locale;
 
 import it.uniba.di.gruppo17.asynchttp.AsyncGetRentId;
-import it.uniba.di.gruppo17.asynchttp.JsonFromHttp;
-import it.uniba.di.gruppo17.services.LocationService;
 import it.uniba.di.gruppo17.util.Keys;
 
 /**
- * @author Andrea Montemurro
+ * @author Andrea Montemurro, rivisitato completamente da Francesco Moramarco
  * Fragment che viene inserito nello stackback dopo il fragment del noleggio per verificare il risultato
  */
 
 
-public class ResultFragment extends Fragment {
-    private static SharedPreferences prefs;
-    private static SharedPreferences.Editor editor;
-    private Button button;
-    private ImageView imageView;
-    private TextView textView;
-    private String next;
-    private int idScooter;
-    private int rentResult;
-    private ProgressDialog progressDialog;
-    private AsyncGetRentId httpGetNoleggio;
-    private Drawable drawable;
-    private Toolbar toolbar;
-    private boolean executed = false;
-    private boolean success = false;
+public class ResultFragment extends Fragment implements SensorEventListener, AsyncResponse{
 
+    private static SharedPreferences prefs;
+    private TextView distanceValue;
+    private Chronometer rentTime;
+    private SensorManager sManager;
+    private Sensor stepSensor;
+    private static long steps = 0;
+    private boolean taskExecuted;
+    private boolean rentSucceed;
+    private AlertDialog mAlertDialog;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        super.onCreate(savedInstanceState);
         prefs = this.getActivity().getSharedPreferences(Keys.SHARED_PREFERENCES, Context.MODE_PRIVATE);
-        toolbar = ((MainActivity) getActivity()).findViewById(R.id.toolbar);
-        httpGetNoleggio = new AsyncGetRentId();
+        sManager = (SensorManager) getActivity().getSystemService(Context.SENSOR_SERVICE);
+        stepSensor = sManager.getDefaultSensor(Sensor.TYPE_STEP_DETECTOR);
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        //return inflater.inflate(R.layout.fragment_result, container, false);
-
-        final View layout = inflater.inflate(R.layout.fragment_result, container, false);
-
-        button = (Button) layout.findViewById(R.id.buttonGoAhead);
-        imageView = (ImageView) layout.findViewById(R.id.imageViewResult);
-        textView = (TextView) layout.findViewById(R.id.textView);
-        progressDialog = new ProgressDialog(this.getActivity());
-        button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Fragment nextFragment;
-                if (next.equals(Keys.MAP_FRAGMENT)) {
-                    nextFragment = new MapsFragment();
-                    toolbar.setTitle(R.string.map_title);
-                } else {
-                    nextFragment = new RentFragment();
-                    toolbar.setTitle(R.string.rent_title);
-                }
-                getActivity().setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_UNSPECIFIED);
-                FragmentTransaction fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
-                fragmentTransaction.replace(R.id.fragment_container, nextFragment);
-                fragmentTransaction.commit();
-            }
-        });
+        View layout = inflater.inflate(R.layout.fragment_result, container, false);
         return layout;
     }
 
     @Override
-    public void onSaveInstanceState(Bundle outState) {
-        super.onSaveInstanceState(outState);
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        distanceValue = getView().findViewById(R.id.textViewValueTraveledDistance);
+        rentTime = getView().findViewById(R.id.chrono);
+        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+        LayoutInflater mInflater = getActivity().getLayoutInflater();
+        builder.setView(mInflater.inflate(R.layout.loading_dialog_layout,null));
+        builder.setCancelable(false);
+        mAlertDialog = builder.create();
     }
-
 
     @Override
     public void onStart() {
         super.onStart();
-        Integer [] result = new Integer[2];
-        if (executed) {
-            if (success)
-                goAhead();
-            else
-                goBack();
-        } else {
-            progressDialog.setIndeterminate(true);
-            progressDialog.setTitle(getString(R.string.loading_connection_title));
-            progressDialog.setMessage(getString(R.string.loading_connection_msg));
-            progressDialog.show();
-            progressDialog.setCancelable(false);
+        sManager.registerListener(this,stepSensor,SensorManager.SENSOR_DELAY_FASTEST);
+    }
 
+    @Override
+    public void onResume()
+    {
+        super.onResume();
+        if ( taskExecuted )
+        {
+            if ( rentSucceed )
+            {
+                distanceValue.setText( String.valueOf(getDistanceRun(steps)));
+                if ( prefs.contains(Keys.CHRONOMETER_TIME) )
+                    setChronometer();
+                rentTime.start();
+            }
+            else
+            {
+                //Noleggio non è andato a buon fine.
+            }
+        }
+        else
+        {
+            mAlertDialog.show();
+            AsyncGetRentId mAsyncGetRentId = new AsyncGetRentId(this);
             int id = prefs.getInt(Keys.ID_UTENTE, -1);
             String strConnection = Keys.SERVER + "get_rent_id.php?idU=" + id;
             URL url = null;
-
             try {
                 url = new URL(strConnection);
-                result = httpGetNoleggio.execute(url).get();
+                mAsyncGetRentId.execute(url);
             } catch (MalformedURLException e) {
                 e.printStackTrace();
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            } catch (ExecutionException e) {
-                e.printStackTrace();
             }
-
-            afterTask(result);
-
         }
     }
 
-    private void goAhead() {
-        drawable = getResources().getDrawable(R.drawable.android_smile);
-        imageView.setImageDrawable(drawable);
-        next = Keys.MAP_FRAGMENT;
+    // Metodo richiamato subito dopo che le operazioni in background (per ottenere l'id del noleggio) sono terminate
+    // Si è resa necessaria questa implementazione per fare in modo che fosse mostrato il dialog di caricamento all'utente
+    @Override
+    public void getResponse(Integer[] integers) {
+        afterTask(integers);
+    }
+
+    /**
+     * Metodo richiamato  in base al risultato dell'asyncTask, procede con il noleggio oppure mostra una schermata di errore
+     */
+    private void afterTask(Integer[] values)
+    {
+        taskExecuted = true;
+        int idRent = values[0];
+        int idScooter = values[1];
+        if ( idRent != -1 && idScooter != -1 )
+        {
+            //Il noleggio è andato a buon fine
+            mAlertDialog.dismiss();
+            rentSucceed = true;
+            saveData(idScooter, idRent); //salvo nelle shared Pref. i l'id del monopattino e del noleggio
+            getActivity().findViewById(R.id.resultLayout).setVisibility(View.VISIBLE);
+            distanceValue.setText( String.valueOf(getDistanceRun(steps)));
+            rentTime.start();
+            setNavigationBar();
+        }
+        else
+        {
+            rentFailed();
+        }
+    }
+
+    //Metodo per la memorizzazione dell'id del monopattino e del noleggio
+    private void saveData(int idScooter, int idRent) {
 
         SharedPreferences.Editor editor = prefs.edit();
         editor.putBoolean(Keys.IN_RENT, true);
         editor.putInt(Keys.ID_SCOOTER, idScooter);
-        editor.putInt(Keys.ID_RENT, rentResult);
+        editor.putInt(Keys.ID_RENT, idRent);
         editor.apply();
-
-        textView.setText(getString(R.string.rent_ok));
-        textView.setVisibility(View.VISIBLE);
-
-        button.setText(getString(R.string.go_to_map));
-        button.setVisibility(Button.VISIBLE);
-
-        imageView.setVisibility(View.VISIBLE);
-        Intent intent = new Intent(getActivity(), LocationService.class);
-        intent.putExtra(Keys.SERVICE, Keys.START_UPDATE_POSITION);
-        getActivity().startService(intent);
-        progressDialog.cancel();
-        setNavigationBar();
     }
 
     /**
@@ -175,52 +168,96 @@ public class ResultFragment extends Fragment {
     private void setNavigationBar() {
         NavigationView mNavigationMenu = (NavigationView) getActivity().findViewById(R.id.nav_view);
         Menu menu = mNavigationMenu.getMenu();
+        MenuItem menuItem0 = menu.getItem(0);
+        menuItem0.setVisible(true);
         MenuItem menuItem1 = menu.getItem(1);
         menuItem1.setVisible(true);
         MenuItem menuItem2 = menu.getItem(2);
-        menuItem2.setVisible(true);
+        menuItem2.setVisible(false);
         MenuItem menuItem3 = menu.getItem(3);
-        menuItem3.setVisible(false);
+        menuItem3.setVisible(true);
         MenuItem menuItem4 = menu.getItem(4);
         menuItem4.setVisible(true);
     }
 
-    private void goBack() {
-        imageView.clearAnimation();
-        drawable = getResources().getDrawable(R.drawable.android_sad);
-        imageView.setImageDrawable(drawable);
+    private void rentFailed()
+    {
 
-        textView.setText(getString(R.string.rent_error));
-        textView.setVisibility(View.VISIBLE);
-
-        next = Keys.RENT_FRAGMENT;
-
-        button.setText(getString(R.string.retry_rent));
-        button.setVisibility(Button.VISIBLE);
-
-        imageView.setVisibility(View.VISIBLE);
     }
 
-
+    @Override
+    public void onStop() {
+        super.onStop();
+        sManager.unregisterListener(this, stepSensor);
+        //Salvo nelle shared pref. data e ora correnti e il tempo registrato dal cronometro
+        //In questo modo sarà possibile tenere sempre traccia del tempo trascorso, anche nel caso in cui l'app dovesse essere killata
+        SharedPreferences.Editor editor = prefs.edit();
+        long elapsedTime = SystemClock.elapsedRealtime() - rentTime.getBase(); //il tempo registrato dal cronometro, in millisecondi
+        SimpleDateFormat sdf = new SimpleDateFormat(Keys.PATTERN_DATE_TIME, Locale.getDefault());
+        String currentDateAndTime = sdf.format(new Date());
+        editor.putLong(Keys.CHRONOMETER_TIME,elapsedTime);
+        editor.putString(Keys.CURRENT_DATE_TIME, currentDateAndTime);
+        editor.apply();
+    }
 
     /**
-     * Metodo richiamato  in base al risultato dell'asyncTask, procede con il noleggio oppure torna indietro
-    */
-    private void afterTask(Integer[] noleggio) {
-
-        int idRent = -1;
-        idRent = noleggio[0];
-        idScooter = noleggio[1];
-        rentResult = idRent;
-        executed = true;
-        progressDialog.cancel();
-        if (idRent != -1) {
-            success = true;
-            goAhead();
-        } else
-            goBack();
+     * Metodi necessari per il calcolo della distanza percorsa
+     */
+    @Override
+    public void onSensorChanged(SensorEvent sensorEvent) {
+        Sensor mSensor = sensorEvent.sensor;
+        float[] values = sensorEvent.values;
+        int value = -1;
+        if ( values.length > 0 )
+            value = (int)values[0];
+        if ( mSensor.getType() == Sensor.TYPE_STEP_DETECTOR )
+            steps++;
     }
 
+    @Override
+    public void onAccuracyChanged(Sensor sensor, int i) {
+
+    }
+
+    private float getDistanceRun(long steps)
+    {
+        float distance = (float) (steps*78)/(float)100000;
+        return distance;
+    }
+
+    // Metodo che consente di mostrare sul cronometro il corretto tempo di noleggio anche nel momento in cui l'app non è eseguita in
+    // background.
+    private void setChronometer()
+    {
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat(Keys.PATTERN_DATE_TIME);
+        try {
+            Date startDateTime = simpleDateFormat.parse( prefs.getString(Keys.CURRENT_DATE_TIME,""));
+            SimpleDateFormat sdf = new SimpleDateFormat(Keys.PATTERN_DATE_TIME, Locale.getDefault());
+            String currentDateandTime = sdf.format(new Date());
+            Date currentDateTime = simpleDateFormat.parse(currentDateandTime);
+
+            long different = currentDateTime.getTime() - startDateTime.getTime();
+            long secondsInMilli = 1000;
+            long minutesInMilli = secondsInMilli * 60;
+            long hoursInMilli = minutesInMilli * 60;
+
+            long elapsedHours = different / hoursInMilli;
+            different = different % hoursInMilli;
+
+            long elapsedMinutes = different / minutesInMilli;
+            different = different % minutesInMilli;
+
+            long elapsedSeconds = different / secondsInMilli;
+
+            int elapsedTimeMilliseconds = (int) (elapsedHours * 60 * 60 * 1000
+                    + elapsedMinutes * 60 * 1000
+                    + elapsedSeconds * 1000);
 
 
+            rentTime.setBase( SystemClock.elapsedRealtime() - elapsedTimeMilliseconds - prefs.getLong(Keys.CHRONOMETER_TIME,0) );
+
+        } catch (ParseException ex) {
+            ex.printStackTrace();
+        }
+    }
 }

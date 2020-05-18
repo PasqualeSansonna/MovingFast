@@ -6,39 +6,116 @@
     android:background="@color/background"
     tools:context=".ResultFragment">
 
-    <Button
-        android:id="@+id/buttonGoAhead"
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:id="@+id/resultLayout"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal|bottom"
-        android:layout_marginBottom="20dp"
-        android:layout_marginTop="10dp"
-        android:background="@color/colorAccent"
-        android:elevation="@dimen/standard_elevation"
-        android:gravity="center_vertical"
-        android:text="New Button"
-        android:textSize="@dimen/text_dimension"
-        android:textStyle="bold"
-        android:visibility="invisible" />
+        android:layout_marginTop="50dp"
+        android:layout_marginStart="50dp"
+        android:layout_marginEnd="50dp"
+        android:orientation="vertical"
+        android:visibility="gone">
+        <TextView
+            android:id="@+id/textViewChronometer"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Durata della corsa"
+            android:textSize="18sp"
+            android:textColor="@color/colorAccent"
+            android:textAlignment="center">
+       </TextView>
+        <Chronometer
+            android:id="@+id/chrono"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="30sp"
+            android:gravity="center_horizontal"
+            android:textColor="@color/colorAccent">
+        </Chronometer>
 
-    <ImageView
-        android:id="@+id/imageViewResult"
-        android:layout_width="309dp"
-        android:layout_height="336dp"
-        android:layout_gravity="center_horizontal|top"
-        android:src="@drawable/ic_loading"
-        android:visibility="invisible" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="30dp"
+            android:orientation="vertical">
+            <TextView
+                android:id="@+id/textViewTraveledDistance"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Distanza percorsa"
+                android:textAlignment="center"
+                android:textColor="@color/colorAccent"
+                android:textSize="18sp">
+            </TextView>
+            <TextView
+                android:id="@+id/textViewValueTraveledDistance"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textAlignment="center"
+                android:textSize="30sp"
+                android:textColor="@color/colorAccent"
+                android:text="0">
+            </TextView>
+        </LinearLayout>
 
-    <TextView
-        android:id="@+id/textView"
-        android:layout_width="311dp"
-        android:layout_height="189dp"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentEnd="true"
-        android:layout_gravity="center"
-        android:gravity="center"
-        android:text=""
-        android:textSize="20dp" />
-
-
+        <LinearLayout
+            android:id="@+id/openMapButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="30dp"
+            android:background="@drawable/directionsbutton_background"
+            android:clickable="true"
+            android:gravity="center"
+            android:orientation="horizontal"
+            android:padding="10dp"
+            android:focusable="true">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="15dp"
+                android:text="Google Maps"
+                android:textColor="@color/background"
+                android:textSize="18sp"
+                android:textStyle="bold"></TextView>
+        </LinearLayout>
+        <LinearLayout
+            android:id="@+id/closeRentButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/directionsbutton_background"
+            android:clickable="true"
+            android:gravity="center"
+            android:orientation="horizontal"
+            android:padding="10dp"
+            android:focusable="true">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Close Rent"
+                android:textColor="@color/background"
+                android:textSize="18sp"
+                android:textStyle="bold"></TextView>
+        </LinearLayout>
+        <LinearLayout
+            android:id="@+id/reportButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/directionsbutton_background"
+            android:clickable="true"
+            android:gravity="center"
+            android:orientation="horizontal"
+            android:padding="10dp"
+            android:focusable="true">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Segnala un problema"
+                android:textColor="@color/background"
+                android:textSize="18sp"
+                android:textStyle="bold">
+            </TextView>
+        </LinearLayout>
+    </LinearLayout>
 </FrameLayout>

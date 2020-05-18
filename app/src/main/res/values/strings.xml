@@ -138,6 +138,6 @@
     <!--Strings for NoChipNFCFragment-->
     <string name="NoChipNFC_textview">Your device does not have NFC chip</string>
 
-
-
+    <!--String loading_dialog_layout-->
+    <string name="loading_message">Loading...</string>
 </resources>

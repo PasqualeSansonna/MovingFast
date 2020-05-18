@@ -24,13 +24,13 @@ public interface Keys {
 
     //rentFragment
     String RENT = "rent";
+
     //resultfragment
-    String MAP_FRAGMENT = "map_fragment";
     String IN_RENT = "in_rent";
     String ID_RENT = "id_rent";
     String ID_SCOOTER = "id_scooter";
-    String SERVICE = "START_SERVICE";
-    String STOP_UPDATE_POSITION = "Stop update position";
-    String START_UPDATE_POSITION = "Start update position";
-    String RENT_FRAGMENT = "rent_fragment";
+    String CHRONOMETER_TIME = "chronometer_time";
+    String CURRENT_DATE_TIME ="current_date_time";
+    String PATTERN_DATE_TIME = "dd-MM-yyyy HH:mm:ss";
+
 }
