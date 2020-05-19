@@ -94,8 +94,8 @@ public class PayFragment extends Fragment {
         payBt.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                hideKeyboard(getContext());
                 getPayment();
-                //setCreditDb();
             }
         });
         super.onResume();
@@ -155,6 +155,7 @@ public class PayFragment extends Fragment {
                         String paymentDetails = confirm.toJSONObject().toString(4);
                         Log.i("paymentExample", paymentDetails);
 
+                        //Se il pagamento va a buon fine posso anche aggiornare il portafogli nel database dell'app
                         setCreditDb();
                         /*Starting a new activity for the payment details and also putting the payment details with intent
                         startActivity(new Intent(getContext(), ConfirmationActivity.class)
