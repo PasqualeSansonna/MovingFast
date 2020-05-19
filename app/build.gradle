@@ -36,5 +36,7 @@ dependencies {
     implementation 'com.mikhaellopez:circularimageview:4.2.0'
     implementation 'com.google.android.material:material:1.0.0'
     implementation 'androidx.recyclerview:recyclerview:1.0.0'
+    //For paypal payment
+    implementation 'com.paypal.sdk:paypal-android-sdk:2.14.2'
 
 }

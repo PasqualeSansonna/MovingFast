@@ -4,12 +4,14 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,7 +21,15 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.google.android.material.snackbar.Snackbar;
+import com.paypal.android.sdk.payments.PayPalConfiguration;
+import com.paypal.android.sdk.payments.PayPalPayment;
+import com.paypal.android.sdk.payments.PayPalService;
+import com.paypal.android.sdk.payments.PaymentActivity;
+import com.paypal.android.sdk.payments.PaymentConfirmation;
 
+import org.json.JSONException;
+
+import java.math.BigDecimal;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.Objects;
@@ -45,11 +55,25 @@ public class PayFragment extends Fragment {
     private Double newAmount; //indica il valore del saldo del portafoglio dopo la transazione
     private URL url;
 
+    //PAYPAL id
+    private static final String PAYPAL_CLIENT_ID = "AWJQ57yZHenTTO5TnZ523QMWfDMzqhdg7VAbbOg-OfUNAarfWdvWThYjTfB8VNWcfRHQo0AmeNeLxInp";
+    //Paypal intent request code to track onActivityResult method
+    public static final int PAYPAL_REQUEST_CODE = 123;
+    //Paypal Configuration Object
+    private static PayPalConfiguration config = new PayPalConfiguration()
+            // Start with mock environment.  When ready, switch to sandbox (ENVIRONMENT_SANDBOX)
+            // or live (ENVIRONMENT_PRODUCTION)
+            .environment(PayPalConfiguration.ENVIRONMENT_SANDBOX)
+            .clientId(PAYPAL_CLIENT_ID);
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         preferences = this.getActivity().getSharedPreferences(Keys.SHARED_PREFERENCES, Context.MODE_PRIVATE);
+        //Start the PayPal service
+        Intent intent = new Intent(getContext(), PayPalService.class);
+        intent.putExtra(PayPalService.EXTRA_PAYPAL_CONFIGURATION, config);
+        getActivity().startService(intent);
     }
 
     @Override
@@ -70,53 +94,130 @@ public class PayFragment extends Fragment {
         payBt.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                hideKeyboard(getContext());
-                if (ConnectionUtil.checkInternetConn(Objects.requireNonNull(getActivity())))
-                {
-                    Toast.makeText(getActivity(), R.string.loading_connection_msg, Toast.LENGTH_LONG);
-                    float amount = Float.parseFloat(amountEt.getText().toString());
-                    if (amount > 0.00)
-                    {
-                        //Se importo ricarica non è nullo posso effettuare la ricarica
-                        String strConn = Keys.SERVER + "set_portafoglio.php?id=" + idUtente + "&soldi=" + amount;
-                        try {
-                            url = new URL(strConn);
-                            // Esequo la query tramite php e prendo il risultato
-                            okTransaction = new AsyncAddBalance().execute(url).get();
-                        } catch (InterruptedException | ExecutionException | MalformedURLException e) {
-                            new AlertDialog.Builder(getContext())
-                                    .setTitle(R.string.no_connection_title)
-                                    .setMessage(R.string.no_connection_message)
-                                    .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
-                                        @Override
-                                        public void onClick(DialogInterface dialog, int which) {
-                                            // Faccio tornare al fragment Wallet
-                                            goToFragment(new WalletFragment());
-                                        }
-                                    }).create().show();
-                        }
-
-                        //verifico che la transazione è andata a buon fine
-                        checkTransaction(okTransaction);
-                    }
-                    else
-                    {
-                        //errore sull'importo inserito
-                        Snackbar.make(Objects.requireNonNull(getView()), R.string.amount_lessThanZero, Snackbar.LENGTH_LONG).show();
-                    }
-
-                }
-                else
-                {
-                    //errore no connessione
-                    //Toast.makeText(getActivity(), R.string.no_connection_message, Toast.LENGTH_LONG);
-                    Snackbar.make(Objects.requireNonNull(getView()), R.string.no_connection_message, Snackbar.LENGTH_LONG).show();
-                }
+                getPayment();
+                //setCreditDb();
             }
         });
-
-
         super.onResume();
+    }
+
+    @Override
+    public void onDestroy() {
+        //Destroy also the paypal serv
+        getActivity().stopService(new Intent(getContext(), PayPalService.class));
+        super.onDestroy();
+    }
+
+    /**
+     * Metodo che gestisce pagamento paypol
+     */
+    private void getPayment() {
+        //Getting the amount from editText
+        String paymentAmount = amountEt.getText().toString();
+
+        //Creating a paypalpayment
+        PayPalPayment payment = new PayPalPayment(new BigDecimal(String.valueOf(paymentAmount)), "EUR", "Simplified Coding Fee", PayPalPayment.PAYMENT_INTENT_SALE);
+
+        //Creating Paypal Payment activity intent
+        Intent intent = new Intent(getContext(), PaymentActivity.class);
+
+        //putting the paypal configuration to the intent
+        intent.putExtra(PayPalService.EXTRA_PAYPAL_CONFIGURATION, config);
+
+        //Puting paypal payment to the intent
+        intent.putExtra(PaymentActivity.EXTRA_PAYMENT, payment);
+
+        //Starting the intent activity for result
+        //the request code will be used on the method onActivityResult
+        startActivityForResult(intent, PAYPAL_REQUEST_CODE);
+    }
+
+    /**
+     * Metodo richiamato dopo il risultato dell'activity paypal
+     * @param requestCode
+     * @param resultCode
+     * @param data
+     */
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        //If the result is from paypal
+        if (requestCode == PAYPAL_REQUEST_CODE) {
+
+            //If the result is OK i.e. user has not canceled the payment
+            if (resultCode == Activity.RESULT_OK) {
+                //Getting the payment confirmation
+                PaymentConfirmation confirm = data.getParcelableExtra(PaymentActivity.EXTRA_RESULT_CONFIRMATION);
+
+                //if confirmation is not null
+                if (confirm != null) {
+                    try {
+                        //Getting the payment details
+                        String paymentDetails = confirm.toJSONObject().toString(4);
+                        Log.i("paymentExample", paymentDetails);
+
+                        setCreditDb();
+                        /*Starting a new activity for the payment details and also putting the payment details with intent
+                        startActivity(new Intent(getContext(), ConfirmationActivity.class)
+                                .putExtra("PaymentDetails", paymentDetails)
+                                .putExtra("PaymentAmount", paymentAmount)); */
+
+                    } catch (JSONException e) {
+                        Log.e("paymentExample", "an extremely unlikely failure occurred: ", e);
+                    }
+                }
+            } else if (resultCode == Activity.RESULT_CANCELED) {
+                Log.i("paymentExample", "The user canceled.");
+            } else if (resultCode == PaymentActivity.RESULT_EXTRAS_INVALID) {
+                Log.i("paymentExample", "An invalid Payment or PayPalConfiguration was submitted. Please see the docs.");
+            }
+        }
+    }
+
+    /**
+     * Metodo che gestisce credito dopo pagamento
+     */
+    private void setCreditDb() {
+        if (ConnectionUtil.checkInternetConn(Objects.requireNonNull(getActivity())))
+        {
+            Toast.makeText(getActivity(), R.string.loading_connection_msg, Toast.LENGTH_LONG);
+            float amount = Float.parseFloat(amountEt.getText().toString());
+            if (amount > 0.00)
+            {
+                //Se importo ricarica non è nullo posso effettuare la ricarica
+                String strConn = Keys.SERVER + "set_portafoglio.php?id=" + idUtente + "&soldi=" + amount;
+                try {
+                    url = new URL(strConn);
+                    // Esequo la query tramite php e prendo il risultato
+                    okTransaction = new AsyncAddBalance().execute(url).get();
+                } catch (InterruptedException | ExecutionException | MalformedURLException e) {
+                    new AlertDialog.Builder(getContext())
+                            .setTitle(R.string.no_connection_title)
+                            .setMessage(R.string.no_connection_message)
+                            .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                    // Faccio tornare al fragment Wallet
+                                    goToFragment(new WalletFragment());
+                                }
+                            }).create().show();
+                }
+
+                //verifico che la transazione è andata a buon fine
+                checkTransaction(okTransaction);
+            }
+            else
+            {
+                //errore sull'importo inserito
+                Snackbar.make(Objects.requireNonNull(getView()), R.string.amount_lessThanZero, Snackbar.LENGTH_LONG).show();
+            }
+
+        }
+        else
+        {
+            //errore no connessione
+            //Toast.makeText(getActivity(), R.string.no_connection_message, Toast.LENGTH_LONG);
+            Snackbar.make(Objects.requireNonNull(getView()), R.string.no_connection_message, Snackbar.LENGTH_LONG).show();
+        }
     }
 
     /**
