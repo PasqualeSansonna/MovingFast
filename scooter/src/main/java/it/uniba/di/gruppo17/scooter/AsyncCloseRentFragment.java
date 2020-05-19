@@ -25,7 +25,7 @@ public class AsyncCloseRentFragment extends AsyncTask<URL, Void, Boolean> {
                 if ( j != null )
                 {
                     result = j.getBoolean("risultatoChiusura");
-                    Log.d(TAG, "Chisuura noleggio: "+j.toString());
+                    Log.d(TAG, "Chiusura noleggio: "+j.toString());
                 }
                 else
                 {

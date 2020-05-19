@@ -208,7 +208,7 @@ public class NfcListener extends AppCompatActivity {
             try{
                 URL url = new URL(server);
                 AsyncCloseRentFragment mCloseRent = new AsyncCloseRentFragment();
-                if ( mCloseRent.execute().get() )
+                if ( mCloseRent.execute(url).get() )
                     Toast.makeText(this, R.string.rentClosedSuccessfully_message,Toast.LENGTH_LONG).show();
                 else
                     Toast.makeText(this,R.string.rentClosedError_message,Toast.LENGTH_LONG).show();

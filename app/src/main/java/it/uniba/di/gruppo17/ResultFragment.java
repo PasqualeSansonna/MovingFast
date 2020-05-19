@@ -91,8 +91,8 @@ public class ResultFragment extends Fragment implements SensorEventListener, Asy
         closeRentButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //Fragment toCloseRent = new CloseRentFragment();
-                //getFragmentManager().beginTransaction().replace(R.id.fragment_result, toCloseRent).commit();
+                Fragment toCloseRent = new CloseRentFragment();
+                getFragmentManager().beginTransaction().replace(R.id.fragment_result, toCloseRent).commit();
             }
         });
 

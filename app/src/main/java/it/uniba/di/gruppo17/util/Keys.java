@@ -24,6 +24,7 @@ public interface Keys {
 
     //rentFragment
     String RENT = "rent";
+    String CLOSE = "close";
 
     //resultfragment
     String IN_RENT = "in_rent";

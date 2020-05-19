@@ -20,7 +20,7 @@ if ( $idUtente != null && $idMonopattino != null && $latitudine != null && $long
 		), JSON_FORCE_OBJECT );
 		echo $post_error;
 	}
-	$query = "UPDATE TABLE noleggi SET ora_fine='$ora', latitudine_arrivo ='$latitudine', longitudine_arrivo = '$longitudine', stato = 0 
+	$query = "UPDATE noleggi SET ora_fine='$ora', latitudine_arrivo ='$latitudine', longitudine_arrivo = '$longitudine', stato = 0
 				WHERE id_noleggio = '$idNoleggio' AND id_Monopattino = '$idMonopattino' AND data ='$data' AND stato = 1";
 	$result = mysqli_query ( $conn, $query );
 	if ( $result )
@@ -33,7 +33,7 @@ if ( $idUtente != null && $idMonopattino != null && $latitudine != null && $long
 	else
 	{
 		$post_data = json_encode ( array (
-				'risultatoChiusura' => false;
+				'risultatoChiusura' => false
 				), JSON_FORCE_OBJECT );
 		echo $post_data;
 	}
