@@ -60,9 +60,8 @@
     <string name="loading_connection_title">Connessione</string>
     <string name="loading_connection_msg">Contattando  il server attendere prego</string>
     <string name="rent_ok">Noleggio completato con successo</string>
-    <string name="go_to_map">Vai alla mappa</string>
     <string name="rent_error">Oops! Qualcosa è andato storto durante il noleggio dello scooter</string>
-    <string name="retry_rent">Riprovare a noleggiare uno scooter</string>
+    <string name="retry_rent">Riprova</string>
     <string name="rent_instructions">Porta lo smartphone vicino al monopattino e premi lo schermo quando richiesto</string>
     <string name="titleTotalDuration">Totale durata:</string>
     <string name="titleStartHour">Inizio ora:</string>
@@ -103,4 +102,10 @@
     <string name="androidBeamIsOff_message">Attiva Android Beam dalle impostazioni</string>
     <string name="no_server_response">Il server non risponde. Riprova più tardi</string>
     <string name="loading_message">Caricamento...</string>
+    <string name="reportButton">Segnala un problema</string>
+    <string name="closeRentButton">Chiudi noleggio</string>
+    <string name="GMapButton">Apri Google Maps</string>
+    <string name="ridingTime">Durata della corsa</string>
+    <string name="traveledDistance">Distanza percorsa (KM)</string>
+    <string name="rent_error_title">Noleggio fallito</string>
 </resources>

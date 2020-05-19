@@ -4,6 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/background"
+    android:id="@+id/fragment_result"
     tools:context=".ResultFragment">
 
     <LinearLayout
@@ -19,7 +20,7 @@
             android:id="@+id/textViewChronometer"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Durata della corsa"
+            android:text="@string/ridingTime"
             android:textSize="18sp"
             android:textColor="@color/colorAccent"
             android:textAlignment="center">
@@ -42,7 +43,7 @@
                 android:id="@+id/textViewTraveledDistance"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Distanza percorsa"
+                android:text="@string/traveledDistance"
                 android:textAlignment="center"
                 android:textColor="@color/colorAccent"
                 android:textSize="18sp">
@@ -73,7 +74,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="15dp"
-                android:text="Google Maps"
+                android:text="@string/GMapButton"
                 android:textColor="@color/background"
                 android:textSize="18sp"
                 android:textStyle="bold"></TextView>
@@ -92,7 +93,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Close Rent"
+                android:text="@string/closeRentButton"
                 android:textColor="@color/background"
                 android:textSize="18sp"
                 android:textStyle="bold"></TextView>
@@ -111,7 +112,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Segnala un problema"
+                android:text="@string/reportButton"
                 android:textColor="@color/background"
                 android:textSize="18sp"
                 android:textStyle="bold">

@@ -90,11 +90,16 @@
     <string name="rent_title">Rent a scooter</string>
     <string name="loading_connection_title">Connecting</string>
     <string name="loading_connection_msg">Contanting the server. Plese wait</string>
-    <string name="rent_ok">Rent succesfully completed</string>
-    <string name="go_to_map">Go to the map</string>
+    <string name="rent_ok">Rent successfully completed</string>
+    <string name="rent_error_title">Rent failed</string>
     <string name="rent_error">Ops! Something went wrong while renting the scooter</string>
-    <string name="retry_rent">Retry to scooter renting</string>
+    <string name="retry_rent">Retry</string>
     <string name="rent_instructions">"Please bring your smartphone next to the scooter and then press the screen when is prompted "</string>
+    <string name="reportButton">Report a problem</string>
+    <string name="closeRentButton">Close Rent</string>
+    <string name="GMapButton">Open Google Maps</string>
+    <string name="ridingTime">Riding time</string>
+    <string name="traveledDistance">Traveled Distance (KM)</string>
 
     <!-- String in PastRentals fragment -->
     <string name="titleTotalDuration">Time spent on scooters:</string>

@@ -2,11 +2,14 @@ package it.uniba.di.gruppo17;
 
 import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
+import android.net.Uri;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -20,6 +23,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Chronometer;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.google.android.material.navigation.NavigationView;
@@ -32,6 +36,7 @@ import java.util.Date;
 import java.util.Locale;
 
 import it.uniba.di.gruppo17.asynchttp.AsyncGetRentId;
+import it.uniba.di.gruppo17.services.LocationService;
 import it.uniba.di.gruppo17.util.Keys;
 
 /**
@@ -78,6 +83,37 @@ public class ResultFragment extends Fragment implements SensorEventListener, Asy
         builder.setView(mInflater.inflate(R.layout.loading_dialog_layout,null));
         builder.setCancelable(false);
         mAlertDialog = builder.create();
+
+        LinearLayout closeRentButton = getView().findViewById(R.id.closeRentButton);
+        LinearLayout googleMaps = getView().findViewById(R.id.openMapButton);
+        LinearLayout report = getView().findViewById(R.id.reportButton);
+
+        closeRentButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                //Fragment toCloseRent = new CloseRentFragment();
+                //getFragmentManager().beginTransaction().replace(R.id.fragment_result, toCloseRent).commit();
+            }
+        });
+
+        googleMaps.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Uri googleMapsIntentUri = Uri.parse("geo:"+ LocationService.realTimeDeviceLocation().getLatitude()+","+
+                        LocationService.realTimeDeviceLocation().getLongitude());
+                Intent googleMapsIntent = new Intent(Intent.ACTION_VIEW, googleMapsIntentUri);
+                googleMapsIntent.setPackage("com.google.android.apps.maps");
+                startActivity(googleMapsIntent);
+            }
+        });
+
+        report.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                //Fragment toCloseRent = new CloseRentFragment();
+                //getFragmentManager().beginTransaction().replace(R.id.fragment_result, toCloseRent).commit();
+            }
+        });
     }
 
     @Override
@@ -102,6 +138,7 @@ public class ResultFragment extends Fragment implements SensorEventListener, Asy
             else
             {
                 //Noleggio non è andato a buon fine.
+                rentFailed();
             }
         }
         else
@@ -173,7 +210,9 @@ public class ResultFragment extends Fragment implements SensorEventListener, Asy
         MenuItem menuItem1 = menu.getItem(1);
         menuItem1.setVisible(true);
         MenuItem menuItem2 = menu.getItem(2);
-        menuItem2.setVisible(false);
+        menuItem2.setTitle("Noleggio in corso");
+        menuItem2.setVisible(true);
+        //menuItem2.setVisible(false);
         MenuItem menuItem3 = menu.getItem(3);
         menuItem3.setVisible(true);
         MenuItem menuItem4 = menu.getItem(4);
@@ -182,7 +221,20 @@ public class ResultFragment extends Fragment implements SensorEventListener, Asy
 
     private void rentFailed()
     {
-
+        new AlertDialog.Builder(getContext())
+                .setCancelable(false)
+                .setTitle(R.string.rent_error_title)
+                .setMessage(R.string.rent_error)
+                .setPositiveButton(R.string.retry_rent, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        Fragment toRentFragment = new RentFragment();
+                        getFragmentManager().beginTransaction().replace(R.id.fragment_result, toRentFragment).commit();
+                        ResultFragment.this.onDestroy();
+                    }
+                })
+                .create()
+                .show();
     }
 
     @Override
