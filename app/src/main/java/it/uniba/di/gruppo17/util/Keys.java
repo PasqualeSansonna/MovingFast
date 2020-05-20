@@ -33,5 +33,9 @@ public interface Keys {
     String CHRONOMETER_TIME = "chronometer_time";
     String CURRENT_DATE_TIME ="current_date_time";
     String PATTERN_DATE_TIME = "dd-MM-yyyy HH:mm:ss";
+    String TRAVELED_DISTANCE = "traveled_distance";
 
+    //result close fragment
+    float UNLOCK_COST = 1.00f;
+    float COST_PER_MINUTE = 0.10f;
 }

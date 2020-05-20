@@ -100,8 +100,9 @@ public class CloseRentFragment extends Fragment implements NfcAdapter.CreateNdef
      */
     @Override
     public void onNdefPushComplete(NfcEvent nfcEvent) {
+        getFragmentManager().popBackStack();
         Fragment toResultCloseRentFragment = new ResultCloseRentFragment();
-        getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.id_fragment_close_rent,toResultCloseRentFragment).commit();
+        getFragmentManager().beginTransaction().replace(R.id.id_fragment_close_rent,toResultCloseRentFragment).commit();
     }
 
     /**
