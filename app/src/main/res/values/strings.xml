@@ -158,4 +158,6 @@
     <string name="chargeWallet_button">Charge Wallet</string>
     <string name="paymentError_title">Payment error</string>
     <string name="paymentError_message">Oops! Something went wrong. Please try again</string>
+    <string name="menu_maintenance">Scooter maintenance</string>
+    <string name="menu_recharge">Scooter recherge</string>
 </resources>

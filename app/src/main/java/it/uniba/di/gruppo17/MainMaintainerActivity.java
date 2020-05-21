@@ -35,11 +35,20 @@ import com.google.android.material.navigation.NavigationView;
 import it.uniba.di.gruppo17.services.LocationService;
 import it.uniba.di.gruppo17.util.Keys;
 
+import static it.uniba.di.gruppo17.util.Keys.REQUEST_ACCESS_LOCATION;
 import static it.uniba.di.gruppo17.util.Keys.REQUEST_RESOLVE_ERROR;
 import static it.uniba.di.gruppo17.util.Keys.RESOLVING_ERROR_STATE_KEY;
-import static it.uniba.di.gruppo17.util.Keys.REQUEST_ACCESS_LOCATION;
 
-public class MainActivity extends AppCompatActivity implements GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener {
+/**
+ * @author Andrea Montemurro
+ *
+ * Main activity dell' utente manutentore, qui si visualizza il menu e vengono messi i fragment dell'utente manutentore per
+ * fargli gestire le operazioni.
+ *
+ * Leggi il readme per le funzioni di questo utente
+ */
+
+public class MainMaintainerActivity extends AppCompatActivity implements GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener{
 
     private DrawerLayout drawer;
     private NavigationView mNavingationView;
@@ -50,23 +59,25 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
     private boolean mResolvingError;
     private GoogleApiClient mApiClient;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_main_maintainer);
 
-        Fragment homeFragment = new HomeFragment();
+        Fragment mapsFragment = new MapsFragment();
 
         getSupportFragmentManager().beginTransaction()
-                .replace(R.id.fragment_container, homeFragment)
+                .replace(R.id.fragment_container_maint, mapsFragment)
                 .commit();
 
         /*Poiché non usiamo ActionBar, usiamo Toolbar*/
-        Toolbar toolbar = findViewById(R.id.toolbar);
+
+        Toolbar toolbar = findViewById(R.id.toolbar_maint);
         setSupportActionBar(toolbar);
 
         //Impostazione del navigation Drawer sulla sinistra
-        drawer = findViewById(R.id.drawer_layout);
+        drawer = findViewById(R.id.drawer_layout_maint);
         drawer.setElevation(16);
         mDrawerToggle = new ActionBarDrawerToggle(this, drawer, toolbar,
                 R.string.navigation_drawer_open, R.string.navigation_drawer_close);
@@ -74,7 +85,7 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
         mDrawerToggle.syncState(); /*For hamburger */
 
         //Per passare ai fragment delle voci nel menu laterale
-        mNavingationView = findViewById(R.id.nav_view);
+        mNavingationView = findViewById(R.id.nav_view_maint);
         mNavingationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
@@ -93,6 +104,7 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
         if ( savedInstanceState!= null )
             mResolvingError = savedInstanceState.getBoolean(RESOLVING_ERROR_STATE_KEY, false);
     }
+
 
     /**
      * Metodo che crea il secondo menu (laterale)
@@ -131,12 +143,13 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
         return true;
     }
 
+
     /**
      * Metodo che effettua logout
      * Si cancellano i dati dell'utente loggato nelle Shared Preferences e si avvia intent su Login
      */
     private void logout() {
-        new AlertDialog.Builder(MainActivity.this)
+        new AlertDialog.Builder(MainMaintainerActivity.this)
                 .setTitle(R.string.logout_title)
                 .setMessage(R.string.logout_messageDialog)
                 .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
@@ -148,7 +161,7 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
                         editor.remove(Keys.PASSWORD);
                         editor.remove(Keys.USER_ID);
                         editor.apply();
-                        Intent intent = new Intent(MainActivity.this, LoginActivity.class);
+                        Intent intent = new Intent(MainMaintainerActivity.this, LoginActivity.class);
                         startActivity(intent);
                         finish();
                     }
@@ -179,20 +192,17 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
         Fragment nextFragment = null;
         switch (itemId)
         {
-            case R.id.nav_home:
-                nextFragment = new HomeFragment();
-                break;
-            case R.id.nav_map:
+            case R.id.nav_map_maint:
                 nextFragment = new MapsFragment();
+                break;
+            case R.id.nav_maintenance:
+                //nextFragment = new MaintenanceFragment();
+                break;
+            case R.id.nav_recharge:
+                //nextFragment = new RechargeFragment();
                 break;
             case R.id.nav_profile:
                 nextFragment = new ProfileFragment();
-                break;
-            case R.id.nav_rent:
-                nextFragment = new RentFragment();
-                break;
-            case R.id.nav_wallet:
-                nextFragment = new WalletFragment();
                 break;
             default:
                 throw new IllegalArgumentException("No fragment for the given item");
@@ -201,6 +211,8 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
                 .replace(R.id.fragment_container, nextFragment)
                 .commit();
     }
+
+
 
     @Override
     protected void onStart()
@@ -224,6 +236,8 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
         mApiClient.disconnect();
         super.onStop();
     }
+
+
 
 
     /**
@@ -256,7 +270,7 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
         {
             try{
                 mResolvingError = true;
-                connectionResult.startResolutionForResult(MainActivity.this, REQUEST_RESOLVE_ERROR);
+                connectionResult.startResolutionForResult(MainMaintainerActivity.this, REQUEST_RESOLVE_ERROR);
             }catch (IntentSender.SendIntentException e)
             {
                 mApiClient.connect();
@@ -311,7 +325,7 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
                         .setPositiveButton(R.string.grant_button_locationPermission_alert_dialog, new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
-                                ActivityCompat.requestPermissions(MainActivity.this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, REQUEST_ACCESS_LOCATION);
+                                ActivityCompat.requestPermissions(MainMaintainerActivity.this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, REQUEST_ACCESS_LOCATION);
                             }
                         })
                         .create()
@@ -346,7 +360,7 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
                         .setPositiveButton(R.string.grant_button_locationPermission_alert_dialog, new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
-                                ActivityCompat.requestPermissions(MainActivity.this, new String[] { Manifest.permission.ACCESS_FINE_LOCATION}, REQUEST_ACCESS_LOCATION );
+                                ActivityCompat.requestPermissions(MainMaintainerActivity.this, new String[] { Manifest.permission.ACCESS_FINE_LOCATION}, REQUEST_ACCESS_LOCATION );
                             }
                         })
                         .setNegativeButton(R.string.deny_button_locationPermission_alert_dialog, new DialogInterface.OnClickListener() {
@@ -393,7 +407,7 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
             Intent locationServiceIntent = new Intent(this, LocationService.class);
             if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.O)
             {
-                MainActivity.this.startForegroundService(locationServiceIntent);
+                MainMaintainerActivity.this.startForegroundService(locationServiceIntent);
             }
             else
                 startService(locationServiceIntent);
@@ -410,5 +424,4 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
         }
         return false;
     }
-
 }

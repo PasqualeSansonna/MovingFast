@@ -119,4 +119,6 @@
     <string name="chargeWallet_button">Ricarica</string>
     <string name="paymentError_title">Errore nel pagamento</string>
     <string name="paymentError_message">Qualcosa è andato storto. Per favore, riprova</string>
+    <string name="menu_maintenance">Manutenzione monopattino</string>
+    <string name="menu_recharge">Ricarica monopattino</string>
 </resources>

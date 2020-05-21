@@ -282,8 +282,16 @@ public class LoginActivity extends AppCompatActivity {
      */
     private void login()
     {
-        Intent intent = new Intent(this, MainActivity.class);
-        startActivity(intent);
+        if (!preferences.getBoolean(Keys.USER_TYPE, false))
+        {   //Caso utente fruitore
+            Intent intent = new Intent(this, MainActivity.class);
+            startActivity(intent);
+        }
+        else
+        {   //Caso utente manutentore
+            Intent intent = new Intent(this, MainMaintainerActivity.class);
+            startActivity(intent);
+        }
         finish();
     }
 
