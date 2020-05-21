@@ -92,6 +92,18 @@ public class ResultFragment extends Fragment implements SensorEventListener, Asy
         closeRentButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                //Fermo il cronometro e il sensore
+                rentTime.stop();
+                sManager.unregisterListener(ResultFragment.this, stepSensor);
+                //rilevo il tempo segnato sul cronometro e la distanza percorosa
+                long elapsedTime = SystemClock.elapsedRealtime() - rentTime.getBase();
+                float distance = getDistanceRun(steps);
+                //Scrivo nelle shared pref. in modo da poterli utilizzare in seguito
+                SharedPreferences.Editor editor = prefs.edit();
+                editor.putLong(Keys.CHRONOMETER_TIME,elapsedTime);
+                editor.putFloat(Keys.TRAVELED_DISTANCE,distance);
+                editor.apply();
+                //Passo al fragment per la chiusura del noleggio
                 Fragment toCloseRent = new CloseRentFragment();
                 getFragmentManager().beginTransaction().replace(R.id.fragment_result, toCloseRent).commit();
             }
@@ -129,7 +141,8 @@ public class ResultFragment extends Fragment implements SensorEventListener, Asy
                             getActivity().runOnUiThread(new Runnable() {
                                 @Override
                                 public void run() {
-                                    distanceValue.setText( String.valueOf(getDistanceRun(steps)));
+                                    distanceValue.setText( String.format("%.2f",getDistanceRun(steps)));
+
                                 }
                             });
                     } catch (InterruptedException e) {
@@ -206,7 +219,7 @@ public class ResultFragment extends Fragment implements SensorEventListener, Asy
             getActivity().findViewById(R.id.resultLayout).setVisibility(View.VISIBLE);
             //distanceValue.setText( String.valueOf(getDistanceRun(steps)));
             updateDistance.start();
-            rentTime.setBase(SystemClock.elapsedRealtime());
+           // rentTime.setBase(SystemClock.elapsedRealtime());
             rentTime.start();
             setNavigationBar();
         }
@@ -268,8 +281,8 @@ public class ResultFragment extends Fragment implements SensorEventListener, Asy
     }
 
     @Override
-    public void onStop() {
-        super.onStop();
+    public void onPause() {
+        super.onPause();
         sManager.unregisterListener(this, stepSensor);
         //Salvo nelle shared pref. data e ora correnti e il tempo registrato dal cronometro
         //In questo modo sarà possibile tenere sempre traccia del tempo trascorso, anche nel caso in cui l'app dovesse essere killata

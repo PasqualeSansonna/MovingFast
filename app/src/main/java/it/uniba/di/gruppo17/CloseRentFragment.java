@@ -61,9 +61,9 @@ public class CloseRentFragment extends Fragment implements NfcAdapter.CreateNdef
                 } else {
                     new AlertDialog.Builder(getContext())
                             .setCancelable(false)
-                            .setTitle("Connection Error")
-                            .setMessage("Please check your internet connection. Then if still not working the server is down. Please reload")
-                            .setPositiveButton("reload", new DialogInterface.OnClickListener() {
+                            .setTitle(R.string.networkConnectionError_tile)
+                            .setMessage(R.string.networkConnectionError_message)
+                            .setPositiveButton(R.string.reloadButton, new DialogInterface.OnClickListener() {
                                 public void onClick(DialogInterface dialogInterface, int i) {
                                     Fragment realodCloseRent = new CloseRentFragment();
                                     getFragmentManager().beginTransaction().detach(CloseRentFragment.this).attach(realodCloseRent).commit();

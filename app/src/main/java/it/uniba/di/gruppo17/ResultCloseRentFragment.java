@@ -17,7 +17,6 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentTransaction;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -31,6 +30,9 @@ import java.util.concurrent.TimeUnit;
 import it.uniba.di.gruppo17.asynchttp.JsonFromHttp;
 import it.uniba.di.gruppo17.util.Keys;
 
+/**
+ * @author Francesco Moramarco
+ */
 public class ResultCloseRentFragment extends Fragment {
 
     public static SharedPreferences prefs;
@@ -71,7 +73,6 @@ public class ResultCloseRentFragment extends Fragment {
         builder.setView(mInflater.inflate(R.layout.loading_dialog_layout,null));
         builder.setCancelable(false);
         mAlertDialog = builder.create();
-
     }
 
     @Override
@@ -79,8 +80,8 @@ public class ResultCloseRentFragment extends Fragment {
     {
         super.onResume();
         long time = prefs.getLong(Keys.CHRONOMETER_TIME, -1);
-        final String timeString = String.format("%02d:%02d",
-                            TimeUnit.MILLISECONDS.toHours(time), TimeUnit.MILLISECONDS.toMinutes(time));
+        final String timeString = String.format("%02d:%02d:%02d",
+                            TimeUnit.MILLISECONDS.toHours(time), TimeUnit.MILLISECONDS.toMinutes(time), TimeUnit.MILLISECONDS.toSeconds(time), TimeUnit.MILLISECONDS.toSeconds(time));
         if ( time > -1 )
             timeTextView.setText(timeString);
         else
@@ -118,39 +119,23 @@ public class ResultCloseRentFragment extends Fragment {
         });
     }
 
-    private void checkPayment(Boolean paymentCompleted)
+    private void paymentSuccess()
     {
-        if ( paymentCompleted )
-        {
-            completed = true;
-            removeData();
-            new AlertDialog.Builder(getContext())
-                    .setCancelable(false)
-                    .setMessage("Pagmento completato con successo")
-                    .setPositiveButton("Termina", new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialogInterface, int i) {
-                            Fragment toHome = new HomeFragment();
-                            getFragmentManager().beginTransaction().detach(ResultCloseRentFragment.this).attach(toHome).commit();
-                        }
-                    })
-            .create()
-            .show();
-        }
-        else
-        {
-            new AlertDialog.Builder(getContext())
-                    .setCancelable(false)
-                    .setMessage("Qualcosa è andato storto").
-                    setPositiveButton("Riprova", new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialogInterface, int i) {
-                            getFragmentManager().beginTransaction().detach(ResultCloseRentFragment.this).attach(ResultCloseRentFragment.this).commit();
-                        }
-                    })
-            .create()
-            .show();
-        }
+        completed = true;
+        removeData();
+        new AlertDialog.Builder(getContext())
+                .setCancelable(false)
+                .setTitle(R.string.paymentCompleted_title)
+                .setMessage(R.string.paymentCompleted_message)
+                .setPositiveButton(R.string.closeButton, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        Fragment toHome = new HomeFragment();
+                        getFragmentManager().beginTransaction().replace(R.id.fragment_home,toHome).commit();
+                    }
+                })
+        .create()
+        .show();
     }
 
     private void removeData()
@@ -162,34 +147,53 @@ public class ResultCloseRentFragment extends Fragment {
         editor.putInt(Keys.SCOOTER_ID,-1);
         editor.putBoolean(Keys.IN_RENT,false);
     }
-    private void checkFailedPayment(Boolean lowBalance)
+    private void needToCharge()
     {
-        if ( lowBalance )
-            new AlertDialog.Builder(getContext())
-                    .setCancelable(false)
-                    .setTitle("Credito insufficiente")
-                    .setMessage("Non è possibile effettuare il pagamento. Il tuo credito non è sufficiente. Devi ricaricare: "+denaroMancante)
-                    .setPositiveButton("Ricarica", new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialogInterface, int i) {
-                            Fragment toPayFragment = new PayFragment();
-                            FragmentTransaction fragmentTransaction = getFragmentManager().beginTransaction();
-                            fragmentTransaction.hide(ResultCloseRentFragment.this);
-                            fragmentTransaction.attach(toPayFragment);
-                        }
-                    });
+        new AlertDialog.Builder(getContext())
+                .setCancelable(false)
+                .setTitle(R.string.lowBalance_title)
+                .setMessage(R.string.lowBalance_message+""+denaroMancante+"€")
+                .setPositiveButton(R.string.chargeWallet_button, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        Fragment toPayFragment = new PayFragment();
+                        getFragmentManager().beginTransaction().replace(R.id.id_fragment_result_close_rent, toPayFragment).commit();
+                        //FragmentTransaction fragmentTransaction = getFragmentManager().beginTransaction();
+                        //ragmentTransaction.hide(ResultCloseRentFragment.this);
+                        //fragmentTransaction.attach(toPayFragment);
+                        //fragmentTransaction.commit();
+                    }
+                })
+        .create()
+        .show();
     }
 
     private void afterTask(Boolean[] booleans)
     {
-        if ( booleans.length == 1)
+        boolean paymentCompleted = booleans[0];
+        boolean lowBalance = booleans[1];
+        if ( paymentCompleted && !lowBalance )
         {
-            checkPayment(booleans[0]);
+            paymentSuccess();
+            return;
         }
-        else
+        if ( !paymentCompleted && lowBalance )
         {
-            checkFailedPayment(booleans[1]);
+            needToCharge();
+            return;
         }
+        new AlertDialog.Builder(getContext())
+                .setCancelable(false)
+                .setTitle(R.string.paymentError_title)
+                .setMessage(R.string.paymentError_message)
+                .setPositiveButton(R.string.reloadButton, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        getFragmentManager().beginTransaction().detach(ResultCloseRentFragment.this).attach(ResultCloseRentFragment.this).commit();
+                    }
+                })
+                .create()
+                .show();
     }
 
     private class AsyncCheckWallet extends AsyncTask<URL, Void, Boolean[]>
@@ -203,11 +207,16 @@ public class ResultCloseRentFragment extends Fragment {
         @Override
         protected Boolean[] doInBackground(URL... urls)
         {
-            Boolean[] result = {false,false};
+            Boolean[] result = {false, false};
             if ( isConnectionAvailable() )
             {
                 if ( checkServer() )
                 {
+                    try {
+                        Thread.sleep(2000);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
                     for (URL url : urls )
                     {
                         JSONObject json = new JsonFromHttp().getJsonObject(url);
@@ -259,5 +268,4 @@ public class ResultCloseRentFragment extends Fragment {
             return success;
         }
     }
-
 }

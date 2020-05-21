@@ -108,4 +108,15 @@
     <string name="ridingTime">Durata della corsa</string>
     <string name="traveledDistance">Distanza percorsa (KM)</string>
     <string name="rent_error_title">Noleggio fallito</string>
+    <string name="networkConnectionError_tile">Errore di connessione</string>
+    <string name="networkConnectionError_message">Controlla la tua connessione a internet. Il server potrebbe non funzionare. Per favore, ricarica</string>
+    <string name="reloadButton">Ricarica</string>
+    <string name="paymentCompleted_title">Pagamento completato</string>
+    <string name="paymentCompleted_message">Pagamento completato con successo. Grazie per averci scelto</string>
+    <string name="closeButton">Chiudi</string>
+    <string name="lowBalance_title">Errore di credito</string>
+    <string name="lowBalance_message">Sembra che il tuo portafogli sia un po\' vuoto. Hai bisogno di ricaricare almeno:</string>
+    <string name="chargeWallet_button">Ricarica</string>
+    <string name="paymentError_title">Errore nel pagamento</string>
+    <string name="paymentError_message">Qualcosa è andato storto. Per favore, riprova</string>
 </resources>

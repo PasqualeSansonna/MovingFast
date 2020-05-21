@@ -145,4 +145,17 @@
 
     <!--String loading_dialog_layout-->
     <string name="loading_message">Loading...</string>
+
+    <!--Strings in CloseRentFragment e ResultCloseFragment -->
+    <string name="networkConnectionError_tile">Connection error</string>
+    <string name="networkConnectionError_message">Please check your internet connection. Then if still not working the server is down. Please reload</string>
+    <string name="reloadButton">Reload</string>
+    <string name="paymentCompleted_title">Payment completed</string>
+    <string name="paymentCompleted_message">Payment completed successfully. Thanks for choosing us </string>
+    <string name="closeButton">Close</string>
+    <string name="lowBalance_title">Credit error</string>
+    <string name="lowBalance_message">It looks like your wallet is a little empty. You need to reload: </string>
+    <string name="chargeWallet_button">Charge Wallet</string>
+    <string name="paymentError_title">Payment error</string>
+    <string name="paymentError_message">Oops! Something went wrong. Please try again</string>
 </resources>
