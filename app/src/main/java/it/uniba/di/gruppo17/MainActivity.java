@@ -146,7 +146,7 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
                         SharedPreferences.Editor editor = prefs.edit();
                         editor.remove(Keys.EMAIL);
                         editor.remove(Keys.PASSWORD);
-                        editor.remove(Keys.ID_UTENTE);
+                        editor.remove(Keys.USER_ID);
                         editor.apply();
                         Intent intent = new Intent(MainActivity.this, LoginActivity.class);
                         startActivity(intent);
@@ -155,7 +155,7 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
                 }).create().show();
         //Setto valori di shared prefs ai valori di default per evitare consistenza
         prefs = getSharedPreferences(Keys.SHARED_PREFERENCES, Context.MODE_PRIVATE);
-        prefs.edit().putInt(Keys.ID_UTENTE, -1).apply();
+        prefs.edit().putInt(Keys.USER_ID, -1).apply();
         prefs.edit().putFloat(Keys.WALLET, -1).apply();
     }
 

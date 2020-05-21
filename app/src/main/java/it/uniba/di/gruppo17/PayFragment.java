@@ -90,7 +90,7 @@ public class PayFragment extends Fragment {
 
     @Override
     public void onResume() {
-        idUtente = preferences.getInt(Keys.ID_UTENTE, -1);
+        idUtente = preferences.getInt(Keys.USER_ID, -1);
         payBt.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -261,7 +261,7 @@ public class PayFragment extends Fragment {
         try {
          /*   importo = new AsyncGetBalance().execute(new URL(
                     .concat(String.valueOf(preferences.getInt(Keys.ID_UTENTE, -1))))).get(); */
-            String connectinUrl =  Keys.SERVER + "get_portafoglio.php?id=" + preferences.getInt(Keys.ID_UTENTE, -1);
+            String connectinUrl =  Keys.SERVER + "get_portafoglio.php?id=" + preferences.getInt(Keys.USER_ID, -1);
             URL url = new URL(connectinUrl);
             newAmount = new AsyncGetBalance().execute(url).get();
             editor.putFloat(Keys.WALLET, (float) amount);

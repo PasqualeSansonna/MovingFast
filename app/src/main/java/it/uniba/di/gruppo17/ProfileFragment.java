@@ -4,7 +4,6 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Bundle;
-import android.util.Log;
 import android.util.Patterns;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -24,7 +23,7 @@ import it.uniba.di.gruppo17.asynchttp.AsyncViewProfile;
 import it.uniba.di.gruppo17.util.Keys;
 import it.uniba.di.gruppo17.util.UserProfile;
 
-import static it.uniba.di.gruppo17.util.Keys.ID_UTENTE;
+import static it.uniba.di.gruppo17.util.Keys.USER_ID;
 
 /** @author Pasquale, Sgarra
  * Visualuzzazione e Modifica Profilo Utente
@@ -92,7 +91,7 @@ public class ProfileFragment extends Fragment {
          * e creo url connessione
          **/
         preferences = getActivity().getSharedPreferences("MovingFastPreferences", Context.MODE_PRIVATE);
-        user_ID = Integer.parseInt(preferences.getAll().get(ID_UTENTE).toString());
+        user_ID = Integer.parseInt(preferences.getAll().get(USER_ID).toString());
         String str = Keys.SERVER + "view_profile.php?id=" + user_ID;
 
         /**Prendo l'utente passato dall'AsyncViewProfile
@@ -159,7 +158,7 @@ public class ProfileFragment extends Fragment {
                     String email = ET_email.getText().toString();
 
                     preferences = getActivity().getSharedPreferences("MovingFastPreferences", Context.MODE_PRIVATE);
-                    user_ID = Integer.parseInt(preferences.getAll().get(ID_UTENTE).toString());
+                    user_ID = Integer.parseInt(preferences.getAll().get(USER_ID).toString());
                     String str = Keys.SERVER + "update_utente.php?id=" + user_ID + "&nome=" + name + "&cognome=" + surname + "&email=" + email;
 
 

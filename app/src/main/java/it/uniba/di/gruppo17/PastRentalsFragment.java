@@ -20,7 +20,7 @@ import it.uniba.di.gruppo17.util.PastRentalsAdapter;
 import it.uniba.di.gruppo17.util.Rental;
 
 import static android.content.Context.MODE_PRIVATE;
-import static it.uniba.di.gruppo17.util.Keys.ID_UTENTE;
+import static it.uniba.di.gruppo17.util.Keys.USER_ID;
 import static it.uniba.di.gruppo17.util.Keys.RENTALS_TOTAL_DURATION;
 
 /** @author Pasquale, sgarra
@@ -62,7 +62,7 @@ public class PastRentalsFragment extends Fragment {
          * Creo url connessione
          **/
         preferences = getActivity().getSharedPreferences("MovingFastPreferences", MODE_PRIVATE);
-        user_ID = Integer.parseInt(preferences.getAll().get(ID_UTENTE).toString());
+        user_ID = Integer.parseInt(preferences.getAll().get(USER_ID).toString());
 
         String str = Keys.SERVER + "view_past_rentals.php?id=" + user_ID;
         URL url = null;

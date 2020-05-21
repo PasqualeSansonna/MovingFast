@@ -15,7 +15,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.google.android.material.snackbar.Snackbar;
 
@@ -81,7 +80,7 @@ public class WalletFragment extends Fragment {
 
         //prendo dati da shared prefs
         amount = preferences.getFloat(Keys.WALLET, 0.00f);
-        id = preferences.getInt(Keys.ID_UTENTE, -1);
+        id = preferences.getInt(Keys.USER_ID, -1);
 
         //Costruzione stringa HTTP
         String str = Keys.SERVER + "get_portafoglio.php?id=" + id;

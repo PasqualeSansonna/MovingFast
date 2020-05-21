@@ -170,7 +170,7 @@ public class ResultFragment extends Fragment implements SensorEventListener, Asy
         {
             mAlertDialog.show();
             AsyncGetRentId mAsyncGetRentId = new AsyncGetRentId(this);
-            int id = prefs.getInt(Keys.ID_UTENTE, -1);
+            int id = prefs.getInt(Keys.USER_ID, -1);
             String strConnection = Keys.SERVER + "get_rent_id.php?idU=" + id;
             URL url = null;
             try {
@@ -222,8 +222,8 @@ public class ResultFragment extends Fragment implements SensorEventListener, Asy
 
         SharedPreferences.Editor editor = prefs.edit();
         editor.putBoolean(Keys.IN_RENT, true);
-        editor.putInt(Keys.ID_SCOOTER, idScooter);
-        editor.putInt(Keys.ID_RENT, idRent);
+        editor.putInt(Keys.SCOOTER_ID, idScooter);
+        editor.putInt(Keys.RENT_ID, idRent);
         editor.putLong(Keys.CHRONOMETER_TIME,0);
         editor.putFloat(Keys.TRAVELED_DISTANCE,0);
         editor.apply();

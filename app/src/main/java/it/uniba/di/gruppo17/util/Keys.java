@@ -6,7 +6,7 @@ public interface Keys {
     String RENTALS_TOTAL_DURATION = "rentals_total_duration";
     String SERVER = "http://192.168.1.87/";
     String USER_AGENT = "Mozilla/5.0";
-    String ID_UTENTE = "id";
+    String USER_ID = "id";
     String USER_TYPE = "type";
     String WALLET = "wallet" ;
     String SHARED_PREFERENCES = "MovingFastPreferences";
@@ -28,8 +28,8 @@ public interface Keys {
 
     //resultfragment
     String IN_RENT = "in_rent";
-    String ID_RENT = "id_rent";
-    String ID_SCOOTER = "id_scooter";
+    String RENT_ID = "id_rent";
+    String SCOOTER_ID = "id_scooter";
     String CHRONOMETER_TIME = "chronometer_time";
     String CURRENT_DATE_TIME ="current_date_time";
     String PATTERN_DATE_TIME = "dd-MM-yyyy HH:mm:ss";

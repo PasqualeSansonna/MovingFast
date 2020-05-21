@@ -2,7 +2,6 @@ package it.uniba.di.gruppo17;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -17,8 +16,6 @@ import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.Switch;
 import android.widget.Toast;
-
-import com.google.android.material.snackbar.Snackbar;
 
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -246,7 +243,7 @@ public class LoginActivity extends AppCompatActivity {
 
                 AsyncLogin utente = new AsyncLogin();
                 loggedUser = utente.execute(url).get();
-                editor.putInt(Keys.ID_UTENTE, loggedUser.getId());
+                editor.putInt(Keys.USER_ID, loggedUser.getId());
                 //salvo in shared tipo utente
                 editor.putBoolean(Keys.USER_TYPE, loggedUser.isManutentore());
                 editor.apply();
@@ -256,9 +253,9 @@ public class LoginActivity extends AppCompatActivity {
                  *  NB Per controllo shared preferences
                  *  device file explorer> data> ns package> shared_prefs> MovingFastPreferences.xml
                  */
-                if (preferences.getInt(Keys.ID_UTENTE, -1) == -1) {
+                if (preferences.getInt(Keys.USER_ID, -1) == -1) {
                         checked = false;
-                        editor.remove(Keys.ID_UTENTE);
+                        editor.remove(Keys.USER_ID);
                     }else {
                         checked = true;
                     }

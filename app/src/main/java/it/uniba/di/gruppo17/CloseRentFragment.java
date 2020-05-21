@@ -86,8 +86,8 @@ public class CloseRentFragment extends Fragment implements NfcAdapter.CreateNdef
      */
     @Override
     public NdefMessage createNdefMessage(NfcEvent nfcEvent) {
-        int userId = prefs.getInt(Keys.ID_UTENTE,-1);
-        int rentId = prefs.getInt(Keys.ID_RENT, -1);
+        int userId = prefs.getInt(Keys.USER_ID,-1);
+        int rentId = prefs.getInt(Keys.RENT_ID, -1);
         String request = Keys.CLOSE + ":" + userId + ":" + rentId;
         NdefRecord ndefRecord = NdefRecord.createMime("text/plain", request.getBytes());
         NdefMessage ndefMessage = new NdefMessage(ndefRecord);

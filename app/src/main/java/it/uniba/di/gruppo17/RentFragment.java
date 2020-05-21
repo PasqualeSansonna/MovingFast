@@ -185,7 +185,7 @@ public class RentFragment extends Fragment implements NfcAdapter.CreateNdefMessa
      */
     @Override
     public NdefMessage createNdefMessage(NfcEvent event) {
-        userId = prefs.getInt(Keys.ID_UTENTE, -1);
+        userId = prefs.getInt(Keys.USER_ID, -1);
         String request;
         request = Keys.RENT + ":" + userId;
         NdefRecord ndefRecord = NdefRecord.createMime("text/plain", request.getBytes());
