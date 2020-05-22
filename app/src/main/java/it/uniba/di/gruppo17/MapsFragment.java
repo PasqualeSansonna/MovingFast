@@ -142,8 +142,7 @@ public class MapsFragment extends Fragment {
                                mBottomSheetDialog.dismiss();
                                //Per sbloccare il monopattino, richiamo rentFragment ed elimino mapsfragment
                                Fragment toRentFragment = new RentFragment();
-                               getFragmentManager().beginTransaction().replace(R.id.maps_fragment, toRentFragment).commit();
-                               MapsFragment.super.onDestroy();
+                               getFragmentManager().beginTransaction().replace(R.id.fragment_container, toRentFragment).commit();
                            }
                        });
                        mBottomSheetDialog.show();
@@ -250,7 +249,7 @@ public class MapsFragment extends Fragment {
     {
         if ( Scooter.nearScooters == null )
         {
-            Snackbar.make(getView(),R.string.no_scooter_message,Snackbar.LENGTH_LONG)
+            Snackbar.make(getView(),R.string.no_scooter_message,Snackbar.LENGTH_INDEFINITE)
                     .setAction(R.string.snackbar_action, new View.OnClickListener() {
                         @Override
                         public void onClick(View view) {
@@ -263,7 +262,7 @@ public class MapsFragment extends Fragment {
         }
         if ( Scooter.nearScooters.isEmpty() )
         {
-            Snackbar.make(getView(),R.string.no_scooter_message,Snackbar.LENGTH_LONG)
+            Snackbar.make(getView(),R.string.no_scooter_message,Snackbar.LENGTH_INDEFINITE)
                     .setAction(R.string.snackbar_action, new View.OnClickListener() {
                         @Override
                         public void onClick(View view) {

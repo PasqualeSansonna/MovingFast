@@ -131,7 +131,7 @@ public class ResultCloseRentFragment extends Fragment {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
                         Fragment toHome = new HomeFragment();
-                        getFragmentManager().beginTransaction().replace(R.id.fragment_home,toHome).commit();
+                        getFragmentManager().beginTransaction().replace(R.id.fragment_container,toHome).commit();
                     }
                 })
         .create()
@@ -146,22 +146,19 @@ public class ResultCloseRentFragment extends Fragment {
         editor.putFloat(Keys.TRAVELED_DISTANCE,-1);
         editor.putInt(Keys.SCOOTER_ID,-1);
         editor.putBoolean(Keys.IN_RENT,false);
+        editor.apply();
     }
     private void needToCharge()
     {
         new AlertDialog.Builder(getContext())
                 .setCancelable(false)
                 .setTitle(R.string.lowBalance_title)
-                .setMessage(R.string.lowBalance_message+""+denaroMancante+"€")
+                .setMessage(R.string.lowBalance_message+": "+denaroMancante+"€")
                 .setPositiveButton(R.string.chargeWallet_button, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
                         Fragment toPayFragment = new PayFragment();
-                        getFragmentManager().beginTransaction().replace(R.id.id_fragment_result_close_rent, toPayFragment).commit();
-                        //FragmentTransaction fragmentTransaction = getFragmentManager().beginTransaction();
-                        //ragmentTransaction.hide(ResultCloseRentFragment.this);
-                        //fragmentTransaction.attach(toPayFragment);
-                        //fragmentTransaction.commit();
+                        getFragmentManager().beginTransaction().replace(R.id.fragment_container, toPayFragment).commit();
                     }
                 })
         .create()

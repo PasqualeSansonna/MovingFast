@@ -65,8 +65,8 @@ public class CloseRentFragment extends Fragment implements NfcAdapter.CreateNdef
                             .setMessage(R.string.networkConnectionError_message)
                             .setPositiveButton(R.string.reloadButton, new DialogInterface.OnClickListener() {
                                 public void onClick(DialogInterface dialogInterface, int i) {
-                                    Fragment realodCloseRent = new CloseRentFragment();
-                                    getFragmentManager().beginTransaction().detach(CloseRentFragment.this).attach(realodCloseRent).commit();
+                                    Fragment reloadCloseRentFragment = new CloseRentFragment();
+                                    getFragmentManager().beginTransaction().detach(CloseRentFragment.this).attach(reloadCloseRentFragment).commit();
                                 }
                             })
                             .create()
@@ -102,7 +102,7 @@ public class CloseRentFragment extends Fragment implements NfcAdapter.CreateNdef
     public void onNdefPushComplete(NfcEvent nfcEvent) {
         getFragmentManager().popBackStack();
         Fragment toResultCloseRentFragment = new ResultCloseRentFragment();
-        getFragmentManager().beginTransaction().replace(R.id.id_fragment_close_rent,toResultCloseRentFragment).commit();
+        getFragmentManager().beginTransaction().replace(R.id.fragment_container,toResultCloseRentFragment).commit();
     }
 
     /**

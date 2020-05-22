@@ -105,7 +105,7 @@ public class ResultFragment extends Fragment implements SensorEventListener, Asy
                 editor.apply();
                 //Passo al fragment per la chiusura del noleggio
                 Fragment toCloseRent = new CloseRentFragment();
-                getFragmentManager().beginTransaction().replace(R.id.fragment_result, toCloseRent).commit();
+                getFragmentManager().beginTransaction().replace(R.id.fragment_container, toCloseRent).commit();
             }
         });
 
