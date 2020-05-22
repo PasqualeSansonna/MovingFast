@@ -17,6 +17,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -130,6 +131,7 @@ public class ResultCloseRentFragment extends Fragment {
                 .setPositiveButton(R.string.closeButton, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
+                        getFragmentManager().popBackStack();
                         Fragment toHome = new HomeFragment();
                         getFragmentManager().beginTransaction().replace(R.id.fragment_container,toHome).commit();
                     }
@@ -158,7 +160,10 @@ public class ResultCloseRentFragment extends Fragment {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
                         Fragment toPayFragment = new PayFragment();
-                        getFragmentManager().beginTransaction().replace(R.id.fragment_container, toPayFragment).commit();
+                        FragmentTransaction mFragmentTransaction = getFragmentManager().beginTransaction();
+                        mFragmentTransaction.addToBackStack(null);
+                        mFragmentTransaction.replace(R.id.fragment_container,toPayFragment).commit();
+                        //getFragmentManager().beginTransaction().replace(R.id.fragment_container, toPayFragment).commit();
                     }
                 })
         .create()

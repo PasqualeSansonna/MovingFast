@@ -17,6 +17,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 
 import java.util.concurrent.ExecutionException;
 
@@ -100,9 +101,13 @@ public class CloseRentFragment extends Fragment implements NfcAdapter.CreateNdef
      */
     @Override
     public void onNdefPushComplete(NfcEvent nfcEvent) {
-        getFragmentManager().popBackStack();
         Fragment toResultCloseRentFragment = new ResultCloseRentFragment();
-        getFragmentManager().beginTransaction().replace(R.id.fragment_container,toResultCloseRentFragment).commit();
+        FragmentTransaction mFragmentTransaction = getFragmentManager().beginTransaction();
+        mFragmentTransaction.add(toResultCloseRentFragment,"ResultCloseRentFragment");
+       // mFragmentTransaction.addToBackStack(null);
+        mFragmentTransaction.replace(R.id.fragment_container,toResultCloseRentFragment);
+        mFragmentTransaction.commit();
+        //getFragmentManager().beginTransaction().replace(R.id.fragment_container,toResultCloseRentFragment).commit();
     }
 
     /**

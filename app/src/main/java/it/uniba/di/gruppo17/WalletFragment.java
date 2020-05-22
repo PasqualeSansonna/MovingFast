@@ -52,6 +52,10 @@ public class WalletFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        //Mi rendo conto se sono nel wallet fragment dopo un operazione di ricarica avvenuta mentre si chiudeva un noleggio
+        if ( getFragmentManager().findFragmentByTag("ResultCloseRentFragment") != null )
+            getFragmentManager().beginTransaction().replace(R.id.fragment_container, getFragmentManager().
+                    findFragmentByTag("ResultCloseRentFragment")).commit();
         preferences = getContext().getSharedPreferences(Keys.SHARED_PREFERENCES, Context.MODE_PRIVATE);
         toolbar = ((MainActivity) getActivity()).findViewById(R.id.toolbar);
     }
