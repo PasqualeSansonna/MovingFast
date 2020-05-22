@@ -15,7 +15,7 @@ if ( $idUtente != null )
 		echo $post_error;
 	}
 	
-	$query = "SELECT MAX(id_noleggio) AS id_noleggio,id_monopattino from noleggi where id_utente = '$idUtente' AND stato = 1";
+	$query = "SELECT MAX(id_noleggio) AS id_noleggio,id_monopattino from noleggi where id_utente = '$idUtente' AND stato = 0";
 	$result = mysqli_query ( $conn, $query );
 	$number = mysqli_fetch_array ( $result );
 	if ( $number != null )

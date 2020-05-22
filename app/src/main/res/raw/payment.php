@@ -20,7 +20,7 @@ if ( $idUtente != null && $idMonopattino != null && $idNoleggio != null )
 		echo $post_error;
 	}
 	$query = "UPDATE noleggi SET durata_totale = '$durataTotale', importo = '$importo' 
-			  WHERE id_noleggio = '$idNoleggio' AND id_utente = '$idUtente' AND id_monopattino='$idMonopattino' AND stato = 0";
+			  WHERE id_noleggio = '$idNoleggio' AND id_utente = '$idUtente' AND id_monopattino='$idMonopattino' AND stato = 1";
 	$result = mysqli_query ( $conn, $query );
 	
 	if ( $result )

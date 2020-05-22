@@ -20,8 +20,8 @@ if ( $idUtente != null && $idMonopattino != null && $latitudine != null && $long
 		), JSON_FORCE_OBJECT );
 		echo $post_error;
 	}
-	$query = "UPDATE noleggi SET ora_fine='$ora', latitudine_arrivo ='$latitudine', longitudine_arrivo = '$longitudine', stato = 0
-				WHERE id_noleggio = '$idNoleggio' AND id_Monopattino = '$idMonopattino' AND data ='$data' AND stato = 1";
+	$query = "UPDATE noleggi SET ora_fine='$ora', latitudine_arrivo ='$latitudine', longitudine_arrivo = '$longitudine', stato = 1
+				WHERE id_noleggio = '$idNoleggio' AND id_Monopattino = '$idMonopattino' AND data ='$data' AND stato = 0";
 	$result = mysqli_query ( $conn, $query );
 	if ( $result )
 	{

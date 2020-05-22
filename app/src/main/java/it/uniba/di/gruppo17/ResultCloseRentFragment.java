@@ -153,7 +153,7 @@ public class ResultCloseRentFragment extends Fragment {
         new AlertDialog.Builder(getContext())
                 .setCancelable(false)
                 .setTitle(R.string.lowBalance_title)
-                .setMessage(R.string.lowBalance_message+": "+denaroMancante+"€")
+                .setMessage(getString(R.string.lowBalance_message)+" "+denaroMancante+"€")
                 .setPositiveButton(R.string.chargeWallet_button, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
