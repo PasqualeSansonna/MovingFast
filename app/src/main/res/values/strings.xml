@@ -160,4 +160,5 @@
     <string name="paymentError_message">Oops! Something went wrong. Please try again</string>
     <string name="menu_maintenance">Scooter maintenance</string>
     <string name="menu_recharge">Scooter recherge</string>
+
 </resources>

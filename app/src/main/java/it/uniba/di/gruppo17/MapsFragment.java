@@ -7,6 +7,7 @@ import androidx.fragment.app.Fragment;
 
 import android.Manifest;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.location.Address;
 import android.location.Geocoder;
@@ -37,7 +38,9 @@ import java.net.URL;
 import java.util.List;
 import java.util.Locale;
 
+import it.uniba.di.gruppo17.asynchttp.AsyncGetMaintainerScooters;
 import it.uniba.di.gruppo17.asynchttp.AsyncGetScooters;
+import it.uniba.di.gruppo17.util.Keys;
 import it.uniba.di.gruppo17.util.Scooter;
 import it.uniba.di.gruppo17.services.LocationService;
 
@@ -51,15 +54,15 @@ import static it.uniba.di.gruppo17.util.Keys.RAGGIO;
  */
 public class MapsFragment extends Fragment {
 
-    private static final String TAG ="MapsFragment";
+    private SharedPreferences mPref;
     private GoogleMap mGoogleMap;
-    private FusedLocationProviderClient mFusedLocationProviderClient;
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater,
                              @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
+        mPref = getContext().getSharedPreferences(Keys.SHARED_PREFERENCES, getContext().MODE_PRIVATE);
         return inflater.inflate(R.layout.fragment_maps, container, false);
     }
 
@@ -183,7 +186,19 @@ public class MapsFragment extends Fragment {
             public void onFinish() {
                 //Terminata l'animazione sulla posizione corrente, eseguo la richiesta di scooter al server
                 Snackbar.make(getView(),R.string.loading_scooter_message, Snackbar.LENGTH_SHORT).show();
-                getScooters(currentLocation);
+                //Se sono utente fruitore carico tutti i monopattini, se manutentore carico monopattini con batteria
+                // < 50 e monopattini che necessitano di manutenzione
+                if (mPref.getBoolean(Keys.USER_TYPE, false))
+                {
+                    //Scooter per manutentore
+                    getScootersMaintainer(currentLocation);
+                }
+                else
+                {
+                    //scooter per fruitore
+                    getScooters(currentLocation);
+                }
+
             }
 
             @Override
@@ -191,6 +206,23 @@ public class MapsFragment extends Fragment {
 
             }
         });
+    }
+
+    /**
+     * @author Andrea Montemurro
+     * Metodo che prende scooter visibili per manutentore
+     * @param currentLocation
+     */
+    private void getScootersMaintainer(Location currentLocation) {
+        String serverAddress = SERVER + "get_monopattini.php?r="+RAGGIO+"&lat="+currentLocation.getLatitude()+"&long="+currentLocation.getLongitude();
+        AsyncGetMaintainerScooters getScooters = null;
+        try{
+            URL urlScooters = new URL (serverAddress);
+            getScooters = new AsyncGetMaintainerScooters();
+            getScooters.execute(urlScooters);
+        } catch (MalformedURLException e) {
+            e.printStackTrace();
+        }
     }
 
     /**

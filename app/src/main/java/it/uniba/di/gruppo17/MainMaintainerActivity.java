@@ -208,7 +208,7 @@ public class MainMaintainerActivity extends AppCompatActivity implements GoogleA
                 throw new IllegalArgumentException("No fragment for the given item");
         }
         getSupportFragmentManager().beginTransaction()
-                .replace(R.id.fragment_container, nextFragment)
+                .replace(R.id.fragment_container_maint, nextFragment)
                 .commit();
     }
 
