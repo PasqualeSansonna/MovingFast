@@ -9,14 +9,15 @@ import org.json.JSONObject;
 import java.net.URL;
 import java.util.ArrayList;
 
+import it.uniba.di.gruppo17.util.Reporting;
 import it.uniba.di.gruppo17.util.Scooter;
 
 /**
  * Classe che permette di recuperare i monopattini scarichi (<50) o che richiedono manutenzione, dal db
  */
 
-public class AsyncGetMaintainerScooters extends AsyncTask <URL, Void, Boolean>{
-    private static final String TAG ="AsyncGetMonopattini";
+public class AsyncGetReportedScooters extends AsyncTask <URL, Void, Boolean>{
+    private static final String TAG ="AsyncGetMonopattiniSgn";
 
     @Override
     protected Boolean doInBackground(URL... params) {
@@ -27,22 +28,28 @@ public class AsyncGetMaintainerScooters extends AsyncTask <URL, Void, Boolean>{
         if ( monopattini !=null && monopattini.length()!=0 )
         {
             try {
-                JSONObject idMonopattini = monopattini.getJSONObject("id");
+                JSONObject idMonopattini = monopattini.getJSONObject("idMonopattino");
                 JSONObject latitutdineMonopattini = monopattini.getJSONObject("lat");
                 JSONObject longitudineMonopattini = monopattini.getJSONObject("lon");
                 JSONObject batteriaMonopattini = monopattini.getJSONObject("batteria");
+                JSONObject idSegnalazioni = monopattini.getJSONObject("idSegnalazione");
+                JSONObject statoFreniMonopattini = monopattini.getJSONObject("freni");
+                JSONObject statoRuoteMonopattini = monopattini.getJSONObject("ruote");
+                JSONObject statoManubrioMonopattini = monopattini.getJSONObject("manubrio");
+                JSONObject descrizioneSegnalazioni = monopattini.getJSONObject("descrizioneSegnalazione");
                 nearScooters = new ArrayList<>();
                 for (int i = 0; i < idMonopattini.length(); i++)
                 {
                     String index = String.valueOf(i);
+                    Reporting r = new Reporting (idSegnalazioni.getInt(index), intToBool(statoFreniMonopattini.getInt(index)),
+                            intToBool(statoRuoteMonopattini.getInt(index)), intToBool(statoManubrioMonopattini.getInt(index)),
+                            descrizioneSegnalazioni.getString(index));
                     Scooter s = new Scooter( idMonopattini.getInt(index), latitutdineMonopattini.getString(index),
-                            longitudineMonopattini.getString(index), batteriaMonopattini.getString(index) );
-                    //Aggiungo solo i monopattini con livello di batteria inferiore al 50%
-                    if (Integer.parseInt(s.getBatteryLevel())< 50)
-                        nearScooters.add(s);
+                            longitudineMonopattini.getString(index), batteriaMonopattini.getString(index), true, r);
+                    nearScooters.add(s);
                 }
                 result = true;
-                Scooter.getNearScooters(nearScooters);
+                Scooter.addNearScooters(nearScooters);
             } catch (JSONException e) {
                 Log.d(TAG,"JSON Exception sollevata");
                 e.printStackTrace();
@@ -53,5 +60,13 @@ public class AsyncGetMaintainerScooters extends AsyncTask <URL, Void, Boolean>{
             Log.d(TAG,"Nessun monopattino trovato");
         }
         return result;
+    }
+
+    private boolean intToBool (int intero)
+    {
+        if (intero == 0)
+            return false;
+        else
+            return true;
     }
 }

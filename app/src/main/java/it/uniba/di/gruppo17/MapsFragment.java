@@ -38,7 +38,8 @@ import java.net.URL;
 import java.util.List;
 import java.util.Locale;
 
-import it.uniba.di.gruppo17.asynchttp.AsyncGetMaintainerScooters;
+import it.uniba.di.gruppo17.asynchttp.*;
+import it.uniba.di.gruppo17.asynchttp.AsyncGetReportedScooters;
 import it.uniba.di.gruppo17.asynchttp.AsyncGetScooters;
 import it.uniba.di.gruppo17.util.Keys;
 import it.uniba.di.gruppo17.util.Scooter;
@@ -87,6 +88,7 @@ public class MapsFragment extends Fragment {
          */
         @Override
         public void onMapReady(GoogleMap googleMap) {
+
             mGoogleMap = googleMap;
 
             if (ActivityCompat.checkSelfPermission(getContext(), Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED )
@@ -94,7 +96,14 @@ public class MapsFragment extends Fragment {
 
            if ( getDeviceLocation() )
            {
-               getScooters(LocationService.realTimeDeviceLocation());
+               if (mPref.getBoolean(Keys.USER_TYPE, false))
+               {
+                   getReportedScooters(LocationService.realTimeDeviceLocation());
+               }
+               else
+               {
+                   getScooters(LocationService.realTimeDeviceLocation());
+               }
                mGoogleMap.setOnMapLoadedCallback(new GoogleMap.OnMapLoadedCallback() {
                    @Override
                    public void onMapLoaded() {
@@ -178,7 +187,7 @@ public class MapsFragment extends Fragment {
      */
     private void cameraAnimation(final Location currentLocation)
     {
-        LatLng currentLatLng = new LatLng(currentLocation.getLatitude(), currentLocation.getLongitude());
+        final LatLng currentLatLng = new LatLng(currentLocation.getLatitude(), currentLocation.getLongitude());
         CameraUpdate cameraUpdate = CameraUpdateFactory.newLatLngZoom(currentLatLng, ZOOM);
         mGoogleMap.animateCamera(cameraUpdate, MAP_ANIMATION_DURATION, new GoogleMap.CancelableCallback() {
             @Override
@@ -189,12 +198,11 @@ public class MapsFragment extends Fragment {
                 // < 50 e monopattini che necessitano di manutenzione
                 if (mPref.getBoolean(Keys.USER_TYPE, false))
                 {
-                    //Scooter per manutentore
-                    getScootersMaintainer(currentLocation);
+                    getReportedScooters(currentLocation);
+                    getUnloadedScooters(currentLocation);
                 }
                 else
                 {
-                    //scooter per fruitore
                     getScooters(currentLocation);
                 }
 
@@ -208,16 +216,32 @@ public class MapsFragment extends Fragment {
     }
 
     /**
-     * @author Andrea Montemurro
-     * Metodo che prende scooter visibili per manutentore
+     * Metodo che prende scooter con batteria residua <50%
      * @param currentLocation
      */
-    private void getScootersMaintainer(Location currentLocation) {
+    private void getUnloadedScooters(Location currentLocation) {
         String serverAddress = SERVER + "get_monopattini.php?r="+RAGGIO+"&lat="+currentLocation.getLatitude()+"&long="+currentLocation.getLongitude();
-        AsyncGetMaintainerScooters getScooters = null;
+        AsyncGetUnloadedScooters getScooters = null;
         try{
             URL urlScooters = new URL (serverAddress);
-            getScooters = new AsyncGetMaintainerScooters();
+            getScooters = new AsyncGetUnloadedScooters();
+            getScooters.execute(urlScooters);
+        } catch (MalformedURLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    /**
+     * @author Andrea Montemurro
+     * Metodo che prende scooter scooter di cui è stato segnalato un problema
+     * @param currentLocation
+     */
+    private void getReportedScooters(Location currentLocation) {
+        String serverAddress = SERVER + "get_monopattini_manutenz.php?r="+RAGGIO+"&lat="+currentLocation.getLatitude()+"&long="+currentLocation.getLongitude();
+        AsyncGetReportedScooters getScooters = null;
+        try{
+            URL urlScooters = new URL (serverAddress);
+            getScooters = new AsyncGetReportedScooters();
             getScooters.execute(urlScooters);
         } catch (MalformedURLException e) {
             e.printStackTrace();

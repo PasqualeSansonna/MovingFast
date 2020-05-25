@@ -11,9 +11,8 @@ import java.util.ArrayList;
 
 import it.uniba.di.gruppo17.util.Scooter;
 
-public class AsyncGetScooters extends AsyncTask<URL, Void, Boolean> {
-
-    private static final String TAG ="AsyncGetMonopattini";
+public class AsyncGetUnloadedScooters extends AsyncTask <URL, Void, Boolean>{
+    private static final String TAG ="AsyncGetMonopattiniScrc";
 
     @Override
     protected Boolean doInBackground(URL... params) {
@@ -33,11 +32,12 @@ public class AsyncGetScooters extends AsyncTask<URL, Void, Boolean> {
                 {
                     String index = String.valueOf(i);
                     Scooter s = new Scooter( idMonopattini.getInt(index), latitutdineMonopattini.getString(index),
-                            longitudineMonopattini.getString(index), batteriaMonopattini.getString(index) );
-                    nearScooters.add(s);
+                            longitudineMonopattini.getString(index), batteriaMonopattini.getString(index), false, null );
+                    if (Integer.parseInt(s.getBatteryLevel())<50)
+                        nearScooters.add(s);
                 }
                 result = true;
-                Scooter.addNearScooters(nearScooters);
+                Scooter.addOtherScooters(nearScooters);
             } catch (JSONException e) {
                 Log.d(TAG,"JSON Exception sollevata");
                 e.printStackTrace();

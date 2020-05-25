@@ -8,6 +8,8 @@ public class Scooter {
     private String latitude;
     private String longitude;
     private String batteryLevel;
+    private boolean reqMaintenance;
+    private Reporting reportingMaintenance;
     public static ArrayList<Scooter> nearScooters;
 
     public Scooter(int id, String lat, String lon, String batteryLevel )
@@ -16,6 +18,16 @@ public class Scooter {
         this.latitude = lat;
         this.longitude = lon;
         this.batteryLevel = batteryLevel;
+    }
+
+    public Scooter(int id, String lat, String lon, String batteryLevel, boolean reqMaintenance, Reporting reportingMaintenance )
+    {
+        this.idScooter = id;
+        this.latitude = lat;
+        this.longitude = lon;
+        this.batteryLevel = batteryLevel;
+        this.reqMaintenance = reqMaintenance;
+        this.reportingMaintenance =reportingMaintenance;
     }
 
     public void setIdScooter(int idScooter) {
@@ -50,13 +62,23 @@ public class Scooter {
         return batteryLevel;
     }
 
-    public static void getNearScooters(ArrayList<Scooter> scootersFromServer )
+    public static void addNearScooters(ArrayList<Scooter> scootersFromServer )
     {
         if ( nearScooters == null )
             nearScooters = new ArrayList<>();
         else
             nearScooters.clear();
         nearScooters.addAll( scootersFromServer );
+    }
+
+
+    //Metodo per aggiungere ALTRI scooter a quelli già presenti nell'arraylist
+    public static void addOtherScooters (ArrayList<Scooter> otherScootersFromServer)
+    {
+        if ( nearScooters == null )
+            nearScooters = new ArrayList<>();
+
+        nearScooters.addAll( otherScootersFromServer );
     }
 
 }

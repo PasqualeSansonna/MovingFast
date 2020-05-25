@@ -65,11 +65,7 @@ public class MainMaintainerActivity extends AppCompatActivity implements GoogleA
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_maintainer);
 
-        Fragment mapsFragment = new MapsFragment();
 
-        getSupportFragmentManager().beginTransaction()
-                .replace(R.id.fragment_container_maint, mapsFragment)
-                .commit();
 
         /*Poiché non usiamo ActionBar, usiamo Toolbar*/
 
@@ -249,7 +245,6 @@ public class MainMaintainerActivity extends AppCompatActivity implements GoogleA
     public void onConnected(@Nullable Bundle bundle) {
 
         checkLocationPermission();
-
     }
 
     @Override
