@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <string name="app_name">MovingFast</string>
     <string name="login_text">ACCEDI</string>
     <string name="sign_up">REGISTRATI</string>
     <string name="new_user_text">Nuovo utente?</string>
@@ -83,7 +84,7 @@
     <string name="add_to_amount">CARICA CONTO</string>
     <string name="titleBalance">Saldo</string>
     <string name="titlePromotion">Promozioni</string>
-    <string name="add_promotional_code">Potresti avere uno sconto per il tuo prossimo noleggio</string>
+    <string name="add_promotional_code">Aggiungi un codice promozionale al tuo prossimo noleggio</string>
     <string name="add">Visualizza</string>
     <string name="detailJourney">Più dettagli</string>
     <string name="travel">Questo è stato il tuo percorso</string>
@@ -120,7 +121,4 @@
     <string name="paymentError_message">Qualcosa è andato storto. Per favore, riprova</string>
     <string name="menu_maintenance">Manutenzione monopattino</string>
     <string name="menu_recharge">Ricarica monopattino</string>
-    <string name="no_discount">Non hai nessuno sconto. Noleggia il più possibile per ottenerlo!</string>
-    <string name="discount_text">Sconto per il prossimo noleggio:</string>
-    <string name="maintenance_warning">Questo scooter ha bisogno di manutenzione</string>
 </resources>

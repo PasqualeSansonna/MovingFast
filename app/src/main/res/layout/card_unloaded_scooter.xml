@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@android:color/background_light"
+    android:orientation="vertical">
+
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/cardUnloadedScooter"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/mtrl_card_spacing"
+        android:layout_marginTop="@dimen/mtrl_card_spacing"
+        android:layout_marginRight="@dimen/mtrl_card_spacing"
+        app:cardElevation="@dimen/card_elevation">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/background"
+            android:backgroundTint="@color/colorAccent"
+            android:padding="@dimen/card_padding">
+
+
+            <ImageView
+                android:id="@+id/address_card_unl_imageview"
+                android:layout_width="24dp"
+                android:layout_height="20dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:srcCompat="@drawable/ic_place" />
+
+            <TextView
+                android:id="@+id/address_card_unl_textview"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="24dp"
+                android:text=""
+                android:textSize="@dimen/subtitle_card_size"
+                app:layout_constraintStart_toEndOf="@+id/address_card_unl_imageview"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <ImageView
+                android:id="@+id/battery_card_unl_imageview"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/address_card_unl_imageview"
+                app:srcCompat="@drawable/ic_battery" />
+
+            <TextView
+                android:id="@+id/battery_card_unl_textview"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="24dp"
+                android:layout_marginTop="32dp"
+                android:text=""
+                android:textSize="@dimen/subtitle_card_size"
+                app:layout_constraintStart_toEndOf="@+id/battery_card_unl_imageview"
+                app:layout_constraintTop_toTopOf="@+id/address_card_unl_textview" />
+
+            <ImageView
+                android:id="@+id/id_card_unl_imageview"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="36dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/battery_card_unl_imageview"
+                app:srcCompat="@drawable/ic_info" />
+
+            <TextView
+                android:id="@+id/id_card_unl_textview"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="24dp"
+                android:layout_marginTop="16dp"
+                android:text=""
+                app:layout_constraintStart_toEndOf="@+id/id_card_unl_imageview"
+                app:layout_constraintTop_toBottomOf="@+id/battery_card_unl_textview" />
+
+            <ImageButton
+                android:id="@+id/imageButton_recharge_unl"
+                android:layout_width="64dp"
+                android:layout_height="39dp"
+                android:layout_marginStart="252dp"
+                android:layout_marginTop="4dp"
+                app:layout_constraintStart_toEndOf="@+id/battery_card_unl_textview"
+                app:layout_constraintTop_toBottomOf="@+id/recharge_unl_textview"
+                app:srcCompat="@drawable/ic_recharge" />
+
+            <TextView
+                android:id="@+id/recharge_unl_textview"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="252dp"
+                android:layout_marginTop="32dp"
+                android:text="@string/recharge_unl_button"
+                app:layout_constraintStart_toEndOf="@+id/battery_card_unl_textview"
+                app:layout_constraintTop_toTopOf="parent" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </com.google.android.material.card.MaterialCardView>
+
+</LinearLayout>

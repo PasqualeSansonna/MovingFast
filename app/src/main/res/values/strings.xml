@@ -164,7 +164,9 @@
 
     <!--Strings in Activity maintainer -->
     <string name="menu_maintenance">Scooter maintenance</string>
-    <string name="menu_recharge">Scooter recherge</string>
+    <string name="menu_recharge">Scooter recharge</string>
+    <string name="recharge_unl_button">"Recharge"</string>
+    <string name="titleUnloaded">Scooters with low battery</string>
 
 
 </resources>
