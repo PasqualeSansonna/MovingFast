@@ -6,6 +6,8 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -38,6 +40,7 @@ public class PastRentalsFragment extends Fragment {
     PastRentalsAdapter pastRentalsAdapter;
     View view;
 
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -54,10 +57,9 @@ public class PastRentalsFragment extends Fragment {
 
     private void viewPastRentals(){
 
-        int durata_totale = 0;
+        Integer durata_totale = 0;
         int ora_totale = 0;
         int minuti_totale = 0;
-        Iterator<Rental> iterator;
         /**
          * Creo url connessione
          **/
@@ -85,11 +87,12 @@ public class PastRentalsFragment extends Fragment {
                 durata_totale += rentals.get(i).getDurata();
             }
 
-            ora_totale = durata_totale / 60;
-            minuti_totale = durata_totale % 60;
+            ora_totale = (int) durata_totale / 60;
+            minuti_totale = (int) durata_totale % 60;
+
 
             /**Nelle shared preferences salviamo la durata totale dei noleggi effettuati utile per lo sconto (in minuti)**/
-            writePreferences(durata_totale);
+
             TV_total_duration.setText(ora_totale+ "h " + minuti_totale + "m");
 
         }
@@ -103,17 +106,6 @@ public class PastRentalsFragment extends Fragment {
         recyclerView.setItemAnimator(new DefaultItemAnimator());
         recyclerView.setAdapter(pastRentalsAdapter);
 
-    }
-
-    /**
-     *
-     * @param durata_totale
-     * La durata totale viene salvata nelle SharedPreferences
-     */
-    private void writePreferences(float durata_totale) {
-            SharedPreferences.Editor editor = preferences.edit();
-            editor.putFloat(RENTALS_TOTAL_DURATION, Float.parseFloat(String.format("%.2f", durata_totale)));
-            editor.apply();
     }
 
 

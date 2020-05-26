@@ -108,6 +108,8 @@ public class CloseRentFragment extends Fragment implements NfcAdapter.CreateNdef
         mFragmentTransaction.replace(R.id.fragment_container,toResultCloseRentFragment);
         mFragmentTransaction.commit();
         //getFragmentManager().beginTransaction().replace(R.id.fragment_container,toResultCloseRentFragment).commit();
+
+
     }
 
     /**

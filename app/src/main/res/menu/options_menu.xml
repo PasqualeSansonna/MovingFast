@@ -2,11 +2,6 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item
-        android:id="@+id/setting_fragment"
-        android:orderInCategory="100"
-        android:title="@string/settings_title"
-        android:textStyle="bold" />
-    <item
         android:id="@+id/logout_fragment"
         android:orderInCategory="100"
         android:title="@string/menu_logout"

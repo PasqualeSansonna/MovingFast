@@ -65,7 +65,6 @@ public class ProfileFragment extends Fragment {
         ET_surname = (EditText) view.findViewById(R.id.editText_surname);
         ET_email = (EditText) view.findViewById(R.id.editText_email);
         BT_pastRentals = (Button) view.findViewById(R.id.buttonPastRentals);
-        BT_discounts = (Button) view.findViewById(R.id.buttonDiscount);
         BT_confirmEdit = (Button) view.findViewById(R.id.buttonConfirmEdit);
         BT_cancelEdit = (Button) view.findViewById(R.id.buttonCancel);
         R_confirmEdit = (TableRow) view.findViewById(R.id.rowConfirmEdit);

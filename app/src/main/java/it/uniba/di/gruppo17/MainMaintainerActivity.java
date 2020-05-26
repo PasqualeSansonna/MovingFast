@@ -124,9 +124,6 @@ public class MainMaintainerActivity extends AppCompatActivity implements GoogleA
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
         switch (id) {
-            case R.id.setting_fragment:
-                /* TODO: 02/05/2020 Implementare una pagina di impostazioni */
-                break;
             case R.id.logout_fragment:
                 logout();
                 break;

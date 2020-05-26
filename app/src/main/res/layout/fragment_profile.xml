@@ -240,22 +240,7 @@
                     android:textColor="@color/background" />
             </TableRow>
 
-            <TableRow
-                android:id="@+id/rowDiscount"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_marginBottom="50dp"
-                android:gravity="center">
 
-                <Button
-                    android:id="@+id/buttonDiscount"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
-                    android:backgroundTint="@color/colorPrimary"
-                    android:text="@string/discount"
-                    android:textColor="@color/background" />
-            </TableRow>
         </TableLayout>
     </RelativeLayout>
 </ScrollView>

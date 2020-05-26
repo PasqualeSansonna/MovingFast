@@ -10,6 +10,7 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -23,6 +24,7 @@ import java.net.URL;
 import java.util.Objects;
 
 import it.uniba.di.gruppo17.asynchttp.AsyncGetBalance;
+import it.uniba.di.gruppo17.asynchttp.AsyncGetDiscount;
 import it.uniba.di.gruppo17.util.ConnectionUtil;
 import it.uniba.di.gruppo17.util.Keys;
 
@@ -46,7 +48,10 @@ public class WalletFragment extends Fragment {
     /*Bottone per ricaricare portafoglio*/
     private Button payBt;
 
-
+    /* per visualizzare lo sconto*/
+    private Button displayDiscountBt;
+    private TextView discount_TV;
+    private TextView discount_number_TV;
 
 
     @Override
@@ -67,6 +72,10 @@ public class WalletFragment extends Fragment {
         View layout =  inflater.inflate(R.layout.fragment_wallet, container, false);
         amountTv = (TextView) layout.findViewById(R.id.walletAmount);
         payBt = (Button) layout.findViewById(R.id.ricarica);
+        displayDiscountBt = (Button) layout.findViewById(R.id.displayDiscountButton);
+        discount_TV = (TextView) layout.findViewById(R.id.discountTextView);
+        discount_number_TV = (TextView) layout.findViewById(R.id.discountNumber);
+        discount_number_TV.setVisibility(View.GONE);
 
 
         return layout;
@@ -111,6 +120,44 @@ public class WalletFragment extends Fragment {
             public void onClick(View v) {
                 goToFragment(new PayFragment());
             }
+        });
+
+        displayDiscountBt.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                int sconto = -1;
+
+                displayDiscountBt.setVisibility(View.GONE);
+
+                id = preferences.getInt(Keys.USER_ID, -1);
+
+
+                //Costruzione stringa HTTP
+                String str = Keys.SERVER + "get_discount.php?id=" + id;
+                try {
+                    url = new URL(str);
+                    AsyncGetDiscount http = new AsyncGetDiscount();
+                    sconto = http.execute(url).get();
+
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+
+                if (sconto == 0) {
+                    discount_TV.setText(R.string.no_discount);
+                    discount_number_TV.setVisibility(View.GONE);
+                }
+                else {
+                    discount_number_TV.setVisibility(View.VISIBLE);
+                    discount_TV.setText(R.string.discount_text);
+                    discount_number_TV.setText(sconto + "%");
+                }
+
+                }
+
+
+
         });
 
         super.onResume();

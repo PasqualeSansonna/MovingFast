@@ -26,8 +26,11 @@ import java.io.IOException;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.concurrent.ExecutionException;
 import java.util.concurrent.TimeUnit;
 
+import it.uniba.di.gruppo17.asynchttp.AsyncDeleteDiscount;
+import it.uniba.di.gruppo17.asynchttp.AsyncGetDiscount;
 import it.uniba.di.gruppo17.asynchttp.JsonFromHttp;
 import it.uniba.di.gruppo17.util.Keys;
 
@@ -45,6 +48,7 @@ public class ResultCloseRentFragment extends Fragment {
     private Button reportAproblemButton;
     private float denaroMancante = -1;
     private boolean completed = false;
+
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -83,6 +87,8 @@ public class ResultCloseRentFragment extends Fragment {
         long time = prefs.getLong(Keys.CHRONOMETER_TIME, -1);
         final String timeString = String.format("%02d:%02d:%02d",
                             TimeUnit.MILLISECONDS.toHours(time), TimeUnit.MILLISECONDS.toMinutes(time), TimeUnit.MILLISECONDS.toSeconds(time), TimeUnit.MILLISECONDS.toSeconds(time));
+        int discount = 0;
+
         if ( time > -1 )
             timeTextView.setText(timeString);
         else
@@ -94,21 +100,56 @@ public class ResultCloseRentFragment extends Fragment {
         else
             distanceTextView.setText("Errore");
 
-        final float amount = Keys.UNLOCK_COST + ( Keys.COST_PER_MINUTE * TimeUnit.MILLISECONDS.toMinutes(time) )
-                                        + ( Keys.COST_PER_MINUTE * TimeUnit.MILLISECONDS.toHours(time) );
+        final int userId = prefs.getInt(Keys.USER_ID,-1);
+        final int scooterId = prefs.getInt(Keys.SCOOTER_ID, -1);
+        final int rentId = prefs.getInt(Keys.RENT_ID, -1);
+
+        /** verifico che ci siamo degli sconti per l'utente loggato**/
+        String str = Keys.SERVER + "get_discount.php?id=" + userId;
+        URL url = null;
+
+        try {
+            url = new URL(str);
+            AsyncGetDiscount http = new AsyncGetDiscount();
+            discount = http.execute(url).get();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        float amount = Keys.UNLOCK_COST + ( Keys.COST_PER_MINUTE * TimeUnit.MILLISECONDS.toMinutes(time) )
+                + ( Keys.COST_PER_MINUTE * TimeUnit.MILLISECONDS.toHours(time) );
+
+        /** calcolo il prezzo scontato**/
+        if (discount != 0){
+            float sottocento;
+            sottocento = 1 - (discount/ 100);
+            amount *= sottocento;
+        }
+
+        /**elimino lo sconto dal database una volta utilizzato**/
+        String str2 = Keys.SERVER + "delete_discount.php?id=" + userId;
+        URL url2 = null;
+        try {
+            url2 = new URL(str2);
+            AsyncDeleteDiscount http = new AsyncDeleteDiscount();
+            http.execute(url);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+
         if ( amount >= 0 )
             costTextView.setText( String.format("%.2f",amount) );
         else
             costTextView.setText("Errore");
 
-        final int userId = prefs.getInt(Keys.USER_ID,-1);
-        final int scooterId = prefs.getInt(Keys.SCOOTER_ID, -1);
-        final int rentId = prefs.getInt(Keys.RENT_ID, -1);
 
+        final float finalAmount = amount;
         paymentButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String server = Keys.SERVER + "payment.php?idU="+userId+"&idM="+scooterId+"&idN="+rentId+"&amount="+amount+"&time="+timeString;
+                String server = Keys.SERVER + "payment.php?idU="+userId+"&idM="+scooterId+"&idN="+rentId+"&amount="+ finalAmount +"&time="+timeString;
                 try {
                     URL url = new URL(server);
                     AsyncCheckWallet mAsyncCheckWallet = new AsyncCheckWallet();

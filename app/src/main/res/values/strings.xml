@@ -1,7 +1,7 @@
 <resources>
-    <string name="app_name" translatable="false">MovingFast</string>
     <string name="title_activity_splash" translatable="false">SplashActivity</string>
     <string name="title_activity_login" translatable="false">Login</string>
+    <string name="app_name" translatable="false"> MovingFast</string>
 
     <!--Login and Signup activity-->
     <string name="edit_text_email" translatable="false">E-Mail</string>
@@ -127,11 +127,13 @@
     <!-- String in wallet fragment-->
     <string name="titleBalance">Balance</string>
     <string name="titlePromotion">Promotions</string>
-    <string name="add_promotional_code">Add a promotional code to your next rental </string>
+    <string name="add_promotional_code">You might have a discount for your next rental </string>
     <string name="add">Displays</string>
     <string name="wallet_value">WALLET AMOUNT</string>
     <string name="pay_now">PAY NOW</string>
     <string name="loading_connection_msgWallet">Connection. Updating Wallet</string>
+    <string name="discount_text">" Discount for the next rental: "</string>
+    <string name="no_discount"> You don\'t have any discount. Rent as much as possible to get it! </string>
 
     <!-- Strings in payFragment -->
     <string name="paying_paypal">You will be directed to the paypal screen for payment</string>

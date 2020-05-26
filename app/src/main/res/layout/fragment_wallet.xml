@@ -94,7 +94,7 @@
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="169dp"
+            android:layout_height="match_parent"
             android:padding="@dimen/card_padding">
 
             <TextView
@@ -123,18 +123,47 @@
 
 
             <Button
-                android:id="@+id/displaysPromotionalCode"
-                android:layout_width="59dp"
-                android:layout_height="22dp"
+                android:id="@+id/displayDiscountButton"
+                android:layout_width="88dp"
+                android:layout_height="32dp"
                 android:layout_marginTop="16dp"
                 android:layout_marginBottom="32dp"
                 android:background="@color/colorPrimary"
                 android:text="@string/add"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.005"
+                app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/addPromotionalCode" />
+                app:layout_constraintTop_toBottomOf="@+id/addPromotionalCode"
+                app:layout_constraintVertical_bias="0.0" />
+
+            <TextView
+                android:id="@+id/discountTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:text=""
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.102"
+                app:layout_constraintStart_toEndOf="@+id/displayDiscountButton"
+                app:layout_constraintTop_toBottomOf="@+id/addPromotionalCode"
+                app:layout_constraintVertical_bias="0.308" />
+
+            <TextView
+                android:id="@+id/discountNumber"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:text="TextView"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.78"
+                app:layout_constraintStart_toStartOf="@+id/discountTextView"
+                app:layout_constraintTop_toBottomOf="@+id/addPromotionalCode"
+                app:layout_constraintVertical_bias="0.308" />
+
+            "
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </com.google.android.material.card.MaterialCardView>
