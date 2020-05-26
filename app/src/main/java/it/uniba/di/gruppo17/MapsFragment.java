@@ -112,52 +112,99 @@ public class MapsFragment extends Fragment {
                });
 
                //Bottom Sheet
-               mGoogleMap.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {
-                   @Override
-                   public boolean onMarkerClick(Marker marker) {
-                       marker.hideInfoWindow();
-                       final BottomSheetDialog mBottomSheetDialog = new BottomSheetDialog(getContext(), R.style.BottomSheetDialogTheme);
-                       mBottomSheetDialog.setContentView(R.layout.bottomsheet_layout_mapfragment);
-                       TextView address = mBottomSheetDialog.findViewById(R.id.address_textView);
-                       TextView battery = mBottomSheetDialog.findViewById(R.id.battery_textView);
+               if (mPref.getBoolean(Keys.USER_TYPE, false))
+               {
+                   //Visualizzazione bottom sheet manutentore
+                   mGoogleMap.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {
+                       @Override
+                       public boolean onMarkerClick(Marker marker) {
+                           marker.hideInfoWindow();
+                           final BottomSheetDialog mBottomSheetDialog = new BottomSheetDialog(getContext(), R.style.BottomSheetDialogTheme);
 
-                       //Prendo i dati dal marker
-                       final LatLng mLatLng = new LatLng(marker.getPosition().latitude, marker.getPosition().longitude);
-                       Geocoder mGeocoder = new Geocoder(getContext(), Locale.ITALY);
-                       try {
-                           List<Address> addresses = mGeocoder.getFromLocation(mLatLng.latitude, mLatLng.longitude, 1);
-                           address.setText(addresses.get(0).getAddressLine(0));
-                       } catch (IOException e) {
-                           e.printStackTrace();
+                           mBottomSheetDialog.setContentView(R.layout.bottomsheet_layout_mapmaintainer);
+                           TextView address = mBottomSheetDialog.findViewById(R.id.address_textView_maintainer);
+                           TextView battery = mBottomSheetDialog.findViewById(R.id.battery_textView_maintainer);
+
+                           //Prendo i dati dal marker
+                           final LatLng mLatLng = new LatLng(marker.getPosition().latitude, marker.getPosition().longitude);
+                           Geocoder mGeocoder = new Geocoder(getContext(), Locale.ITALY);
+                           try {
+                               List<Address> addresses = mGeocoder.getFromLocation(mLatLng.latitude, mLatLng.longitude, 1);
+                               address.setText(addresses.get(0).getAddressLine(0));
+                           } catch (IOException e) {
+                               e.printStackTrace();
+                           }
+                           battery.setText(marker.getSnippet().substring(15));
+
+                           mBottomSheetDialog.findViewById(R.id.directionsButton_maintainer).setOnClickListener(new View.OnClickListener() {
+                               @Override
+                               public void onClick(View view) {
+                                   mBottomSheetDialog.dismiss();
+                                   //Per aprire app google maps
+                                   Uri googleMapsIntentUri = Uri.parse("google.navigation:q="+mLatLng.latitude+","+mLatLng.longitude+"&mode=w");
+                                   Intent googleMapsIntent = new Intent(Intent.ACTION_VIEW, googleMapsIntentUri);
+                                   googleMapsIntent.setPackage("com.google.android.apps.maps");
+                                   startActivity(googleMapsIntent);
+                                   //Metto il fragment in pausa. Da controllare
+                                   MapsFragment.super.onPause();
+                               }
+                           });
+                           mBottomSheetDialog.show();
+                           return true;
                        }
-                       battery.setText(marker.getSnippet().substring(15));
+                   });
 
-                       mBottomSheetDialog.findViewById(R.id.directionsButton).setOnClickListener(new View.OnClickListener() {
-                           @Override
-                           public void onClick(View view) {
-                               mBottomSheetDialog.dismiss();
-                               //Per aprire app google maps
-                               Uri googleMapsIntentUri = Uri.parse("google.navigation:q="+mLatLng.latitude+","+mLatLng.longitude+"&mode=w");
-                               Intent googleMapsIntent = new Intent(Intent.ACTION_VIEW, googleMapsIntentUri);
-                               googleMapsIntent.setPackage("com.google.android.apps.maps");
-                               startActivity(googleMapsIntent);
-                               //Metto il fragment in pausa. Da controllare
-                               MapsFragment.super.onPause();
+               }
+               else
+               {
+                   //Visualizzazione bottom sheet fruitore
+                   mGoogleMap.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {
+                       @Override
+                       public boolean onMarkerClick(Marker marker) {
+                           marker.hideInfoWindow();
+                           final BottomSheetDialog mBottomSheetDialog = new BottomSheetDialog(getContext(), R.style.BottomSheetDialogTheme);
+                           mBottomSheetDialog.setContentView(R.layout.bottomsheet_layout_mapfragment);
+                           TextView address = mBottomSheetDialog.findViewById(R.id.address_textView);
+                           TextView battery = mBottomSheetDialog.findViewById(R.id.battery_textView);
+
+                           //Prendo i dati dal marker
+                           final LatLng mLatLng = new LatLng(marker.getPosition().latitude, marker.getPosition().longitude);
+                           Geocoder mGeocoder = new Geocoder(getContext(), Locale.ITALY);
+                           try {
+                               List<Address> addresses = mGeocoder.getFromLocation(mLatLng.latitude, mLatLng.longitude, 1);
+                               address.setText(addresses.get(0).getAddressLine(0));
+                           } catch (IOException e) {
+                               e.printStackTrace();
                            }
-                       });
-                       mBottomSheetDialog.findViewById(R.id.unlockButton).setOnClickListener(new View.OnClickListener() {
-                           @Override
-                           public void onClick(View view) {
-                               mBottomSheetDialog.dismiss();
-                               //Per sbloccare il monopattino, richiamo rentFragment ed elimino mapsfragment
-                               Fragment toRentFragment = new RentFragment();
-                               getFragmentManager().beginTransaction().replace(R.id.fragment_container, toRentFragment).commit();
-                           }
-                       });
-                       mBottomSheetDialog.show();
-                       return true;
-                   }
-               });
+                           battery.setText(marker.getSnippet().substring(15));
+
+                           mBottomSheetDialog.findViewById(R.id.directionsButton).setOnClickListener(new View.OnClickListener() {
+                               @Override
+                               public void onClick(View view) {
+                                   mBottomSheetDialog.dismiss();
+                                   //Per aprire app google maps
+                                   Uri googleMapsIntentUri = Uri.parse("google.navigation:q="+mLatLng.latitude+","+mLatLng.longitude+"&mode=w");
+                                   Intent googleMapsIntent = new Intent(Intent.ACTION_VIEW, googleMapsIntentUri);
+                                   googleMapsIntent.setPackage("com.google.android.apps.maps");
+                                   startActivity(googleMapsIntent);
+                                   //Metto il fragment in pausa. Da controllare
+                                   MapsFragment.super.onPause();
+                               }
+                           });
+                           mBottomSheetDialog.findViewById(R.id.unlockButton).setOnClickListener(new View.OnClickListener() {
+                               @Override
+                               public void onClick(View view) {
+                                   mBottomSheetDialog.dismiss();
+                                   //Per sbloccare il monopattino, richiamo rentFragment ed elimino mapsfragment
+                                   Fragment toRentFragment = new RentFragment();
+                                   getFragmentManager().beginTransaction().replace(R.id.fragment_container, toRentFragment).commit();
+                               }
+                           });
+                           mBottomSheetDialog.show();
+                           return true;
+                       }
+                   });
+               }
            }
         }
     };

@@ -56,6 +56,7 @@
     <string name="snippet_marker_map">Battery level</string>
     <string name="no_scooter_message">No scooter avaible here</string>
     <string name="snackbar_action">RETRY</string>
+    <string name="maintenance_warning">This scooter may need maintenance</string>
 
     <!-- Strings Profile Activity-->
     <string name="first_name">Surname</string>
@@ -158,7 +159,10 @@
     <string name="chargeWallet_button">Charge Wallet</string>
     <string name="paymentError_title">Payment error</string>
     <string name="paymentError_message">Oops! Something went wrong. Please try again</string>
+
+    <!--Strings in Activity maintainer -->
     <string name="menu_maintenance">Scooter maintenance</string>
     <string name="menu_recharge">Scooter recherge</string>
+
 
 </resources>
