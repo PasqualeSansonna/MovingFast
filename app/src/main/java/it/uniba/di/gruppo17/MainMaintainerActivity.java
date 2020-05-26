@@ -192,7 +192,7 @@ public class MainMaintainerActivity extends AppCompatActivity implements GoogleA
                 //nextFragment = new MaintenanceFragment();
                 break;
             case R.id.nav_recharge:
-                //nextFragment = new RechargeFragment();
+                nextFragment = new UnloadedScootersFragment();
                 break;
             case R.id.nav_profile:
                 nextFragment = new ProfileFragment();

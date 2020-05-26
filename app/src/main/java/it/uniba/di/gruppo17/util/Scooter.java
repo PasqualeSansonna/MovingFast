@@ -81,4 +81,12 @@ public class Scooter {
         nearScooters.addAll( otherScootersFromServer );
     }
 
+    public static void clearNearScooters ()
+    {
+        if (nearScooters == null)
+            nearScooters = new ArrayList<>();
+
+        nearScooters.clear();
+    }
+
 }

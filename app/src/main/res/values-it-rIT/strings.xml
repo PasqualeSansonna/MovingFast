@@ -121,4 +121,9 @@
     <string name="paymentError_message">Qualcosa è andato storto. Per favore, riprova</string>
     <string name="menu_maintenance">Manutenzione monopattino</string>
     <string name="menu_recharge">Ricarica monopattino</string>
+    <string name="maintenance_warning">Il monopattino potrebbe richiedere manutenzione</string>
+    <string name="recharge_unl_button">Ricarica</string>
+    <string name="titleUnloaded">Monopattini con poca carica</string>
+    <string name="charged_scooter">Il monopattino è stato ricaricato</string>
+    <string name="not_charged_scooter">Il monopattino non è stato ricaricato. Riprova</string>
 </resources>

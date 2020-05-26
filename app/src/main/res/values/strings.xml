@@ -167,6 +167,8 @@
     <string name="menu_recharge">Scooter recharge</string>
     <string name="recharge_unl_button">"Recharge"</string>
     <string name="titleUnloaded">Scooters with low battery</string>
+    <string name="charged_scooter">The scooter has been recharged</string>
+    <string name="not_charged_scooter">The scooter has not been recharged</string>
 
 
 </resources>
