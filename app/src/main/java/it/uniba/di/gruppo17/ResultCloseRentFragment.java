@@ -8,6 +8,7 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -26,13 +27,13 @@ import java.io.IOException;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.util.concurrent.ExecutionException;
+import java.util.ArrayList;
 import java.util.concurrent.TimeUnit;
 
-import it.uniba.di.gruppo17.asynchttp.AsyncDeleteDiscount;
-import it.uniba.di.gruppo17.asynchttp.AsyncGetDiscount;
+import it.uniba.di.gruppo17.asynchttp.AsyncPastRentals;
 import it.uniba.di.gruppo17.asynchttp.JsonFromHttp;
 import it.uniba.di.gruppo17.util.Keys;
+import it.uniba.di.gruppo17.util.Rental;
 
 /**
  * @author Francesco Moramarco
@@ -48,6 +49,8 @@ public class ResultCloseRentFragment extends Fragment {
     private Button reportAproblemButton;
     private float denaroMancante = -1;
     private boolean completed = false;
+
+    private int userId;
 
 
     @Override
@@ -100,25 +103,17 @@ public class ResultCloseRentFragment extends Fragment {
         else
             distanceTextView.setText("Errore");
 
-        final int userId = prefs.getInt(Keys.USER_ID,-1);
+         userId = prefs.getInt(Keys.USER_ID,-1);
         final int scooterId = prefs.getInt(Keys.SCOOTER_ID, -1);
         final int rentId = prefs.getInt(Keys.RENT_ID, -1);
 
-        /** verifico che ci siamo degli sconti per l'utente loggato**/
-        String str = Keys.SERVER + "get_discount.php?id=" + userId;
-        URL url = null;
 
-        try {
-            url = new URL(str);
-            AsyncGetDiscount http = new AsyncGetDiscount();
-            discount = http.execute(url).get();
-
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
 
         float amount = Keys.UNLOCK_COST + ( Keys.COST_PER_MINUTE * TimeUnit.MILLISECONDS.toMinutes(time) )
                 + ( Keys.COST_PER_MINUTE * TimeUnit.MILLISECONDS.toHours(time) );
+
+        /** calcolo lo sconto in base al numero delle ore di noleggio**/
+        discount = calculateDiscount();
 
         /** calcolo il prezzo scontato**/
         if (discount != 0){
@@ -127,16 +122,6 @@ public class ResultCloseRentFragment extends Fragment {
             amount *= sottocento;
         }
 
-        /**elimino lo sconto dal database una volta utilizzato**/
-        String str2 = Keys.SERVER + "delete_discount.php?id=" + userId;
-        URL url2 = null;
-        try {
-            url2 = new URL(str2);
-            AsyncDeleteDiscount http = new AsyncDeleteDiscount();
-            http.execute(url);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
 
 
         if ( amount >= 0 )
@@ -159,6 +144,54 @@ public class ResultCloseRentFragment extends Fragment {
                 }
             }
         });
+    }
+
+    private int calculateDiscount(){
+        /**calcolo la durata totale**/
+        int durata_totale = 0;
+        int ora_totale = 0;
+        ArrayList<Rental> rentals;
+        int sconto = 0;
+
+        /**
+         * Creo url connessione
+         **/
+        String str = Keys.SERVER + "view_past_rentals.php?id=" + userId;
+        URL url = null;
+
+        try {
+            url = new URL(str);
+            AsyncPastRentals pastRentals = new AsyncPastRentals();
+            rentals = pastRentals.execute(url).get(); //lista dei noleggi
+
+
+            /**Calcolo durata totale noleggi**/
+            for (int i =0; i< rentals.size(); i++) {
+
+                durata_totale += rentals.get(i).getDurata();
+            }
+
+            ora_totale =  durata_totale / 60;
+
+        }
+        catch(Exception e) {
+            e.printStackTrace();
+        }
+
+        switch (ora_totale){
+            case  1:
+                sconto = 10;
+                break;
+            case 3:
+                sconto = 20;
+                break;
+            case 10:
+                sconto = 25;
+                break;
+            default:
+                sconto = 0;
+        }
+        return sconto;
     }
 
     private void paymentSuccess()

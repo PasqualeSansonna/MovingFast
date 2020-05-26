@@ -21,12 +21,14 @@ import com.google.android.material.snackbar.Snackbar;
 
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.Objects;
 
 import it.uniba.di.gruppo17.asynchttp.AsyncGetBalance;
-import it.uniba.di.gruppo17.asynchttp.AsyncGetDiscount;
+import it.uniba.di.gruppo17.asynchttp.AsyncPastRentals;
 import it.uniba.di.gruppo17.util.ConnectionUtil;
 import it.uniba.di.gruppo17.util.Keys;
+import it.uniba.di.gruppo17.util.Rental;
 
 /**
  * Fragment che mostra l'ammontare del portafoglio dell'utente e gli permette di fare una ricarica
@@ -126,32 +128,68 @@ public class WalletFragment extends Fragment {
             @Override
             public void onClick(View v) {
 
-                int sconto = -1;
+                Integer discount = -1;
 
                 displayDiscountBt.setVisibility(View.GONE);
 
                 id = preferences.getInt(Keys.USER_ID, -1);
 
 
-                //Costruzione stringa HTTP
-                String str = Keys.SERVER + "get_discount.php?id=" + id;
+                /**calcolo la durata totale**/
+                int durata_totale = 0;
+                Integer ora_totale = 0;
+                ArrayList<Rental> rentals;
+
+                /**
+                 * Creo url connessione
+                 **/
+                String str = Keys.SERVER + "view_past_rentals.php?id=" + id;
+                URL url = null;
+
                 try {
                     url = new URL(str);
-                    AsyncGetDiscount http = new AsyncGetDiscount();
-                    sconto = http.execute(url).get();
+                    AsyncPastRentals pastRentals = new AsyncPastRentals();
+                    rentals = pastRentals.execute(url).get(); //lista dei noleggi
 
-                } catch (Exception e) {
+                    Log.d("prova", rentals.toString());
+
+                    /**Calcolo durata totale noleggi**/
+                    for (int i =0; i<rentals.size(); i++) {
+
+                        durata_totale += rentals.get(i).getDurata();
+
+                    }
+                    ora_totale =  durata_totale / 60;
+                    Log.d("prova ore", ora_totale.toString());
+                }
+                catch(Exception e) {
                     e.printStackTrace();
                 }
+                switch (ora_totale){
+                    case  1:
+                        discount = 10;
+                        break;
+                    case 3:
+                        discount = 20;
+                        break;
+                    case 10:
+                        discount = 25;
+                        break;
+                    default:
+                        discount = 0;
+                    }
 
-                if (sconto == 0) {
+
+                Log.d("prova sconto", discount.toString());
+
+                if (discount == 0) {
                     discount_TV.setText(R.string.no_discount);
                     discount_number_TV.setVisibility(View.GONE);
                 }
                 else {
                     discount_number_TV.setVisibility(View.VISIBLE);
                     discount_TV.setText(R.string.discount_text);
-                    discount_number_TV.setText(sconto + "%");
+                    discount_number_TV.setText(discount + "%");
                 }
 
                 }
