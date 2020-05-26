@@ -126,4 +126,6 @@
     <string name="titleUnloaded">Monopattini con poca carica</string>
     <string name="charged_scooter">Il monopattino è stato ricaricato</string>
     <string name="not_charged_scooter">Il monopattino non è stato ricaricato. Riprova</string>
+    <string name="discount_text">Sconto per il prossimo noleggio:</string>
+    <string name="no_discount">Non hai sconti. Noleggia il più possibile per ottenerlo!</string>
 </resources>

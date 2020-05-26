@@ -132,7 +132,7 @@
     <string name="wallet_value">WALLET AMOUNT</string>
     <string name="pay_now">PAY NOW</string>
     <string name="loading_connection_msgWallet">Connection. Updating Wallet</string>
-    <string name="discount_text">" Discount for the next rental: "</string>
+    <string name="discount_text">Discount for the next rental: </string>
     <string name="no_discount"> You don\'t have any discount. Rent as much as possible to get it! </string>
 
     <!-- Strings in payFragment -->

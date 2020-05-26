@@ -72,6 +72,7 @@ public class UnloadedScootersAdapter extends RecyclerView.Adapter<UnloadedScoote
 
                 try {
                     URL url = new URL(str);
+                    //NB: Async Edit Profile va bene, non serve creare un altro async task uguale per fare le stesse cose
                     AsyncEditProfile utente = new AsyncEditProfile();
                     boolean result = utente.execute(url).get();
                     if (result) {
