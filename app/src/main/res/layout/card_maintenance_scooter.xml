@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@android:color/background_light"
+    android:orientation="vertical">
+
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/cardMaintenanceScooter"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/mtrl_card_spacing"
+        android:layout_marginTop="@dimen/mtrl_card_spacing"
+        android:layout_marginRight="@dimen/mtrl_card_spacing"
+        app:cardElevation="@dimen/card_elevation">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/background"
+            android:backgroundTint="@color/colorAccent"
+            android:padding="@dimen/card_padding">
+
+
+            <ImageView
+                android:id="@+id/address_card_maintenance_imageview"
+                android:layout_width="24dp"
+                android:layout_height="20dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:srcCompat="@drawable/ic_place" />
+
+            <TextView
+                android:id="@+id/address_card_maintenance_textview"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="24dp"
+                android:text=""
+                android:textSize="@dimen/subtitle_card_size"
+                app:layout_constraintStart_toEndOf="@+id/address_card_maintenance_imageview"
+                app:layout_constraintTop_toTopOf="parent" />
+
+
+            <ImageView
+                android:id="@+id/card_maintenance_imageview"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="28dp"
+                app:layout_constraintStart_toStartOf="@+id/address_card_maintenance_imageview"
+                app:layout_constraintTop_toBottomOf="@+id/address_card_maintenance_imageview"
+                app:srcCompat="@drawable/ic_maintenance" />
+
+            <ImageView
+                android:id="@+id/description_imageview"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="88dp"
+                app:layout_constraintStart_toStartOf="@+id/card_maintenance_imageview"
+                app:layout_constraintTop_toTopOf="@+id/card_maintenance_imageview"
+                app:srcCompat="@drawable/ic_info" />
+
+
+            <TextView
+                android:id="@+id/description_textview"
+                android:layout_width="0dp"
+                android:layout_height="18dp"
+                android:layout_marginBottom="4dp"
+                android:text=""
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="@+id/title_handlebars"
+                app:layout_constraintTop_toTopOf="@+id/description_imageview" />
+
+            <CheckBox
+                android:id="@+id/title_brakes"
+                android:layout_width="88dp"
+                android:layout_height="22dp"
+                android:layout_marginStart="16dp"
+                android:text="@string/titleBrakes"
+                app:layout_constraintStart_toEndOf="@+id/card_maintenance_imageview"
+                app:layout_constraintTop_toTopOf="@+id/card_maintenance_imageview" />
+
+            <CheckBox
+                android:id="@+id/title_handlebars"
+                android:layout_width="107dp"
+                android:layout_height="22dp"
+                android:text="@string/titleHandlebars"
+                app:layout_constraintStart_toStartOf="@+id/title_wheels"
+                app:layout_constraintTop_toBottomOf="@+id/title_wheels" />
+
+            <CheckBox
+                android:id="@+id/title_wheels"
+                android:layout_width="88dp"
+                android:layout_height="22dp"
+                android:layout_marginTop="1dp"
+                android:text="@string/titleWheels"
+                app:layout_constraintStart_toStartOf="@+id/title_brakes"
+                app:layout_constraintTop_toBottomOf="@+id/title_brakes" />
+
+
+            <ImageButton
+                android:id="@+id/imageButton_confirm"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:elevation="10dp"
+                app:layout_constraintEnd_toEndOf="@+id/maintenance_confirm_textview"
+                app:layout_constraintHorizontal_bias="0.52"
+                app:layout_constraintStart_toStartOf="@+id/maintenance_confirm_textview"
+                app:layout_constraintTop_toBottomOf="@+id/maintenance_confirm_textview"
+                app:srcCompat="@drawable/ic_done" />
+
+            <TextView
+                android:id="@+id/maintenance_confirm_textview"
+                android:layout_width="96dp"
+                android:layout_height="37dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginEnd="16dp"
+                android:text="@string/maintenance_confirm_button"
+                android:textAlignment="center"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/title_brakes" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </com.google.android.material.card.MaterialCardView>
+
+
+</LinearLayout>

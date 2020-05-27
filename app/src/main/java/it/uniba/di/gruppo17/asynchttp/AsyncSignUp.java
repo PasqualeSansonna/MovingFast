@@ -12,8 +12,8 @@ public class AsyncSignUp extends AsyncTask<URL, String, Boolean> {
 
         boolean result = false;
         for (URL param : params) {
-            JSONObject json = new JsonFromHttp().getJsonObject(param);
             try {
+                JSONObject json = new JsonFromHttp().getJsonObject(param);
                 if (json.getString("id") != null)
                     result = true;
             } catch (Exception e) {

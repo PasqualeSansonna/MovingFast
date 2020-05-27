@@ -11,9 +11,9 @@ if ($raggio != null && $latitudine != null && $longitudine != null) {
 
     $conn = mysqli_connect ( $host, $user, $password, $db_name );
     $query = "SELECT monopattini.id_monopattino, monopattini.latitudine, monopattini.longitudine, monopattini.stato_batteria, monopattini.richiesta_manutenzione,
-	                 segnalazioni.id_monopattino, segnalazioni.id_segnalazione, segnalazioni.guasto_fregni, segnalazioni.guasto_ruote, segnalazioni.guasto_manubrio,
+	                 segnalazioni.id_monopattino, segnalazioni.id_segnalazione, segnalazioni.guasto_freni, segnalazioni.guasto_ruote, segnalazioni.guasto_manubrio,
 	                 segnalazioni.descrizione
-	          FROM monopattini, segnalazioni 
+	          FROM monopattini INNER JOIN segnalazioni
 	          WHERE monopattini.id_monopattino = segnalazioni.id_monopattino";
 
     // Check connection
@@ -40,7 +40,7 @@ if ($raggio != null && $latitudine != null && $longitudine != null) {
         $lontmp = $row ['longitudine'];
         $statoBatteria = $row ['stato_batteria'];
         $idSegnalazione = $row ['id_segnalazione'];
-        $segnalazioneFreni = $row ['guasto_fregni'];
+        $segnalazioneFreni = $row ['guasto_freni'];
         $segnalazioneRuote = $row ['guasto_ruote'];
         $segnalazioneManubrio = $row ['guasto_manubrio'];
         $segnalazioneDescrizione = $row ['descrizione'];

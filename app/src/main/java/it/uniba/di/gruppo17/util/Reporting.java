@@ -1,28 +1,39 @@
 package it.uniba.di.gruppo17.util;
 
 public class Reporting {
-    private int id;
+    private int idScooter;
+    private int idReporting;
     private boolean brakes;
     private boolean wheels;
     private boolean handlebars;
     private String description;
 
-    public Reporting (int id, boolean brakes, boolean wheels, boolean handlebars, String description)
+    public Reporting (int idScooter, int idReporting, boolean brakes, boolean wheels, boolean handlebars, String description)
     {
-        this.id = id;
+        this.idScooter = idScooter;
+        this.idReporting = idReporting;
         this.brakes = brakes;
         this.wheels = wheels;
         this.handlebars = handlebars;
         this.description = description;
     }
 
-    public int getId() {
-        return id;
+    public int getIdScooter() {
+        return idScooter;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public void setIdScooter(int id) {
+        this.idScooter = id;
     }
+
+    public int getIdReporting() {
+        return idReporting;
+    }
+
+    public void setIdReporting(int idReporting) {
+        this.idReporting = idReporting;
+    }
+
 
     public String getDescription() {
         return description;
@@ -39,7 +50,7 @@ public class Reporting {
 
     public boolean isWheelsBroken()
     {
-        return  brakes;
+        return  wheels;
     }
 
     public boolean isHandlebarsBroken()

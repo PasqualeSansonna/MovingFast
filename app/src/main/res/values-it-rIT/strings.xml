@@ -109,7 +109,6 @@
     <string name="traveledDistance">Distanza percorsa (KM)</string>
     <string name="rent_error_title">Noleggio fallito</string>
     <string name="networkConnectionError_tile">Errore di connessione</string>
-    <string name="networkConnectionError_message">Controlla la tua connessione a internet. Il server potrebbe non funzionare. Per favore, ricarica</string>
     <string name="reloadButton">Ricarica</string>
     <string name="paymentCompleted_title">Pagamento completato</string>
     <string name="paymentCompleted_message">Pagamento completato con successo. Grazie per averci scelto</string>
@@ -128,4 +127,13 @@
     <string name="not_charged_scooter">Il monopattino non è stato ricaricato. Riprova</string>
     <string name="discount_text">Sconto per il prossimo noleggio:</string>
     <string name="no_discount">Non hai sconti. Noleggia il più possibile per ottenerlo!</string>
+    <string name="titleMaintenance">Monopattini da riparare</string>
+    <string name="titleBrakes">Freni</string>
+    <string name="titleWheels">Ruote</string>
+    <string name="titleHandlebars">Manubrio</string>
+    <string name="maintenance_confirm_button">Conferma manutenzione</string>
+    <string name="maintened_scooter">Il monopattino è stato riparato</string>
+    <string name="no_description">Nessuna descrizione</string>
+    <string name="already_maintened_scooter">Il monopattino è già stato riparato</string>
+    <string name="networkConnectionError_message">"Controlla la tua connessione ad internet. Se il problema persiste il server non è attivo. Ricarica "</string>
 </resources>

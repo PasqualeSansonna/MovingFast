@@ -4,12 +4,13 @@ import java.util.ArrayList;
 
 public class Scooter {
 
+    public Reporting reportingMaintenance;
     private int idScooter;
     private String latitude;
     private String longitude;
     private String batteryLevel;
+
     private boolean reqMaintenance;
-    private Reporting reportingMaintenance;
     public static ArrayList<Scooter> nearScooters;
 
     public Scooter(int id, String lat, String lon, String batteryLevel )

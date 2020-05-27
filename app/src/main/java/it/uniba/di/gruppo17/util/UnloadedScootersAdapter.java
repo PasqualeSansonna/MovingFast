@@ -53,7 +53,8 @@ public class UnloadedScootersAdapter extends RecyclerView.Adapter<UnloadedScoote
 
         holder.battery.setText(scooter.getBatteryLevel()+ " %");
         holder.scooterId.setText("ID "+ scooter.getIdScooter());
-        /*Setto l'indirizzo nella textview
+
+        /*Setto l'indirizzo nella textview*/
         final LatLng mLatLng = new LatLng(Double.parseDouble(scooter.getLatitude()), Double.parseDouble(scooter.getLongitude()));
         Geocoder mGeocoder = new Geocoder(context, Locale.getDefault());
         try {
@@ -61,7 +62,7 @@ public class UnloadedScootersAdapter extends RecyclerView.Adapter<UnloadedScoote
             holder.address.setText(addresses.get(0).getAddressLine(0));
         } catch (IOException e) {
             e.printStackTrace();
-        }*/
+        }
 
         /*Ricarica lo scooter della card*/
         holder.recharge.setOnClickListener(new View.OnClickListener() {

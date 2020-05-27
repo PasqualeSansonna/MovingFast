@@ -13,16 +13,15 @@ import it.uniba.di.gruppo17.util.Reporting;
 import it.uniba.di.gruppo17.util.Scooter;
 
 /**
- * Classe che permette di recuperare i monopattini scarichi (<50) o che richiedono manutenzione, dal db
+ * Classe che permette di recuperare i monopattini che richiedono manutenzione, dal db
  */
 
-public class AsyncGetReportedScooters extends AsyncTask <URL, Void, Boolean>{
-    private static final String TAG ="AsyncGetMonopattiniSgn";
+public class AsyncGetReportings extends AsyncTask <URL, Void, ArrayList<Scooter>>{
+
 
     @Override
-    protected Boolean doInBackground(URL... params) {
+    protected ArrayList<Scooter> doInBackground(URL... params) {
 
-        boolean result = false;
         ArrayList<Scooter> nearScooters = null;
         JSONObject monopattini = JsonFromHttp.getJsonObject(params[0]);
         if ( monopattini !=null && monopattini.length()!=0 )
@@ -48,18 +47,18 @@ public class AsyncGetReportedScooters extends AsyncTask <URL, Void, Boolean>{
                             longitudineMonopattini.getString(index), batteriaMonopattini.getString(index), true, r);
                     nearScooters.add(s);
                 }
-                result = true;
-                Scooter.addNearScooters(nearScooters);
+
+
             } catch (JSONException e) {
-                Log.d(TAG,"JSON Exception sollevata");
+                Log.d("prova","JSON Exception sollevata");
                 e.printStackTrace();
             }
         }
         else
         {
-            Log.d(TAG,"Nessun monopattino trovato");
+            Log.d("prova","Nessuna segnalazione trovato");
         }
-        return result;
+        return nearScooters;
     }
 
     private boolean intToBool (int intero)
