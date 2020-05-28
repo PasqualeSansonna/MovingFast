@@ -136,4 +136,7 @@
     <string name="no_description">Nessuna descrizione</string>
     <string name="already_maintened_scooter">Il monopattino è già stato riparato</string>
     <string name="networkConnectionError_message">"Controlla la tua connessione ad internet. Se il problema persiste il server non è attivo. Ricarica "</string>
+    <string name="title_accelerator">Acceleratore</string>
+    <string name="title_lock">Blocco</string>
+    <string name="title_other">Altro</string>
 </resources>

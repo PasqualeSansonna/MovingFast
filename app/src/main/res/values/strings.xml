@@ -180,6 +180,9 @@
     <string name="titleBrakes"> Brakes </string>
     <string name="titleWheels"> Wheels </string>
     <string name="titleHandlebars"> Handlebars </string>
+    <string name="title_accelerator"> Accelerator</string>
+    <string name="title_lock"> Lock</string>
+    <string name="title_other"> Other</string>
     <string name="maintenance_confirm_button">Confirm maintenance</string>
     <string name="maintened_scooter">The scooter has been maintened</string>
     <string name="already_maintened_scooter">The scooter has been already maintened</string>

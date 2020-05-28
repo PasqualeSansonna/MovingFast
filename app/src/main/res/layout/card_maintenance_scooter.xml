@@ -18,7 +18,7 @@
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="289dp"
             android:background="@color/background"
             android:backgroundTint="@color/colorAccent"
             android:padding="@dimen/card_padding">
@@ -52,15 +52,15 @@
                 app:layout_constraintTop_toBottomOf="@+id/address_card_maintenance_imageview"
                 app:srcCompat="@drawable/ic_maintenance" />
 
+
             <ImageView
                 android:id="@+id/description_imageview"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="88dp"
+                android:layout_marginTop="160dp"
                 app:layout_constraintStart_toStartOf="@+id/card_maintenance_imageview"
                 app:layout_constraintTop_toTopOf="@+id/card_maintenance_imageview"
                 app:srcCompat="@drawable/ic_info" />
-
 
             <TextView
                 android:id="@+id/description_textview"
@@ -70,7 +70,8 @@
                 android:text=""
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="@+id/title_handlebars"
-                app:layout_constraintTop_toTopOf="@+id/description_imageview" />
+                app:layout_constraintTop_toTopOf="@+id/description_imageview"
+                app:layout_constraintVertical_bias="0.107" />
 
             <CheckBox
                 android:id="@+id/title_brakes"
@@ -83,7 +84,7 @@
 
             <CheckBox
                 android:id="@+id/title_handlebars"
-                android:layout_width="107dp"
+                android:layout_width="88dp"
                 android:layout_height="22dp"
                 android:text="@string/titleHandlebars"
                 app:layout_constraintStart_toStartOf="@+id/title_wheels"
@@ -120,6 +121,30 @@
                 android:textAlignment="center"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="@+id/title_brakes" />
+
+            <CheckBox
+                android:id="@+id/title_accelerator"
+                android:layout_width="88dp"
+                android:layout_height="22dp"
+                android:text="@string/title_accelerator"
+                app:layout_constraintStart_toStartOf="@+id/title_handlebars"
+                app:layout_constraintTop_toBottomOf="@+id/title_handlebars" />
+
+            <CheckBox
+                android:id="@+id/title_lock"
+                android:layout_width="88dp"
+                android:layout_height="22dp"
+                android:text="@string/title_lock"
+                app:layout_constraintStart_toStartOf="@+id/title_accelerator"
+                app:layout_constraintTop_toBottomOf="@+id/title_accelerator" />
+
+            <CheckBox
+                android:id="@+id/title_other"
+                android:layout_width="88dp"
+                android:layout_height="22dp"
+                android:text="@string/title_other"
+                app:layout_constraintStart_toStartOf="@+id/title_lock"
+                app:layout_constraintTop_toBottomOf="@+id/title_lock" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 
     </com.google.android.material.card.MaterialCardView>

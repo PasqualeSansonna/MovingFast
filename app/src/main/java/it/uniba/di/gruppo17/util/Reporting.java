@@ -6,15 +6,21 @@ public class Reporting {
     private boolean brakes;
     private boolean wheels;
     private boolean handlebars;
+    private boolean accelerator;
+    private boolean lock;
+    private boolean other;
     private String description;
 
-    public Reporting (int idScooter, int idReporting, boolean brakes, boolean wheels, boolean handlebars, String description)
+    public Reporting (int idScooter, int idReporting, boolean brakes, boolean wheels, boolean handlebars, boolean accelerator, boolean lock, boolean other, String description)
     {
         this.idScooter = idScooter;
         this.idReporting = idReporting;
         this.brakes = brakes;
         this.wheels = wheels;
         this.handlebars = handlebars;
+        this.accelerator = accelerator;
+        this.lock = lock;
+        this.other = other;
         this.description = description;
     }
 
@@ -58,6 +64,21 @@ public class Reporting {
         return handlebars;
     }
 
+    public boolean isAcceleratorBroken()
+    {
+        return  accelerator;
+    }
+
+    public boolean isLockBroken()
+    {
+        return  lock;
+    }
+
+    public boolean isOtherBroken()
+    {
+        return  other;
+    }
+
     public void setBrakes(boolean brakes) {
         this.brakes = brakes;
     }
@@ -70,4 +91,6 @@ public class Reporting {
     {
         this.wheels = wheels;
     }
+
+
 }

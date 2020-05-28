@@ -35,6 +35,9 @@ public class AsyncGetReportings extends AsyncTask <URL, Void, ArrayList<Scooter>
                 JSONObject statoFreniMonopattini = monopattini.getJSONObject("freni");
                 JSONObject statoRuoteMonopattini = monopattini.getJSONObject("ruote");
                 JSONObject statoManubrioMonopattini = monopattini.getJSONObject("manubrio");
+                JSONObject statoAcceleratoreMonopattini = monopattini.getJSONObject("acceleratore");
+                JSONObject statoBloccoMonopattini = monopattini.getJSONObject("blocco");
+                JSONObject statoAltroMonopattini = monopattini.getJSONObject("altro");
                 JSONObject descrizioneSegnalazioni = monopattini.getJSONObject("descrizioneSegnalazione");
                 nearScooters = new ArrayList<>();
                 for (int i = 0; i < idMonopattini.length(); i++)
@@ -42,7 +45,8 @@ public class AsyncGetReportings extends AsyncTask <URL, Void, ArrayList<Scooter>
                     String index = String.valueOf(i);
                     Reporting r = new Reporting (idMonopattini.getInt(index), idSegnalazioni.getInt(index), intToBool(statoFreniMonopattini.getInt(index)),
                             intToBool(statoRuoteMonopattini.getInt(index)), intToBool(statoManubrioMonopattini.getInt(index)),
-                            descrizioneSegnalazioni.getString(index));
+                            intToBool(statoAcceleratoreMonopattini.getInt(index)), intToBool(statoBloccoMonopattini.getInt(index)),
+                            intToBool(statoAltroMonopattini.getInt(index)), descrizioneSegnalazioni.getString(index));
                     Scooter s = new Scooter( idMonopattini.getInt(index), latitutdineMonopattini.getString(index),
                             longitudineMonopattini.getString(index), batteriaMonopattini.getString(index), true, r);
                     nearScooters.add(s);

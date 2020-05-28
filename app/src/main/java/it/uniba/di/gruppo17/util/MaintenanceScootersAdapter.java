@@ -77,6 +77,23 @@ public class MaintenanceScootersAdapter extends RecyclerView.Adapter<Maintenance
         if(scooter.reportingMaintenance.isHandlebarsBroken()){
             holder.handlebars.setChecked(true);
         }
+        /* se il monopattino ha un guasto all'acceleratore spunta la relativa checkbox*/
+        if(scooter.reportingMaintenance.isAcceleratorBroken()){
+            holder.accelerator.setChecked(true);
+        }
+        /* se il monopattino ha un guasto al blocco spunta la relativa checkbox*/
+        if(scooter.reportingMaintenance.isLockBroken()){
+            holder.lock.setChecked(true);
+        }
+        /* se il monopattino ha altre tipologie di guasti spunta la relativa checkbox*/
+        if(scooter.reportingMaintenance.isOtherBroken()){
+            holder.other.setChecked(true);
+        }
+
+
+
+
+
 
         /*setto la descrizione del guasto inserita nella segnalazione*/
         if(scooter.reportingMaintenance.getDescription() != null) {
@@ -132,6 +149,9 @@ public class MaintenanceScootersAdapter extends RecyclerView.Adapter<Maintenance
         CheckBox brakes;
         CheckBox wheels;
         CheckBox handlebars;
+        CheckBox accelerator;
+        CheckBox lock;
+        CheckBox other;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -146,6 +166,12 @@ public class MaintenanceScootersAdapter extends RecyclerView.Adapter<Maintenance
             wheels.setEnabled(false);
             handlebars = (CheckBox) itemView.findViewById(R.id.title_handlebars);
             handlebars.setEnabled(false);
+            accelerator = (CheckBox) itemView.findViewById(R.id.title_accelerator);
+            accelerator.setEnabled(false);
+            lock = (CheckBox) itemView.findViewById(R.id.title_lock);
+            lock.setEnabled(false);
+            other = (CheckBox) itemView.findViewById(R.id.title_other);
+            other.setEnabled(false);
         }
     }
 }
