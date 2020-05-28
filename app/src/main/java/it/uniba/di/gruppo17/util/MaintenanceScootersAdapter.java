@@ -27,7 +27,7 @@ import it.uniba.di.gruppo17.asynchttp.AsyncDeleteReporting;
 
 /**
  * @author Sgarra Claudia, Sansonna Pasquale
- * Adapter recycler view di unloadedscooters
+ * Adapter recycler view di Maintenance
  */
 public class MaintenanceScootersAdapter extends RecyclerView.Adapter<MaintenanceScootersAdapter.ViewHolder> {
 
@@ -53,7 +53,6 @@ public class MaintenanceScootersAdapter extends RecyclerView.Adapter<Maintenance
     public void onBindViewHolder(@NonNull MaintenanceScootersAdapter.ViewHolder holder, final int position) {
 
         scooter = maintenanceScooters.get(position);
-
 
         /*Setto l'indirizzo del monopattino nella textview*/
         final LatLng mLatLng = new LatLng(Double.parseDouble(scooter.getLatitude()), Double.parseDouble(scooter.getLongitude()));

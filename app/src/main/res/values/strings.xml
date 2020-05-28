@@ -187,6 +187,9 @@
     <string name="maintened_scooter">The scooter has been maintened</string>
     <string name="already_maintened_scooter">The scooter has been already maintened</string>
     <string name="no_description">No description</string>
+    <string name="description">Write a description. (Optional)</string>
+    <string name="report">Report</string>
+    <string name="titleReportProblems">Report problems</string>
 
 
 </resources>

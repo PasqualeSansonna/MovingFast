@@ -53,8 +53,7 @@ public class UnloadedScootersAdapter extends RecyclerView.Adapter<UnloadedScoote
 
         holder.battery.setText(scooter.getBatteryLevel()+ " %");
         holder.scooterId.setText("ID "+ scooter.getIdScooter());
-
-        /*Setto l'indirizzo nella textview*/
+        //Setto l'indirizzo nella textview
         final LatLng mLatLng = new LatLng(Double.parseDouble(scooter.getLatitude()), Double.parseDouble(scooter.getLongitude()));
         Geocoder mGeocoder = new Geocoder(context, Locale.getDefault());
         try {

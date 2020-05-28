@@ -49,7 +49,6 @@ public class MaintenanceScootersFragment extends Fragment {
         String serverAddress = SERVER + "get_monopattini_manutenz.php?r="+RAGGIO+"&lat="+ LocationService.realTimeDeviceLocation().getLatitude()+"&long="
                 +LocationService.realTimeDeviceLocation().getLongitude();
 
-
         try{
 
             URL urlScooters = new URL (serverAddress);

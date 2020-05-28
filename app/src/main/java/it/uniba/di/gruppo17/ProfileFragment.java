@@ -109,17 +109,22 @@ public class ProfileFragment extends Fragment {
             e.printStackTrace();
         }
 
-        BT_pastRentals.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                FragmentManager fragmentManager = getFragmentManager();
-                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-                Fragment nextFragment = new PastRentalsFragment();
-                fragmentTransaction.replace(R.id.fragment_container, nextFragment);
-                fragmentTransaction.commit();
-            }
-        });
+        if (preferences.getBoolean(Keys.USER_TYPE, true)){
+            BT_pastRentals.setVisibility(View.GONE);
+        }else {
 
+            BT_pastRentals.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    FragmentManager fragmentManager = getFragmentManager();
+                    FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                    Fragment nextFragment = new PastRentalsFragment();
+                    fragmentTransaction.replace(R.id.fragment_container, nextFragment);
+                    fragmentTransaction.commit();
+                }
+            });
+
+        }
         /**Cliccando sull'imageView viene abilitata la modifica**/
         editProfile.setOnClickListener(new View.OnClickListener() {
             @Override

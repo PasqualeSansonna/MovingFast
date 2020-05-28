@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ReportProblemsFragment">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <ImageView
+            android:id="@+id/scooterImageView"
+            android:layout_width="189dp"
+            android:layout_height="228dp"
+            android:src="@drawable/ic_scooter"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <CheckBox
+            android:id="@+id/brakesCheckBox"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/titleBrakes"
+            app:layout_constraintBottom_toTopOf="@+id/otherCheckBox"
+            app:layout_constraintStart_toStartOf="@+id/lockCheckBox"
+            app:layout_constraintTop_toBottomOf="@+id/lockCheckBox"
+            app:layout_constraintVertical_bias="0.548" />
+
+        <CheckBox
+            android:id="@+id/handlebarCheckBox"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/titleHandlebars"
+            app:layout_constraintBottom_toTopOf="@+id/scooterImageView"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/reportProblemsTextView"
+            app:layout_constraintVertical_bias="1.0" />
+
+        <CheckBox
+            android:id="@+id/wheelsCheckBox"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="56dp"
+            android:text="@string/titleWheels"
+            app:layout_constraintBottom_toTopOf="@+id/otherCheckBox"
+            app:layout_constraintStart_toStartOf="@+id/acceleratorCheckBox" />
+
+        <CheckBox
+            android:id="@+id/lockCheckBox"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="40dp"
+            android:text="@string/title_lock"
+            app:layout_constraintStart_toEndOf="@+id/scooterImageView"
+            app:layout_constraintTop_toTopOf="@+id/scooterImageView" />
+
+        <CheckBox
+            android:id="@+id/otherCheckBox"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/title_other"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/scooterImageView" />
+
+        <CheckBox
+            android:id="@+id/acceleratorCheckBox"
+            android:layout_width="106dp"
+            android:layout_height="28dp"
+            android:layout_marginTop="40dp"
+            android:text="@string/title_accelerator"
+            app:layout_constraintEnd_toStartOf="@+id/scooterImageView"
+            app:layout_constraintTop_toTopOf="@+id/scooterImageView" />
+
+        <TextView
+            android:id="@+id/reportProblemsTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/titleReportProblems"
+            android:textSize="30sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toTopOf="@+id/scooterImageView"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <EditText
+            android:id="@+id/descriptionEditText"
+            android:layout_width="268dp"
+            android:layout_height="85dp"
+            android:layout_marginBottom="24dp"
+            android:ems="10"
+            android:gravity="start|top"
+            android:hint="@string/description"
+            android:inputType="textMultiLine"
+            app:layout_constraintBottom_toTopOf="@+id/buttonConfirmReport"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.496"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/otherCheckBox"
+            app:layout_constraintVertical_bias="1.0" />
+
+        <Button
+            android:id="@+id/buttonConfirmReport"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="44dp"
+            android:elevation="10dp"
+            android:text="@string/report"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="@+id/descriptionEditText"
+            app:layout_constraintStart_toStartOf="@+id/descriptionEditText" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</FrameLayout>

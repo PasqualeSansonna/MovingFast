@@ -139,4 +139,7 @@
     <string name="title_accelerator">Acceleratore</string>
     <string name="title_lock">Blocco</string>
     <string name="title_other">Altro</string>
+    <string name="description">Scrivi una descrizione. (Opzionale)</string>
+    <string name="report">Segnala</string>
+    <string name="titleReportProblems">Segnalazioni</string>
 </resources>
