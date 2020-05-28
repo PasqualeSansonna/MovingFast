@@ -152,7 +152,7 @@ public class ResultCloseRentFragment extends Fragment {
                 FragmentManager fragmentManager = getFragmentManager();
                 FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
                 Fragment nextFragment = new ReportProblemsFragment();
-                fragmentTransaction.replace(R.id.fragment_container_maint, nextFragment);
+                fragmentTransaction.replace(R.id.fragment_container, nextFragment);
                 fragmentTransaction.commit();
             }
         });

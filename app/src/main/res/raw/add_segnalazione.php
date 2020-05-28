@@ -17,10 +17,6 @@ $descrizione = $_GET ["descrizione"];
 
 if ($id_utente != null && $id_monopattino != null) {
 	$conn = mysqli_connect ( $host, $user, $password, $db_name );
-	$query = "INSERT INTO segnalazioni (id_segnalazione, id_utente, id_monopattino, guasto_freni, guasto_ruote,
-		  guasto_manubrio, guasto_acceleratore, guasto_blocco, guasto_altro, descrizione)
-		  VALUES (NULL, '$id_utente', '$id_monopattino', '$guasto_freni', '$guasto_ruote', '$guasto_manubrio', '$guasto_acceleratore', '$guasto_blocco', '$guasto_altro', '$descrizione')";
-
 	// Check connection
 	if (mysqli_connect_errno ()) {
 		$post_error = json_encode ( array (
@@ -29,11 +25,24 @@ if ($id_utente != null && $id_monopattino != null) {
 		echo $post_error;
 	}
 
-	mysqli_query ( $conn, $query );
+	$query = "INSERT INTO segnalazioni (id_utente, id_monopattino, guasto_freni, guasto_ruote,
+			  guasto_manubrio, guasto_acceleratore, guasto_blocco, guasto_altro, descrizione)
+		      VALUES ('$id_utente', '$id_monopattino', '$guasto_freni', '$guasto_ruote',
+		      '$guasto_manubrio', '$guasto_acceleratore', '$guasto_blocco', '$guasto_altro', '$descrizione')";
 
-	$post_data = json_encode ( array (
+	$result = mysqli_query ( $conn, $query );
+	if ( $result )
+	{
+		$post_data = json_encode ( array (
 	    'ok' => true
-    ), JSON_FORCE_OBJECT );
+		), JSON_FORCE_OBJECT );
+	}
+	else
+	{
+		$post_data = json_encode ( array (
+	    'ok' => false
+		), JSON_FORCE_OBJECT );
+	}
 
 	echo $post_data;
 	mysqli_close ( $conn );

@@ -63,7 +63,7 @@ public class ReportProblemsFragment extends Fragment {
         lockCheckBox = getView().findViewById(R.id.lockCheckBox);
         otherCheckBox = getView().findViewById(R.id.otherCheckBox);
         descriptionEditText = getView().findViewById(R.id.descriptionEditText);
-        reportButton = getView().findViewById(R.id.reportButton);
+        reportButton = getView().findViewById(R.id.buttonConfirmReport);
     }
 
     @Override
@@ -102,7 +102,12 @@ public class ReportProblemsFragment extends Fragment {
                     report.setDescription(description);
                 }
 
-                String server = Keys.SERVER + "add_segnalazione.php?id_utente="+report.getIdUser()+"&id_monopattino="+report.getIdScooter()+"&guasto_freni="+report.isBrakesBroken()+"&guasto_ruote="+report.isWheelsBroken() +"&guasto_manubrio="+report.isHandlebarsBroken()+ "&guasto_acceleratore="+report.isAcceleratorBroken()+ "&guasto_blocco="+report.isLockBroken()+ "&guasto_altro="+report.isOtherBroken()+ "&descrizione="+report.getDescription();
+
+                String server = Keys.SERVER + "add_segnalazione.php?id_utente="+report.getIdUser()+"&id_monopattino="+report.getIdScooter()
+                        +"&guasto_freni="+report.isBrakesBroken()+"&guasto_ruote="+report.isWheelsBroken()
+                        +"&guasto_manubrio="+report.isHandlebarsBroken()+ "&guasto_acceleratore="+report.isAcceleratorBroken()
+                        + "&guasto_blocco="+report.isLockBroken()+ "&guasto_altro="+report.isOtherBroken()
+                        + "&descrizione="+report.getDescription();
                 try {
                     URL url = new URL(server);
                     AsyncAddReport asyncAddReport = new AsyncAddReport();
@@ -114,7 +119,7 @@ public class ReportProblemsFragment extends Fragment {
                 FragmentManager fragmentManager = getFragmentManager();
                 FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
                 Fragment nextFragment = new ResultCloseRentFragment();
-                fragmentTransaction.replace(R.id.fragment_container_maint, nextFragment);
+                fragmentTransaction.replace(R.id.fragment_container, nextFragment);
                 fragmentTransaction.commit();
 
             }
