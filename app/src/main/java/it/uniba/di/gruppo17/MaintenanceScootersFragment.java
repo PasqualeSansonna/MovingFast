@@ -27,6 +27,11 @@ import it.uniba.di.gruppo17.util.Scooter;
 import static it.uniba.di.gruppo17.util.Keys.RAGGIO;
 import static it.uniba.di.gruppo17.util.Keys.SERVER;
 
+/**
+ * @author Sgarra Claudia, Sansonna Pasquale
+ *
+ * Fragment che contiene recyclerView con le cardview dei monopattini che hanno bisogno di manutenzione
+ */
 public class MaintenanceScootersFragment extends Fragment {
 
     ArrayList<Scooter> maintenanceScooters = null;
@@ -51,7 +56,7 @@ public class MaintenanceScootersFragment extends Fragment {
             getScooters = new AsyncGetReportings();
             maintenanceScooters = new ArrayList<>();
             maintenanceScooters = getScooters.execute(urlScooters).get();
-            Log.d("prova scooter", maintenanceScooters.toString());
+            Thread.sleep(500);
 
             maintenanceScootersAdapter = new MaintenanceScootersAdapter(maintenanceScooters);
 
@@ -67,9 +72,6 @@ public class MaintenanceScootersFragment extends Fragment {
         recyclerView.setItemAnimator(new DefaultItemAnimator());
         recyclerView.setAdapter(maintenanceScootersAdapter);
         return view;
-
-
-
 
 
     }

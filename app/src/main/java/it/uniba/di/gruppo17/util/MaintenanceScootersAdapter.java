@@ -25,6 +25,10 @@ import java.util.Locale;
 import it.uniba.di.gruppo17.R;
 import it.uniba.di.gruppo17.asynchttp.AsyncDeleteReporting;
 
+/**
+ * @author Sgarra Claudia, Sansonna Pasquale
+ * Adapter recycler view di unloadedscooters
+ */
 public class MaintenanceScootersAdapter extends RecyclerView.Adapter<MaintenanceScootersAdapter.ViewHolder> {
 
     private List<Scooter> maintenanceScooters;
@@ -51,7 +55,7 @@ public class MaintenanceScootersAdapter extends RecyclerView.Adapter<Maintenance
         scooter = maintenanceScooters.get(position);
 
 
-        /*Setto l'indirizzo nella textview*/
+        /*Setto l'indirizzo del monopattino nella textview*/
         final LatLng mLatLng = new LatLng(Double.parseDouble(scooter.getLatitude()), Double.parseDouble(scooter.getLongitude()));
         Geocoder mGeocoder = new Geocoder(context, Locale.getDefault());
         try {
@@ -61,17 +65,20 @@ public class MaintenanceScootersAdapter extends RecyclerView.Adapter<Maintenance
             e.printStackTrace();
         }
 
-
+        /* se il monopattino ha un guasto ai freni spunta la relativa checkbox*/
         if(scooter.reportingMaintenance.isBrakesBroken()){
             holder.brakes.setChecked(true);
         }
+        /* se il monopattino ha un guasto alle ruote spunta la relativa checkbox*/
         if(scooter.reportingMaintenance.isWheelsBroken()){
             holder.wheels.setChecked(true);
         }
+        /* se il monopattino ha un guasto al manubrio spunta la relativa checkbox*/
         if(scooter.reportingMaintenance.isHandlebarsBroken()){
             holder.handlebars.setChecked(true);
         }
 
+        /*setto la descrizione del guasto inserita nella segnalazione*/
         if(scooter.reportingMaintenance.getDescription() != null) {
             holder.description.setText(scooter.reportingMaintenance.getDescription());
         }
@@ -86,6 +93,7 @@ public class MaintenanceScootersAdapter extends RecyclerView.Adapter<Maintenance
 
                 String str = Keys.SERVER + "delete_segnalazione.php?id=" + maintenanceScooters.get(position).reportingMaintenance.getIdReporting();
 
+                /*quando termina la manutenzione il manutentore clicca su conferma e la segnalazione relativa al guasto risolto viene cancellata dal db*/
                 try {
                     URL url = new URL(str);
 
