@@ -114,7 +114,7 @@ public class ReportProblemsFragment extends Fragment {
                 FragmentManager fragmentManager = getFragmentManager();
                 FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
                 Fragment nextFragment = new ResultCloseRentFragment();
-                fragmentTransaction.replace(R.id.fragment_container, nextFragment);
+                fragmentTransaction.replace(R.id.fragment_container_maint, nextFragment);
                 fragmentTransaction.commit();
 
             }

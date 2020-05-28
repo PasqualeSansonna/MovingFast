@@ -194,9 +194,6 @@ public class MainMaintainerActivity extends AppCompatActivity implements GoogleA
             case R.id.nav_recharge:
                 nextFragment = new UnloadedScootersFragment();
                 break;
-            case R.id.nav_profile:
-                nextFragment = new ProfileFragment();
-                break;
             default:
                 throw new IllegalArgumentException("No fragment for the given item");
         }

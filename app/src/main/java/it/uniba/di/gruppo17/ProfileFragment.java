@@ -109,10 +109,6 @@ public class ProfileFragment extends Fragment {
             e.printStackTrace();
         }
 
-        if (preferences.getBoolean(Keys.USER_TYPE, true)){
-            BT_pastRentals.setVisibility(View.GONE);
-        }else {
-
             BT_pastRentals.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -124,7 +120,6 @@ public class ProfileFragment extends Fragment {
                 }
             });
 
-        }
         /**Cliccando sull'imageView viene abilitata la modifica**/
         editProfile.setOnClickListener(new View.OnClickListener() {
             @Override

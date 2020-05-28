@@ -95,7 +95,7 @@ public class MaintenanceScootersAdapter extends RecyclerView.Adapter<Maintenance
 
 
         /*setto la descrizione del guasto inserita nella segnalazione*/
-        if(scooter.reportingMaintenance.getDescription() != null) {
+        if(!scooter.reportingMaintenance.getDescription().equals("null")) {
             holder.description.setText(scooter.reportingMaintenance.getDescription());
         }
         else {
