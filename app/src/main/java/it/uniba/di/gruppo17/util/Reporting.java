@@ -4,15 +4,15 @@ public class Reporting {
     private int idScooter;
     private int idReporting;
     private int idUser;
-    private boolean brakes;
-    private boolean wheels;
-    private boolean handlebars;
-    private boolean accelerator;
-    private boolean lock;
-    private boolean other;
+    private int brakes;
+    private int wheels;
+    private int handlebars;
+    private int accelerator;
+    private int lock;
+    private int other;
     private String description;
 
-    public Reporting (int idScooter, int idReporting, boolean brakes, boolean wheels, boolean handlebars, boolean accelerator, boolean lock, boolean other, String description)
+    public Reporting (int idScooter, int idReporting, int brakes, int wheels, int handlebars, int accelerator, int lock, int other, String description)
     {
         this.idScooter = idScooter;
         this.idReporting = idReporting;
@@ -25,7 +25,7 @@ public class Reporting {
         this.description = description;
     }
 
-    public Reporting (int idScooter, int idReporting, int idUser, boolean brakes, boolean wheels, boolean handlebars, boolean accelerator, boolean lock, boolean other, String description)
+    public Reporting (int idScooter, int idReporting, int idUser, int brakes, int wheels, int handlebars, int accelerator, int lock, int other, String description)
     {
         this.idScooter = idScooter;
         this.idReporting = idReporting;
@@ -42,30 +42,6 @@ public class Reporting {
 
     public int getIdUser() {
         return idUser;
-    }
-
-    public boolean isBrakes() {
-        return brakes;
-    }
-
-    public boolean isWheels() {
-        return wheels;
-    }
-
-    public boolean isHandlebars() {
-        return handlebars;
-    }
-
-    public boolean isAccelerator() {
-        return accelerator;
-    }
-
-    public boolean isLock() {
-        return lock;
-    }
-
-    public boolean isOther() {
-        return other;
     }
 
     public int getIdScooter() {
@@ -93,58 +69,59 @@ public class Reporting {
         this.description = description;
     }
 
-    public boolean isBrakesBroken()
+    public int isBrakesBroken()
     {
         return brakes;
     }
 
-    public boolean isWheelsBroken()
+    public int isWheelsBroken()
     {
         return  wheels;
     }
 
-    public boolean isHandlebarsBroken()
+    public int isHandlebarsBroken()
     {
         return handlebars;
     }
 
-    public boolean isAcceleratorBroken()
+    public int isAcceleratorBroken()
     {
         return  accelerator;
     }
 
-    public boolean isLockBroken()
+    public int isLockBroken()
     {
         return  lock;
     }
 
-    public boolean isOtherBroken()
+    public int isOtherBroken()
     {
         return  other;
     }
 
-    public void setBrakes(boolean brakes) {
+    public void setBrakes(int brakes) {
         this.brakes = brakes;
     }
 
-    public void setHandlebars(boolean handlebars) {
+    public void setHandlebars(int handlebars) {
         this.handlebars = handlebars;
     }
 
-    public void setWheels (boolean wheels)
+    public void setWheels (int wheels)
     {
         this.wheels = wheels;
     }
 
-    public void setAccelerator(boolean accelerator) {
+    public void setAccelerator(int accelerator) {
         this.accelerator = accelerator;
     }
 
-    public void setLock(boolean lock) {
+    public void setLock(int lock) {
         this.lock = lock;
     }
 
-    public void setOther(boolean other) {
+    public void setOther(int other) {
         this.other = other;
     }
 }
+

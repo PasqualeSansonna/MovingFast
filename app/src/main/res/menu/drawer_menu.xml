@@ -25,6 +25,10 @@
             android:icon="@drawable/ic_wallet"
             android:title="@string/wallet"/>
 
+        <item android:id="@+id/nav_reports"
+            android:icon="@drawable/ic_report"
+            android:title="@string/menu_report"/>
+
     </group>
 
 </menu>

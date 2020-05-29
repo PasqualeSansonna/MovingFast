@@ -1,7 +1,6 @@
 package it.uniba.di.gruppo17;
 
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -21,7 +20,6 @@ import java.util.concurrent.ExecutionException;
 import it.uniba.di.gruppo17.asynchttp.AsyncGetReportings;
 import it.uniba.di.gruppo17.services.LocationService;
 import it.uniba.di.gruppo17.util.MaintenanceScootersAdapter;
-import it.uniba.di.gruppo17.util.Reporting;
 import it.uniba.di.gruppo17.util.Scooter;
 
 import static it.uniba.di.gruppo17.util.Keys.RAGGIO;

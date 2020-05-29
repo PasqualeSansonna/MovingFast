@@ -151,7 +151,7 @@ public class ResultCloseRentFragment extends Fragment {
             public void onClick(View v) {
                 FragmentManager fragmentManager = getFragmentManager();
                 FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-                Fragment nextFragment = new ReportProblemsFragment();
+                Fragment nextFragment = new ReportProblemsRentEndedFragment();
                 fragmentTransaction.replace(R.id.fragment_container, nextFragment);
                 fragmentTransaction.commit();
             }

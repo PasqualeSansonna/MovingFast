@@ -10,29 +10,10 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <EditText
-            android:id="@+id/idScooter"
-            android:layout_width="141dp"
-            android:layout_height="26dp"
-            android:background="@color/white"
-            android:clickable="true"
-            android:elevation="@dimen/standard_elevation"
-            android:ems="10"
-            android:hint="ID SCOOTER"
-            android:inputType="textEmailAddress"
-            android:textColor="@color/secondaryTextColor"
-            android:textColorHint="@color/secondaryTextColor"
-            android:textSize="@dimen/text_dimension"
-            app:layout_constraintBottom_toTopOf="@+id/reportProblemsTextView"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.81" />
-
         <ImageView
             android:id="@+id/scooterImageView"
-            android:layout_width="161dp"
-            android:layout_height="185dp"
+            android:layout_width="189dp"
+            android:layout_height="228dp"
             android:src="@drawable/ic_scooter"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -47,8 +28,7 @@
             app:layout_constraintBottom_toTopOf="@+id/otherCheckBox"
             app:layout_constraintStart_toStartOf="@+id/lockCheckBox"
             app:layout_constraintTop_toBottomOf="@+id/lockCheckBox"
-            app:layout_constraintVertical_bias="0.548"
-            tools:ignore="OnClick" />
+            app:layout_constraintVertical_bias="0.548" />
 
         <CheckBox
             android:id="@+id/handlebarCheckBox"
@@ -136,7 +116,6 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="@+id/descriptionEditText"
             app:layout_constraintStart_toStartOf="@+id/descriptionEditText" />
-
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </FrameLayout>

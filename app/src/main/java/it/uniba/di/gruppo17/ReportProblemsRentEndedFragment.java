@@ -26,7 +26,7 @@ import it.uniba.di.gruppo17.util.Reporting;
 /** @author Pasquale Sansonna, Sgarra Claudia
  *  Fragment per l'invio della segnalazione di problemi al monopattino da parte dell'utente
  */
-public class ReportProblemsFragment extends Fragment {
+public class ReportProblemsRentEndedFragment extends Fragment {
 
     private SharedPreferences prefs;
     private CheckBox brakesCheckBox;
@@ -39,8 +39,6 @@ public class ReportProblemsFragment extends Fragment {
     private Button reportButton;
     private Reporting report;
 
-    private EditText idScooter;
-
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -52,12 +50,13 @@ public class ReportProblemsFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         container.removeAllViews();
-        return inflater.inflate(R.layout.fragment_report_problems, container, false);
+        return inflater.inflate(R.layout.fragment_report_problems_rent_ended, container, false);
     }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+
         brakesCheckBox = getView().findViewById(R.id.brakesCheckBox);
         wheelsCheckBox = getView().findViewById(R.id.wheelsCheckBox);
         handlebarsCheckBox = getView().findViewById(R.id.handlebarCheckBox);
@@ -65,9 +64,8 @@ public class ReportProblemsFragment extends Fragment {
         lockCheckBox = getView().findViewById(R.id.lockCheckBox);
         otherCheckBox = getView().findViewById(R.id.otherCheckBox);
         descriptionEditText = getView().findViewById(R.id.descriptionEditText);
-        reportButton = getView().findViewById(R.id.buttonConfirmReport);
+        reportButton =  getView().findViewById(R.id.buttonConfirmReport);
 
-        idScooter = getView().findViewById(R.id.idScooter);
     }
 
     @Override
@@ -78,13 +76,9 @@ public class ReportProblemsFragment extends Fragment {
             @Override
             public void onClick(View v) {
 
-                String id = idScooter.getText().toString();
-
                 String description;
 
-                report = new Reporting(Integer.parseInt(id), 0, prefs.getInt(Keys.USER_ID, 0), 0, 0, 0, 0, 0, 0, null );
-
-
+                report = new Reporting(prefs.getInt(Keys.SCOOTER_ID,0), 0, prefs.getInt(Keys.USER_ID, 0), 0, 0, 0, 0, 0, 0, null );
                 if(brakesCheckBox.isChecked()){
                     report.setBrakes(1);
                 }
@@ -110,12 +104,7 @@ public class ReportProblemsFragment extends Fragment {
                     report.setDescription(description);
                 }
 
-
-                String server = Keys.SERVER + "add_segnalazione.php?id_utente="+report.getIdUser()+"&id_monopattino="+report.getIdScooter()
-                        +"&guasto_freni="+report.isBrakesBroken()+"&guasto_ruote="+report.isWheelsBroken()
-                        +"&guasto_manubrio="+report.isHandlebarsBroken()+ "&guasto_acceleratore="+report.isAcceleratorBroken()
-                        + "&guasto_blocco="+report.isLockBroken()+ "&guasto_altro="+report.isOtherBroken()
-                        + "&descrizione="+report.getDescription();
+                String server = Keys.SERVER + "add_segnalazione.php?id_utente="+report.getIdUser()+"&id_monopattino="+report.getIdScooter()+"&guasto_freni="+report.isBrakesBroken()+"&guasto_ruote="+report.isWheelsBroken() +"&guasto_manubrio="+report.isHandlebarsBroken()+ "&guasto_acceleratore="+report.isAcceleratorBroken()+ "&guasto_blocco="+report.isLockBroken()+ "&guasto_altro="+report.isOtherBroken()+ "&descrizione="+report.getDescription();
                 try {
                     URL url = new URL(server);
                     AsyncAddReport asyncAddReport = new AsyncAddReport();
@@ -126,12 +115,14 @@ public class ReportProblemsFragment extends Fragment {
 
                 FragmentManager fragmentManager = getFragmentManager();
                 FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-                Fragment nextFragment = new HomeFragment();
+                Fragment nextFragment = new ResultCloseRentFragment();
                 fragmentTransaction.replace(R.id.fragment_container, nextFragment);
                 fragmentTransaction.commit();
 
             }
         });
+
+
     }
 }
 

@@ -190,6 +190,7 @@
     <string name="description">Write a description. (Optional)</string>
     <string name="report">Report</string>
     <string name="titleReportProblems">Report problems</string>
+    <string name="menu_report">Report problems</string>
 
 
 </resources>

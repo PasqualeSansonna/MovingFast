@@ -142,4 +142,5 @@
     <string name="description">Scrivi una descrizione. (Opzionale)</string>
     <string name="report">Segnala</string>
     <string name="titleReportProblems">Segnalazioni</string>
+    <string name="menu_report">Segnalazione problemi</string>
 </resources>

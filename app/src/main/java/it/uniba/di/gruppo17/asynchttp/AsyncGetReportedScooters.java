@@ -44,9 +44,9 @@ public class AsyncGetReportedScooters extends AsyncTask <URL, Void, Boolean>{
                 for (int i = 0; i < idMonopattini.length(); i++)
                 {
                     String index = String.valueOf(i);
-                    Reporting r = new Reporting (idMonopattini.getInt(index), idSegnalazioni.getInt(index), intToBool(statoFreniMonopattini.getInt(index)),
-                            intToBool(statoRuoteMonopattini.getInt(index)), intToBool(statoManubrioMonopattini.getInt(index)), intToBool(statoAcceleratoreMonopattini.getInt(index)), intToBool(statoBloccoMonopattini.getInt(index)),
-                            intToBool(statoAltroMonopattini.getInt(index)), descrizioneSegnalazioni.getString(index));
+                    Reporting r = new Reporting (idMonopattini.getInt(index), idSegnalazioni.getInt(index), statoFreniMonopattini.getInt(index),
+                            statoRuoteMonopattini.getInt(index), statoManubrioMonopattini.getInt(index), statoAcceleratoreMonopattini.getInt(index), statoBloccoMonopattini.getInt(index),
+                            statoAltroMonopattini.getInt(index), descrizioneSegnalazioni.getString(index));
                     Scooter s = new Scooter( idMonopattini.getInt(index), latitutdineMonopattini.getString(index),
                             longitudineMonopattini.getString(index), batteriaMonopattini.getString(index), true, r);
                     nearScooters.add(s);

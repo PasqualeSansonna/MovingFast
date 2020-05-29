@@ -191,6 +191,9 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
             case R.id.nav_wallet:
                 nextFragment = new WalletFragment();
                 break;
+            case R.id.nav_reports:
+                nextFragment = new ReportProblemsFragment();
+                break;
             default:
                 throw new IllegalArgumentException("No fragment for the given item");
         }

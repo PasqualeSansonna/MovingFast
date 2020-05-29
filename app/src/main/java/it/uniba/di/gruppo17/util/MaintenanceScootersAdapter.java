@@ -65,27 +65,27 @@ public class MaintenanceScootersAdapter extends RecyclerView.Adapter<Maintenance
         }
 
         /* se il monopattino ha un guasto ai freni spunta la relativa checkbox*/
-        if(scooter.reportingMaintenance.isBrakesBroken()){
+        if(scooter.reportingMaintenance.isBrakesBroken() == 1){
             holder.brakes.setChecked(true);
         }
         /* se il monopattino ha un guasto alle ruote spunta la relativa checkbox*/
-        if(scooter.reportingMaintenance.isWheelsBroken()){
+        if(scooter.reportingMaintenance.isWheelsBroken() == 1){
             holder.wheels.setChecked(true);
         }
         /* se il monopattino ha un guasto al manubrio spunta la relativa checkbox*/
-        if(scooter.reportingMaintenance.isHandlebarsBroken()){
+        if(scooter.reportingMaintenance.isHandlebarsBroken() == 1){
             holder.handlebars.setChecked(true);
         }
         /* se il monopattino ha un guasto all'acceleratore spunta la relativa checkbox*/
-        if(scooter.reportingMaintenance.isAcceleratorBroken()){
+        if(scooter.reportingMaintenance.isAcceleratorBroken() == 1){
             holder.accelerator.setChecked(true);
         }
         /* se il monopattino ha un guasto al blocco spunta la relativa checkbox*/
-        if(scooter.reportingMaintenance.isLockBroken()){
+        if(scooter.reportingMaintenance.isLockBroken() == 1){
             holder.lock.setChecked(true);
         }
         /* se il monopattino ha altre tipologie di guasti spunta la relativa checkbox*/
-        if(scooter.reportingMaintenance.isOtherBroken()){
+        if(scooter.reportingMaintenance.isOtherBroken() == 1){
             holder.other.setChecked(true);
         }
 
