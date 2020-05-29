@@ -35,7 +35,6 @@ public class ProfileFragment extends Fragment {
     private EditText ET_surname;
     private EditText ET_email;
     private Button BT_pastRentals;
-    private Button BT_discounts;
     private Button BT_confirmEdit;
     private Button BT_cancelEdit;
     private TableRow R_confirmEdit;
@@ -136,7 +135,6 @@ public class ProfileFragment extends Fragment {
         ET_email.setEnabled(true);
 
         BT_pastRentals.setVisibility(View.GONE);
-        BT_discounts.setVisibility(View.GONE);
         editProfile.setVisibility(View.GONE);
         R_confirmEdit.setVisibility(View.VISIBLE);
         R_cancelEdit.setVisibility(View.VISIBLE);
@@ -196,7 +194,6 @@ public class ProfileFragment extends Fragment {
                     }
                     if (result == true) {
                         BT_pastRentals.setVisibility(View.VISIBLE);
-                        BT_discounts.setVisibility(View.VISIBLE);
                         R_confirmEdit.setVisibility(View.GONE);
                         R_cancelEdit.setVisibility(View.GONE);
 
@@ -219,7 +216,6 @@ public class ProfileFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 BT_pastRentals.setVisibility(View.VISIBLE);
-                BT_discounts.setVisibility(View.VISIBLE);
                 R_confirmEdit.setVisibility(View.GONE);
                 R_cancelEdit.setVisibility(View.GONE);
 
