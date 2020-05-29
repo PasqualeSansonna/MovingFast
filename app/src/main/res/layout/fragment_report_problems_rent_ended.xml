@@ -90,32 +90,17 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <EditText
-            android:id="@+id/descriptionEditText"
-            android:layout_width="268dp"
-            android:layout_height="85dp"
-            android:layout_marginBottom="24dp"
-            android:ems="10"
-            android:gravity="start|top"
-            android:hint="@string/description"
-            android:inputType="textMultiLine"
-            app:layout_constraintBottom_toTopOf="@+id/buttonConfirmReport"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.496"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/otherCheckBox"
-            app:layout_constraintVertical_bias="1.0" />
-
         <Button
             android:id="@+id/buttonConfirmReport"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="44dp"
+            android:layout_marginBottom="104dp"
             android:elevation="10dp"
             android:text="@string/report"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="@+id/descriptionEditText"
-            app:layout_constraintStart_toStartOf="@+id/descriptionEditText" />
+            app:layout_constraintEnd_toEndOf="@+id/otherCheckBox"
+            app:layout_constraintStart_toStartOf="@+id/otherCheckBox"
+            app:layout_constraintTop_toBottomOf="@+id/otherCheckBox" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </FrameLayout>

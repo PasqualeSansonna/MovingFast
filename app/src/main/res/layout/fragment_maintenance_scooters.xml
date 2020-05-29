@@ -30,15 +30,14 @@
 
             <TextView
                 android:id="@+id/titleMaintenanceScooters"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="312dp"
+                android:layout_height="25dp"
                 android:text="@string/titleMaintenance"
                 android:textAllCaps="true"
                 android:textSize="@dimen/title_card_size"
                 android:textStyle="bold"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
-
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -50,6 +49,8 @@
         android:layout_height="match_parent"
         android:background="@android:color/background_light"
         android:scrollbars="vertical" />
+
+
 
 
 </LinearLayout>

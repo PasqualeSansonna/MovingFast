@@ -7,6 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CheckBox;
+import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -16,6 +17,8 @@ import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.gms.maps.model.LatLng;
+
+import org.w3c.dom.Text;
 
 import java.io.IOException;
 import java.net.URL;
@@ -64,6 +67,8 @@ public class MaintenanceScootersAdapter extends RecyclerView.Adapter<Maintenance
             e.printStackTrace();
         }
 
+
+
         /* se il monopattino ha un guasto ai freni spunta la relativa checkbox*/
         if(scooter.reportingMaintenance.isBrakesBroken() == 1){
             holder.brakes.setChecked(true);
@@ -91,16 +96,6 @@ public class MaintenanceScootersAdapter extends RecyclerView.Adapter<Maintenance
 
 
 
-
-
-
-        /*setto la descrizione del guasto inserita nella segnalazione*/
-        if(!scooter.reportingMaintenance.getDescription().equals("null")) {
-            holder.description.setText(scooter.reportingMaintenance.getDescription());
-        }
-        else {
-            holder.description.setText(R.string.no_description);
-        }
 
         /*Conferma l'avvenuta manutenzione*/
         holder.confirmButton.setOnClickListener(new View.OnClickListener() {
@@ -142,7 +137,7 @@ public class MaintenanceScootersAdapter extends RecyclerView.Adapter<Maintenance
     {
 
         TextView address;
-        TextView description;
+        TextView idScooter;
         ImageButton confirmButton;
         CardView cardMaintenanceScooter;
         CheckBox brakes;
@@ -156,7 +151,7 @@ public class MaintenanceScootersAdapter extends RecyclerView.Adapter<Maintenance
             super(itemView);
 
             address = (TextView) itemView.findViewById(R.id.address_card_maintenance_textview);
-            description = (TextView) itemView.findViewById(R.id.description_textview);
+            idScooter = (TextView) itemView.findViewById(R.id.idScooterTextView);
             confirmButton = (ImageButton) itemView.findViewById(R.id.imageButton_confirm);
             cardMaintenanceScooter = (CardView) itemView.findViewById(R.id.cardMaintenanceScooter);
             brakes = (CheckBox) itemView.findViewById(R.id.title_brakes);

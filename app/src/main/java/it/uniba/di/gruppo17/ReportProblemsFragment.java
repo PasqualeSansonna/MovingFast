@@ -35,7 +35,6 @@ public class ReportProblemsFragment extends Fragment {
     private CheckBox acceleratorCheckBox;
     private CheckBox lockCheckBox;
     private CheckBox otherCheckBox;
-    private EditText descriptionEditText;
     private Button reportButton;
     private Reporting report;
 
@@ -64,7 +63,6 @@ public class ReportProblemsFragment extends Fragment {
         acceleratorCheckBox = getView().findViewById(R.id.acceleratorCheckBox);
         lockCheckBox = getView().findViewById(R.id.lockCheckBox);
         otherCheckBox = getView().findViewById(R.id.otherCheckBox);
-        descriptionEditText = getView().findViewById(R.id.descriptionEditText);
         reportButton = getView().findViewById(R.id.buttonConfirmReport);
 
         idScooter = getView().findViewById(R.id.idScooter);
@@ -82,7 +80,7 @@ public class ReportProblemsFragment extends Fragment {
 
                 String description;
 
-                report = new Reporting(Integer.parseInt(id), 0, prefs.getInt(Keys.USER_ID, 0), 0, 0, 0, 0, 0, 0, null );
+                report = new Reporting(Integer.parseInt(id), 0, prefs.getInt(Keys.USER_ID, 0), 0, 0, 0, 0, 0, 0 );
 
 
                 if(brakesCheckBox.isChecked()){
@@ -104,18 +102,12 @@ public class ReportProblemsFragment extends Fragment {
                     report.setOther(1);
                 }
 
-                description = descriptionEditText.getText().toString();
-
-                if(!description.isEmpty()){
-                    report.setDescription(description);
-                }
 
 
                 String server = Keys.SERVER + "add_segnalazione.php?id_utente="+report.getIdUser()+"&id_monopattino="+report.getIdScooter()
                         +"&guasto_freni="+report.isBrakesBroken()+"&guasto_ruote="+report.isWheelsBroken()
                         +"&guasto_manubrio="+report.isHandlebarsBroken()+ "&guasto_acceleratore="+report.isAcceleratorBroken()
-                        + "&guasto_blocco="+report.isLockBroken()+ "&guasto_altro="+report.isOtherBroken()
-                        + "&descrizione="+report.getDescription();
+                        + "&guasto_blocco="+report.isLockBroken()+ "&guasto_altro="+report.isOtherBroken();
                 try {
                     URL url = new URL(server);
                     AsyncAddReport asyncAddReport = new AsyncAddReport();

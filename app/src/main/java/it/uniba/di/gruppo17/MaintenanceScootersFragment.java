@@ -1,13 +1,16 @@
 package it.uniba.di.gruppo17;
 
+import android.os.Build;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -37,11 +40,14 @@ public class MaintenanceScootersFragment extends Fragment {
     MaintenanceScootersAdapter maintenanceScootersAdapter;
     View view;
     AsyncGetReportings getScooters = null;
+    ImageView refresh;
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+
         view = inflater.inflate(R.layout.fragment_maintenance_scooters, container, false);
+
 
 
         String serverAddress = SERVER + "get_monopattini_manutenz.php?r="+RAGGIO+"&lat="+ LocationService.realTimeDeviceLocation().getLatitude()+"&long="
@@ -69,6 +75,7 @@ public class MaintenanceScootersFragment extends Fragment {
         recyclerView.setItemAnimator(new DefaultItemAnimator());
         recyclerView.setAdapter(maintenanceScootersAdapter);
         return view;
+
 
 
     }

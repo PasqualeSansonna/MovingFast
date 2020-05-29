@@ -84,11 +84,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/title_other"
-            app:layout_constraintBottom_toTopOf="@+id/descriptionEditText"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/scooterImageView"
-            app:layout_constraintVertical_bias="0.0" />
+            app:layout_constraintTop_toBottomOf="@+id/scooterImageView" />
 
         <CheckBox
             android:id="@+id/acceleratorCheckBox"
@@ -111,29 +109,19 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <EditText
-            android:id="@+id/descriptionEditText"
-            android:layout_width="250dp"
-            android:layout_height="54dp"
-            android:ems="10"
-            android:gravity="start|top"
-            android:hint="@string/description"
-            android:inputType="textMultiLine"
-            app:layout_constraintBottom_toTopOf="@+id/buttonConfirmReport"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.496"
-            app:layout_constraintStart_toStartOf="parent" />
-
         <Button
             android:id="@+id/buttonConfirmReport"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="44dp"
+            android:layout_marginBottom="100dp"
             android:elevation="10dp"
             android:text="@string/report"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="@+id/descriptionEditText"
-            app:layout_constraintStart_toStartOf="@+id/descriptionEditText" />
+            app:layout_constraintEnd_toEndOf="@+id/otherCheckBox"
+            app:layout_constraintHorizontal_bias="0.523"
+            app:layout_constraintStart_toStartOf="@+id/otherCheckBox"
+            app:layout_constraintTop_toBottomOf="@+id/otherCheckBox"
+            app:layout_constraintVertical_bias="0.647" />
 
         <ImageView
             android:id="@+id/imageView"

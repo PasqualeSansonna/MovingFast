@@ -12,7 +12,7 @@ if ($raggio != null && $latitudine != null && $longitudine != null) {
     $conn = mysqli_connect ( $host, $user, $password, $db_name );
     $query = "SELECT monopattini.id_monopattino, monopattini.latitudine, monopattini.longitudine, monopattini.stato_batteria, monopattini.richiesta_manutenzione,
 	                 segnalazioni.id_monopattino, segnalazioni.id_segnalazione, segnalazioni.guasto_freni, segnalazioni.guasto_ruote, segnalazioni.guasto_manubrio,
-	                 segnalazioni.guasto_acceleratore, segnalazioni.guasto_blocco, segnalazioni.guasto_altro, segnalazioni.descrizione
+	                 segnalazioni.guasto_acceleratore, segnalazioni.guasto_blocco, segnalazioni.guasto_altro
 	          FROM monopattini INNER JOIN segnalazioni
 	          WHERE monopattini.id_monopattino = segnalazioni.id_monopattino";
 
@@ -35,7 +35,6 @@ if ($raggio != null && $latitudine != null && $longitudine != null) {
     $acceleratore_array = array ();
     $blocco_array = array ();
     $altro_array = array ();
-    $descrizione_array = array ();
     $result = mysqli_query ( $conn, $query );
     while ( $row = mysqli_fetch_array ( $result ) ) {
         $idMonopattino = $row ['id_monopattino'];
@@ -49,7 +48,6 @@ if ($raggio != null && $latitudine != null && $longitudine != null) {
 	$segnalazioneAcceleratore = $row ['guasto_acceleratore'];
 	$segnalazioneBlocco = $row ['guasto_blocco'];
 	$segnalazioneAltro = $row ['guasto_altro'];
-        $segnalazioneDescrizione = $row ['descrizione'];
         $distance = (3958 * 3.1415926 * sqrt ( ($lattmp - $latitudine) * ($lattmp - $latitudine) + cos ( $lattmp / 57.29578 ) * cos ( $latitudine / 57.29578 ) * ($lontmp - $longitudine) * ($lontmp - $longitudine) ) / 180);
         if ($distance <= $raggio) {
             $id_array [] = $idMonopattino;
@@ -63,7 +61,6 @@ if ($raggio != null && $latitudine != null && $longitudine != null) {
 	    $acceleratore_array [] = $segnalazioneAcceleratore;
 	    $blocco_array [] = $segnalazioneBlocco;
 	    $altro_array [] = $segnalazioneAltro;
-            $descrizione_array [] = $segnalazioneDescrizione;
         }
     }
 
@@ -78,8 +75,7 @@ if ($raggio != null && $latitudine != null && $longitudine != null) {
         'manubrio' => $manubrio_array,
 	'acceleratore'=> $acceleratore_array,
 	'blocco'=> $blocco_array,
-	'altro'=> $altro_array,
-        'descrizioneSegnalazione' => $descrizione_array
+	'altro'=> $altro_array
     ), JSON_FORCE_OBJECT );
     echo $post_data;
 } else {

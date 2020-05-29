@@ -10,9 +10,8 @@ public class Reporting {
     private int accelerator;
     private int lock;
     private int other;
-    private String description;
 
-    public Reporting (int idScooter, int idReporting, int brakes, int wheels, int handlebars, int accelerator, int lock, int other, String description)
+    public Reporting (int idScooter, int idReporting, int brakes, int wheels, int handlebars, int accelerator, int lock, int other)
     {
         this.idScooter = idScooter;
         this.idReporting = idReporting;
@@ -22,10 +21,9 @@ public class Reporting {
         this.accelerator = accelerator;
         this.lock = lock;
         this.other = other;
-        this.description = description;
     }
 
-    public Reporting (int idScooter, int idReporting, int idUser, int brakes, int wheels, int handlebars, int accelerator, int lock, int other, String description)
+    public Reporting (int idScooter, int idReporting, int idUser, int brakes, int wheels, int handlebars, int accelerator, int lock, int other)
     {
         this.idScooter = idScooter;
         this.idReporting = idReporting;
@@ -36,7 +34,6 @@ public class Reporting {
         this.accelerator = accelerator;
         this.lock = lock;
         this.other = other;
-        this.description = description;
     }
 
 
@@ -58,14 +55,6 @@ public class Reporting {
 
     public void setIdReporting(int idReporting) {
         this.idReporting = idReporting;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
     }
 
     public int isBrakesBroken()
