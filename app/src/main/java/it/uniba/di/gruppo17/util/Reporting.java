@@ -60,7 +60,6 @@ public class Reporting {
         this.idReporting = idReporting;
     }
 
-
     public String getDescription() {
         return description;
     }
