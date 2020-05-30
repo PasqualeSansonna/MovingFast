@@ -3,6 +3,7 @@ package it.uniba.di.gruppo17;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 
@@ -111,7 +112,8 @@ public class WalletFragment extends Fragment {
                     .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
-                            goToFragment(new HomeFragment());
+                            Intent intent = new Intent(getContext(), MainActivity.class);
+                            startActivity(intent);
                         }
                     }).create().show();
         }
