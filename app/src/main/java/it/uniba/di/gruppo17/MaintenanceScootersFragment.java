@@ -2,6 +2,7 @@ package it.uniba.di.gruppo17;
 
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,6 +15,7 @@ import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -40,7 +42,7 @@ public class MaintenanceScootersFragment extends Fragment {
     MaintenanceScootersAdapter maintenanceScootersAdapter;
     View view;
     AsyncGetReportings getScooters = null;
-    ImageView refresh;
+    SwipeRefreshLayout swipeRefreshLayout;
 
     @Nullable
     @Override
@@ -48,7 +50,30 @@ public class MaintenanceScootersFragment extends Fragment {
 
         view = inflater.inflate(R.layout.fragment_maintenance_scooters, container, false);
 
+        swipeRefreshLayout = view.findViewById(R.id.swipeRefreshLayout);
 
+        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+
+                getScooters();
+
+                new Handler().postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        swipeRefreshLayout.setRefreshing(false);
+                    }
+                }, 2000);
+            }
+        });
+
+        getScooters();
+
+        return view;
+
+    }
+
+    public void getScooters(){
 
         String serverAddress = SERVER + "get_monopattini_manutenz.php?r="+RAGGIO+"&lat="+ LocationService.realTimeDeviceLocation().getLatitude()+"&long="
                 +LocationService.realTimeDeviceLocation().getLongitude();
@@ -67,16 +92,10 @@ public class MaintenanceScootersFragment extends Fragment {
             e.printStackTrace();
         }
 
-
-
         //Creo cardview con adapter e card
         recyclerView = (RecyclerView) view.findViewById(R.id.maintenanceScootersRecyclerView);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         recyclerView.setItemAnimator(new DefaultItemAnimator());
         recyclerView.setAdapter(maintenanceScootersAdapter);
-        return view;
-
-
-
     }
 }

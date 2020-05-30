@@ -1,4 +1,5 @@
 <?php
+//restituisce i monopattini che hanno batteria > 20 e non sono stati segnalati
 include 'vars.php';
 
 header ( 'Content-Type: application/json' );
@@ -8,9 +9,12 @@ $latitudine = $_GET ["lat"];
 $longitudine = $_GET ["long"];
 
 if ($raggio != null && $latitudine != null && $longitudine != null) {
-	
+
 	$conn = mysqli_connect ( $host, $user, $password, $db_name );
-	$query = "select * from monopattini";
+	$query = "select * from monopattini WHERE stato_batteria > 20 AND id_monopattino NOT IN
+			(SELECT monopattini.id_monopattino
+	          	FROM monopattini INNER JOIN segnalazioni
+	          	WHERE monopattini.id_monopattino = segnalazioni.id_monopattino)";
 
 	// Check connection
 	if (mysqli_connect_errno ()) {
@@ -38,7 +42,7 @@ if ($raggio != null && $latitudine != null && $longitudine != null) {
 				$statoBatteria_array [] = $statoBatteria;
 			}
 	}
-	
+
 	$post_data = json_encode ( array (
 			'id' => $id_array,
 			'lat' => $lat_array,
@@ -48,7 +52,7 @@ if ($raggio != null && $latitudine != null && $longitudine != null) {
 	echo $post_data;
 } else {
 	$post_error = json_encode ( array (
-			'err' => 'Parametri mancanti!' 
+			'err' => 'Parametri mancanti!'
 	), JSON_FORCE_OBJECT );
 	echo $post_error;
 }
