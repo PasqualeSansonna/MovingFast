@@ -10,16 +10,19 @@ $longitudine = $_GET ["long"];
 if ($raggio != null && $latitudine != null && $longitudine != null) {
 	
 	$conn = mysqli_connect ( $host, $user, $password, $db_name );
-	$query = "select * from monopattini";
-	
+	$query = "select * from monopattini WHERE stato_batteria > 20 AND id_monopattino NOT IN
+			(SELECT monopattini.id_monopattino
+	          	FROM monopattini INNER JOIN segnalazioni
+	          	WHERE monopattini.id_monopattino = segnalazioni.id_monopattino)";
+
 	// Check connection
 	if (mysqli_connect_errno ()) {
 		$post_error = json_encode ( array (
-				'err' => "Failed to connect to MySQL: " . mysqli_connect_error () 
+				'err' => "Failed to connect to MySQL: " . mysqli_connect_error ()
 		), JSON_FORCE_OBJECT );
 		echo $post_error;
-	}	
-
+	}
+	$provaCazzo = array();
 	$id_array = array ();
 	$lat_array = array ();
 	$lon_array = array ();
