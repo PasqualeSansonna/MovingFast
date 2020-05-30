@@ -158,12 +158,9 @@ public class MainMaintainerActivity extends AppCompatActivity implements GoogleA
                         startActivity(intent);
                         finish();
                     }
-                }).create().show();
-        //Setto valori di shared prefs ai valori di default per evitare consistenza
-        prefs = getSharedPreferences(Keys.SHARED_PREFERENCES, Context.MODE_PRIVATE);
-        prefs.edit().putInt(Keys.USER_ID, -1).apply();
-        prefs.edit().putFloat(Keys.WALLET, -1).apply();
-        prefs.edit().putBoolean(Keys.USER_TYPE, false).apply();
+                })
+                .setNegativeButton(android.R.string.no, null)
+                .create().show();
     }
 
     @Override

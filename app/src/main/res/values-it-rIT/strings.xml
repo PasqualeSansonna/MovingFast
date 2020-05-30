@@ -122,7 +122,7 @@
     <string name="menu_recharge">Ricarica monopattino</string>
     <string name="maintenance_warning">Il monopattino potrebbe richiedere manutenzione</string>
     <string name="recharge_unl_button">Ricarica</string>
-    <string name="titleUnloaded">Monopattini con poca carica</string>
+    <string name="titleUnloaded">Monopattini scarichi</string>
     <string name="charged_scooter">Il monopattino è stato ricaricato</string>
     <string name="not_charged_scooter">Il monopattino non è stato ricaricato. Riprova</string>
     <string name="discount_text">Sconto per il prossimo noleggio:</string>

@@ -41,7 +41,6 @@ public class MaintenanceScootersAdapter extends RecyclerView.Adapter<Maintenance
     public MaintenanceScootersAdapter (List<Scooter> scooters)
     {
         this.maintenanceScooters = scooters;
-
     }
 
     @Override
