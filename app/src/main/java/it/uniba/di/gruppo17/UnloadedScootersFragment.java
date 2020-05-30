@@ -79,7 +79,7 @@ public class UnloadedScootersFragment extends Fragment {
             URL urlScooters = new URL (serverAddress);
             getScooters = new AsyncGetUnloadedScooters();
             getScooters.execute(urlScooters);
-            Thread.sleep(500);
+            Thread.sleep(1000);
         } catch (MalformedURLException | InterruptedException e) {
             e.printStackTrace();
         }
