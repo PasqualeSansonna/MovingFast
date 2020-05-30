@@ -301,7 +301,7 @@ public class MapsFragment extends Fragment {
      */
     private void getScooters(Location currentLocation)
     {
-        String serverAddress = SERVER + "get_monopattini.php?r="+RAGGIO+"&lat="+currentLocation.getLatitude()+"&long="+currentLocation.getLongitude();
+        String serverAddress = SERVER + "get_monopattini_mappa.php?r="+RAGGIO+"&lat="+currentLocation.getLatitude()+"&long="+currentLocation.getLongitude();
         AsyncGetScooters getScooters = null;
         try{
             URL urlScooters = new URL (serverAddress);
