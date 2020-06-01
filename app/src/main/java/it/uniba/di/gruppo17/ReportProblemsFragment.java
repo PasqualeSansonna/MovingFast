@@ -3,6 +3,7 @@ package it.uniba.di.gruppo17;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -51,13 +52,13 @@ public class ReportProblemsFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        container.removeAllViews();
         return inflater.inflate(R.layout.fragment_report_problems, container, false);
     }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        view.setBackgroundColor(Color.WHITE);
         brakesCheckBox = getView().findViewById(R.id.brakesCheckBox);
         wheelsCheckBox = getView().findViewById(R.id.wheelsCheckBox);
         handlebarsCheckBox = getView().findViewById(R.id.handlebarCheckBox);

@@ -58,7 +58,7 @@ public class ProfileFragment extends Fragment {
                              @Nullable Bundle savedInstanceState) {
 
         View view = inflater.inflate(R.layout.fragment_profile, container, false);
-
+        view.setBackgroundColor(Color.WHITE);
         TV_profileName = (TextView) view.findViewById(R.id.user_profile_name);
         ET_name = (EditText) view.findViewById(R.id.editText_name);
         ET_surname = (EditText) view.findViewById(R.id.editText_surname);
@@ -114,6 +114,7 @@ public class ProfileFragment extends Fragment {
                     FragmentManager fragmentManager = getFragmentManager();
                     FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
                     Fragment nextFragment = new PastRentalsFragment();
+                    fragmentTransaction.addToBackStack(null);
                     fragmentTransaction.replace(R.id.fragment_container, nextFragment);
                     fragmentTransaction.commit();
                 }

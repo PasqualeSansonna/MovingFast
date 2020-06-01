@@ -168,7 +168,11 @@ public class MainMaintainerActivity extends AppCompatActivity implements GoogleA
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
         } else {
-            super.onBackPressed();
+            if (getSupportFragmentManager().getBackStackEntryCount() < 1 )
+                this.finish();
+            else
+                getSupportFragmentManager().popBackStack();
+            //super.onBackPressed();
         }
     }
 
@@ -194,7 +198,9 @@ public class MainMaintainerActivity extends AppCompatActivity implements GoogleA
             default:
                 throw new IllegalArgumentException("No fragment for the given item");
         }
+        getSupportFragmentManager().popBackStack();
         getSupportFragmentManager().beginTransaction()
+                .addToBackStack(null)
                 .replace(R.id.fragment_container_maint, nextFragment)
                 .commit();
     }

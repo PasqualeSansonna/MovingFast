@@ -74,7 +74,6 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-
         /*Poiché non usiamo ActionBar, usiamo Toolbar*/
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -124,19 +123,18 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
         logo_anim.setDuration(1000);
         image2.startAnimation(logo_anim);
 
-
-
         IV_searchScooter.setOnClickListener(new View.OnClickListener() {
 
 
             @Override
             public void onClick(View v) {
-                //FragmentManager fragmentManager = getFragmentManager();
-                FragmentManager fragmentManager = getSupportFragmentManager();
-                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-                Fragment nextFragment = new MapsFragment();
-                fragmentTransaction.replace(R.id.fragment_container, nextFragment);
-                fragmentTransaction.commit();
+                if ( getSupportFragmentManager().findFragmentByTag("MapsFragment") == null ){
+                    Fragment nextFragment = new MapsFragment();
+                    getSupportFragmentManager().beginTransaction().addToBackStack(null).replace(R.id.fragment_container,nextFragment).commit();
+                }
+                else
+                    getSupportFragmentManager().beginTransaction()
+                            .replace(R.id.fragment_container, getSupportFragmentManager().findFragmentByTag("MapsFragment")).commit();
 
             }
         });
@@ -146,11 +144,13 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
 
             @Override
             public void onClick(View v) {
-                FragmentManager fragmentManager = getSupportFragmentManager();
-                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-                Fragment nextFragment = new ProfileFragment();
-                fragmentTransaction.replace(R.id.fragment_container, nextFragment);
-                fragmentTransaction.commit();
+                if ( getSupportFragmentManager().findFragmentByTag("ProfileFragment") == null ){
+                    Fragment nextFragment = new ProfileFragment();
+                    getSupportFragmentManager().beginTransaction().addToBackStack(null).replace(R.id.fragment_container,nextFragment).commit();
+                }
+                else
+                    getSupportFragmentManager().beginTransaction()
+                            .replace(R.id.fragment_container, getSupportFragmentManager().findFragmentByTag("ProfileFragment")).commit();
 
             }
         });
@@ -161,11 +161,13 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
 
             @Override
             public void onClick(View v) {
-                FragmentManager fragmentManager = getSupportFragmentManager();
-                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-                Fragment nextFragment = new WalletFragment();
-                fragmentTransaction.replace(R.id.fragment_container, nextFragment);
-                fragmentTransaction.commit();
+                if ( getSupportFragmentManager().findFragmentByTag("WalletFragment") == null ){
+                    Fragment nextFragment = new WalletFragment();
+                    getSupportFragmentManager().beginTransaction().addToBackStack(null).replace(R.id.fragment_container,nextFragment).commit();
+                }
+                else
+                    getSupportFragmentManager().beginTransaction()
+                            .replace(R.id.fragment_container, getSupportFragmentManager().findFragmentByTag("WalletFragment")).commit();
 
             }
         });
@@ -236,7 +238,11 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
         } else {
-            super.onBackPressed();
+            if (getSupportFragmentManager().getBackStackEntryCount() < 1 )
+                this.finish();
+            else
+                getSupportFragmentManager().popBackStack();
+            //super.onBackPressed();
         }
     }
 
@@ -246,35 +252,93 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
      */
     private void openFragment(MenuItem menuItem)
     {
+        prefs = getSharedPreferences(Keys.SHARED_PREFERENCES, Context.MODE_PRIVATE);
         int itemId = menuItem.getItemId();
         Fragment nextFragment = null;
         switch (itemId)
         {
             case R.id.nav_home:
-                Intent intent = new Intent(this, MainActivity.class);
-                startActivity(intent);
+                    for (int i = 0; i < getSupportFragmentManager().getBackStackEntryCount(); i++)
+                        getSupportFragmentManager().popBackStack();
                 break;
             case R.id.nav_map:
-                nextFragment = new MapsFragment();
+                getSupportFragmentManager().popBackStack();
+                if ( getSupportFragmentManager().findFragmentByTag("MapsFragment") == null )
+                {
+                    nextFragment = new MapsFragment();
+                    getSupportFragmentManager().beginTransaction().addToBackStack(null)
+                            .replace(R.id.fragment_container, nextFragment,"MapsFragment")
+                            .commit();
+                }
+                else
+                    getSupportFragmentManager().beginTransaction()
+                            .replace(R.id.fragment_container, getSupportFragmentManager().findFragmentByTag("MapsFragment"))
+                            .commit();
                 break;
             case R.id.nav_profile:
-                nextFragment = new ProfileFragment();
+                getSupportFragmentManager().popBackStack();
+                if ( getSupportFragmentManager().findFragmentByTag("ProfileFragment") == null )
+                {
+                    nextFragment = new ProfileFragment();
+                    getSupportFragmentManager().beginTransaction().addToBackStack(null)
+                            .replace(R.id.fragment_container, nextFragment,"ProfileFragment")
+                            .commit();
+                }
+                else
+                    getSupportFragmentManager().beginTransaction()
+                            .replace(R.id.fragment_container, getSupportFragmentManager().findFragmentByTag("ProfileFragment"))
+                            .commit();
                 break;
             case R.id.nav_rent:
-                nextFragment = new RentFragment();
+                getSupportFragmentManager().popBackStack();
+                //Se l'utente ha noleggiato
+                if ( prefs.getBoolean(Keys.IN_RENT,false) && prefs.getInt(Keys.RENT_ID,-1) != -1 )
+                {
+                    nextFragment = new ResultFragment();
+                    getSupportFragmentManager().beginTransaction().addToBackStack(null)
+                            .replace(R.id.fragment_container,nextFragment).commit();
+                    break;
+                }
+                //Nessun noleggio
+                if ( getSupportFragmentManager().findFragmentByTag("RentFragment") == null ){
+                    nextFragment = new RentFragment();
+                    getSupportFragmentManager().beginTransaction().addToBackStack(null)
+                            .replace(R.id.fragment_container,nextFragment,"RentFragment")
+                            .commit();
+                }
+                else
+                    getSupportFragmentManager().beginTransaction()
+                            .replace(R.id.fragment_container,getSupportFragmentManager().findFragmentByTag("RentFragment"))
+                            .commit();
                 break;
             case R.id.nav_wallet:
-                nextFragment = new WalletFragment();
+                if ( getSupportFragmentManager().findFragmentByTag("WalletFragment") == null ){
+                    nextFragment = new WalletFragment();
+                    getSupportFragmentManager().beginTransaction().addToBackStack(null)
+                            .replace(R.id.fragment_container,nextFragment,"WalletFragment")
+                            .commit();
+                }
+                else
+                    getSupportFragmentManager().beginTransaction()
+                            .replace(R.id.fragment_container,getSupportFragmentManager().findFragmentByTag("WalletFragment"))
+                            .commit();
                 break;
             case R.id.nav_reports:
-                nextFragment = new ReportProblemsFragment();
+                getSupportFragmentManager().popBackStack();
+                if ( getSupportFragmentManager().findFragmentByTag("ReportFragment") == null ){
+                    nextFragment = new ReportProblemsFragment();
+                    getSupportFragmentManager().beginTransaction().addToBackStack(null)
+                            .replace(R.id.fragment_container,nextFragment,"ReportFragment")
+                            .commit();
+                }
+                else
+                    getSupportFragmentManager().beginTransaction()
+                            .replace(R.id.fragment_container,getSupportFragmentManager().findFragmentByTag("ReportFragment"))
+                            .commit();
                 break;
             default:
                 throw new IllegalArgumentException("No fragment for the given item");
         }
-        getSupportFragmentManager().beginTransaction()
-                .replace(R.id.fragment_container, nextFragment)
-                .commit();
     }
 
     @Override
