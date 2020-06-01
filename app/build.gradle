@@ -38,5 +38,8 @@ dependencies {
     implementation 'androidx.recyclerview:recyclerview:1.0.0'
     //For paypal payment
     implementation 'com.paypal.sdk:paypal-android-sdk:2.14.2'
+    //Design
+    //noinspection GradleCompatible
+    implementation 'com.android.support:cardview-v7:28.0.0-rc02'
 
 }
