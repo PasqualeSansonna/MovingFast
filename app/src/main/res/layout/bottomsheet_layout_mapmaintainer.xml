@@ -81,13 +81,13 @@
         android:layout_marginStart="10dp"
         android:layout_marginEnd="10dp"
         android:layout_marginBottom="10dp"
-        android:background="@drawable/directionsbutton_background"
+        android:background="@color/colorPrimary"
         android:clickable="true"
         android:elevation="2dp"
+        android:focusable="true"
         android:gravity="center"
         android:orientation="horizontal"
-        android:padding="10dp"
-        android:focusable="true">
+        android:padding="10dp">
 
         <ImageView
             android:layout_width="24dp"

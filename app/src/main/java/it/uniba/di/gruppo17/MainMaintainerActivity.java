@@ -66,6 +66,14 @@ public class MainMaintainerActivity extends AppCompatActivity implements GoogleA
         setContentView(R.layout.activity_main_maintainer);
 
 
+        Fragment mapFragment = new MapsFragment();
+
+        getSupportFragmentManager().popBackStack();
+        getSupportFragmentManager().beginTransaction()
+                .addToBackStack(null)
+                .replace(R.id.fragment_container_maint, mapFragment)
+                .commit();
+
 
         /*Poiché non usiamo ActionBar, usiamo Toolbar*/
 

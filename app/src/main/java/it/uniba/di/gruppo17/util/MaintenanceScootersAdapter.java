@@ -66,6 +66,7 @@ public class MaintenanceScootersAdapter extends RecyclerView.Adapter<Maintenance
             e.printStackTrace();
         }
 
+        holder.idScooter.setText("ID "+ scooter.getIdScooter());
 
 
         /* se il monopattino ha un guasto ai freni spunta la relativa checkbox*/

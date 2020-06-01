@@ -11,20 +11,21 @@
         android:layout_marginStart="20dp"
         android:layout_marginEnd="20dp"
         android:orientation="horizontal">
+
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Total riding time"
-            android:textColor="@color/colorAccent"
-            android:textSize="18sp">
-        </TextView>
+            android:textColor="@color/colorPrimaryDark"
+            android:textSize="18sp"></TextView>
+
         <TextView
             android:id="@+id/timeValue"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textAlignment="textEnd"
             android:text="00:00"
-            android:textColor="@color/colorAccent"
+            android:textAlignment="textEnd"
+            android:textColor="@color/textPrimaryColor"
             android:textSize="18sp"></TextView>
     </LinearLayout>
 
@@ -35,20 +36,21 @@
         android:layout_marginStart="20dp"
         android:layout_marginEnd="20dp"
         android:orientation="horizontal">
+
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Total traveled distance"
-            android:textColor="@color/colorAccent"
-            android:textSize="18sp">
-        </TextView>
+            android:textColor="@color/colorPrimaryDark"
+            android:textSize="18sp"></TextView>
+
         <TextView
             android:id="@+id/distanceValue"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textAlignment="textEnd"
             android:text="00,00"
-            android:textColor="@color/colorAccent"
+            android:textAlignment="textEnd"
+            android:textColor="@color/textPrimaryColor"
             android:textSize="18sp"></TextView>
     </LinearLayout>
 
@@ -59,20 +61,21 @@
         android:layout_marginStart="20dp"
         android:layout_marginEnd="20dp"
         android:orientation="horizontal">
+
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Total"
-            android:textColor="@color/colorAccent"
-            android:textSize="18sp">
-        </TextView>
+            android:textColor="@color/colorPrimaryDark"
+            android:textSize="18sp"></TextView>
+
         <TextView
             android:id="@+id/costValue"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textAlignment="textEnd"
             android:text="00,00"
-            android:textColor="@color/colorAccent"
+            android:textAlignment="textEnd"
+            android:textColor="@color/textPrimaryColor"
             android:textSize="18sp"></TextView>
     </LinearLayout>
 
@@ -83,13 +86,15 @@
         android:layout_marginStart="20dp"
         android:layout_marginEnd="20dp"
         android:orientation="vertical">
+
         <Button
             android:id="@+id/paymentButton"
-            android:layout_gravity="end"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="PROCEDI AL PAGAMENTO">
-        </Button>
+            android:layout_gravity="end"
+            android:backgroundTint="@color/colorPrimary"
+            android:text="PROCEDI AL PAGAMENTO"
+            android:textColor="@color/white"></Button>
     </LinearLayout>
 
     <LinearLayout
@@ -99,20 +104,22 @@
         android:layout_marginStart="20dp"
         android:layout_marginEnd="20dp"
         android:orientation="vertical">
+
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Hai riscontrato problemi?"
-            android:textSize="18sp"
-            android:textColor="@color/colorAccent">
-        </TextView>
+            android:textColor="@color/textPrimaryColor"
+            android:textSize="18sp"></TextView>
+
         <Button
             android:id="@+id/reportButton"
-            android:layout_gravity="end"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Segnala un problema">
-        </Button>
+            android:layout_gravity="end"
+            android:backgroundTint="@color/colorAccent"
+            android:text="Segnala un problema"
+            android:textColor="@color/textPrimaryColor"></Button>
     </LinearLayout>
 
 </FrameLayout>

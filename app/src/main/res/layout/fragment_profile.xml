@@ -199,7 +199,7 @@
                     android:id="@+id/buttonConfirmEdit"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:backgroundTint="@color/colorAccent"
+                    android:backgroundTint="@color/colorPrimary"
                     android:gravity="center"
                     android:text="@string/confirm"
                     android:textColor="@color/background" />
@@ -218,7 +218,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
-                    android:backgroundTint="@color/colorAccent"
+                    android:backgroundTint="@color/colorPrimary"
                     android:gravity="center"
                     android:text="@string/cancel"
                     android:textColor="@color/background" />
