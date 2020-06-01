@@ -10,6 +10,8 @@ import androidx.core.app.ActivityCompat;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 
 import android.Manifest;
 import android.app.ActivityManager;
@@ -25,6 +27,11 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
 
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GoogleApiAvailability;
@@ -50,16 +57,23 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
     private boolean mResolvingError;
     private GoogleApiClient mApiClient;
 
+    // Per layout bottoni
+    private ImageView IV_searchScooter;
+    private ImageView IV_profile;
+    private ImageView IV_wallet;
+
+    ImageView image;
+    ImageView image2 = null;
+    LinearLayout linearLayout = null;
+    Animation logo_anim = null;
+    Animation bg_anim;
+    Animation fromBottom;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        Fragment homeFragment = new HomeFragment();
-
-        getSupportFragmentManager().beginTransaction()
-                .replace(R.id.fragment_container, homeFragment)
-                .commit();
 
         /*Poiché non usiamo ActionBar, usiamo Toolbar*/
         Toolbar toolbar = findViewById(R.id.toolbar);
@@ -92,6 +106,69 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
 
         if ( savedInstanceState!= null )
             mResolvingError = savedInstanceState.getBoolean(RESOLVING_ERROR_STATE_KEY, false);
+
+
+        IV_searchScooter = (ImageView) findViewById(R.id.IV_SearchScooter);
+        IV_profile = (ImageView) findViewById(R.id.IV_profile);
+        IV_wallet = (ImageView) findViewById(R.id.IV_wallet);
+        image = (ImageView) findViewById(R.id.imageBG);
+        image2 = (ImageView) findViewById(R.id.imageLogo);
+        linearLayout = (LinearLayout) findViewById(R.id.LinearLayoutButton);
+
+        fromBottom = AnimationUtils.loadAnimation(this, R.anim.frombottom);
+        logo_anim = AnimationUtils.loadAnimation(this, R.anim.logo_scale);
+        bg_anim = AnimationUtils.loadAnimation(this, R.anim.bg_home);
+        fromBottom.setDuration(1000);
+        linearLayout.startAnimation(fromBottom);
+        image.animate().translationY(-1650).setDuration(800);
+        logo_anim.setDuration(1000);
+        image2.startAnimation(logo_anim);
+
+
+
+        IV_searchScooter.setOnClickListener(new View.OnClickListener() {
+
+
+            @Override
+            public void onClick(View v) {
+                //FragmentManager fragmentManager = getFragmentManager();
+                FragmentManager fragmentManager = getSupportFragmentManager();
+                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                Fragment nextFragment = new MapsFragment();
+                fragmentTransaction.replace(R.id.fragment_container, nextFragment);
+                fragmentTransaction.commit();
+
+            }
+        });
+
+        IV_profile.setOnClickListener(new View.OnClickListener() {
+
+
+            @Override
+            public void onClick(View v) {
+                FragmentManager fragmentManager = getSupportFragmentManager();
+                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                Fragment nextFragment = new ProfileFragment();
+                fragmentTransaction.replace(R.id.fragment_container, nextFragment);
+                fragmentTransaction.commit();
+
+            }
+        });
+
+
+        IV_wallet.setOnClickListener(new View.OnClickListener() {
+
+
+            @Override
+            public void onClick(View v) {
+                FragmentManager fragmentManager = getSupportFragmentManager();
+                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                Fragment nextFragment = new WalletFragment();
+                fragmentTransaction.replace(R.id.fragment_container, nextFragment);
+                fragmentTransaction.commit();
+
+            }
+        });
     }
 
     /**
@@ -174,7 +251,8 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
         switch (itemId)
         {
             case R.id.nav_home:
-                nextFragment = new HomeFragment();
+                Intent intent = new Intent(this, MainActivity.class);
+                startActivity(intent);
                 break;
             case R.id.nav_map:
                 nextFragment = new MapsFragment();

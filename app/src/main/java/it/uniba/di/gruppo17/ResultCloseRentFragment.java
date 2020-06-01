@@ -3,6 +3,7 @@ package it.uniba.di.gruppo17;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
@@ -217,9 +218,8 @@ public class ResultCloseRentFragment extends Fragment {
                 .setPositiveButton(R.string.closeButton, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
-                        getFragmentManager().popBackStack();
-                        Fragment toHome = new HomeFragment();
-                        getFragmentManager().beginTransaction().replace(R.id.fragment_container,toHome).commit();
+                        Intent intent = new Intent(getContext(), MainActivity.class);
+                        startActivity(intent);
                     }
                 })
         .create()

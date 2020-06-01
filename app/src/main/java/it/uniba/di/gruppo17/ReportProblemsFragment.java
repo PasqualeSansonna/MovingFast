@@ -1,6 +1,7 @@
 package it.uniba.di.gruppo17;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -116,12 +117,8 @@ public class ReportProblemsFragment extends Fragment {
                     e.printStackTrace();
                 }
 
-                FragmentManager fragmentManager = getFragmentManager();
-                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-                Fragment nextFragment = new HomeFragment();
-                fragmentTransaction.replace(R.id.fragment_container, nextFragment);
-                fragmentTransaction.commit();
-
+                Intent intent = new Intent(getContext(), MainActivity.class);
+                startActivity(intent);
             }
         });
     }
