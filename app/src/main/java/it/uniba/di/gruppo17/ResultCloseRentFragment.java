@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Color;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.AsyncTask;
@@ -65,13 +66,13 @@ public class ResultCloseRentFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        container.removeAllViews();
         return inflater.inflate(R.layout.fragment_result_close_rent, container, false);
     }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        view.setBackgroundColor(Color.WHITE);
         timeTextView = getView().findViewById(R.id.timeValue);
         distanceTextView = getView().findViewById(R.id.distanceValue);
         costTextView = getView().findViewById(R.id.costValue);
@@ -105,11 +106,9 @@ public class ResultCloseRentFragment extends Fragment {
         else
             distanceTextView.setText("Errore");
 
-         userId = prefs.getInt(Keys.USER_ID,-1);
+        userId = prefs.getInt(Keys.USER_ID,-1);
         final int scooterId = prefs.getInt(Keys.SCOOTER_ID, -1);
         final int rentId = prefs.getInt(Keys.RENT_ID, -1);
-
-
 
         float amount = Keys.UNLOCK_COST + ( Keys.COST_PER_MINUTE * TimeUnit.MILLISECONDS.toMinutes(time) )
                 + ( Keys.COST_PER_MINUTE * TimeUnit.MILLISECONDS.toHours(time) );
@@ -124,13 +123,10 @@ public class ResultCloseRentFragment extends Fragment {
             amount *= sottocento;
         }
 
-
-
         if ( amount >= 0 )
             costTextView.setText( String.format("%.2f",amount) );
         else
             costTextView.setText("Errore");
-
 
         final float finalAmount = amount;
         paymentButton.setOnClickListener(new View.OnClickListener() {
@@ -153,6 +149,7 @@ public class ResultCloseRentFragment extends Fragment {
                 FragmentManager fragmentManager = getFragmentManager();
                 FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
                 Fragment nextFragment = new ReportProblemsRentEndedFragment();
+                fragmentTransaction.addToBackStack(null);
                 fragmentTransaction.replace(R.id.fragment_container, nextFragment);
                 fragmentTransaction.commit();
             }
@@ -218,6 +215,7 @@ public class ResultCloseRentFragment extends Fragment {
                 .setPositiveButton(R.string.closeButton, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
+                        getActivity().finish();
                         Intent intent = new Intent(getContext(), MainActivity.class);
                         startActivity(intent);
                     }
@@ -236,6 +234,7 @@ public class ResultCloseRentFragment extends Fragment {
         editor.putBoolean(Keys.IN_RENT,false);
         editor.apply();
     }
+
     private void needToCharge()
     {
         new AlertDialog.Builder(getContext())
@@ -249,7 +248,6 @@ public class ResultCloseRentFragment extends Fragment {
                         FragmentTransaction mFragmentTransaction = getFragmentManager().beginTransaction();
                         mFragmentTransaction.addToBackStack(null);
                         mFragmentTransaction.replace(R.id.fragment_container,toPayFragment).commit();
-                        //getFragmentManager().beginTransaction().replace(R.id.fragment_container, toPayFragment).commit();
                     }
                 })
         .create()

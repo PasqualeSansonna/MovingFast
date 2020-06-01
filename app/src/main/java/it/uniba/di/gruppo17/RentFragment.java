@@ -17,6 +17,7 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
 import android.provider.Settings;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -114,8 +115,7 @@ public class RentFragment extends Fragment implements NfcAdapter.CreateNdefMessa
                     .setMessage(R.string.noNfc_message)
                     .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
                         public void onClick(DialogInterface dialogInterface, int i) {
-                            Fragment toNoChipNfcFragment = new NoChipNfcFragment();
-                            changeFragment(toNoChipNfcFragment);
+                            getFragmentManager().popBackStack();
                         }
                     })
                     .create()
@@ -205,7 +205,8 @@ public class RentFragment extends Fragment implements NfcAdapter.CreateNdefMessa
      */
     private void changeFragment(Fragment fragment) {
         FragmentTransaction fragmentTransaction = this.getActivity().getSupportFragmentManager().beginTransaction();
-        fragmentTransaction.replace(R.id.fragment_container, fragment);
+        fragmentTransaction.addToBackStack(null);
+        fragmentTransaction.replace(R.id.fragment_container, fragment,"ResultFragment");
         fragmentTransaction.commit();
     }
 }

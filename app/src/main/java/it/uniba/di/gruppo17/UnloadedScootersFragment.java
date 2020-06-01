@@ -71,7 +71,6 @@ public class UnloadedScootersFragment extends Fragment {
 
     public void getUnloadedScooters(){
         Scooter.clearNearScooters();
-
         String serverAddress = SERVER + "get_monopattini.php?r="+RAGGIO+"&lat="+ LocationService.realTimeDeviceLocation().getLatitude()+"&long="
                 +LocationService.realTimeDeviceLocation().getLongitude();
         AsyncGetUnloadedScooters getScooters = null;

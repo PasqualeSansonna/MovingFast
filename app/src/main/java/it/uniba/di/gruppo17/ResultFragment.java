@@ -15,6 +15,7 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
 
 import android.os.SystemClock;
 import android.view.LayoutInflater;
@@ -105,7 +106,7 @@ public class ResultFragment extends Fragment implements SensorEventListener, Asy
                 editor.apply();
                 //Passo al fragment per la chiusura del noleggio
                 Fragment toCloseRent = new CloseRentFragment();
-                getFragmentManager().beginTransaction().replace(R.id.fragment_container, toCloseRent).commit();
+                getFragmentManager().beginTransaction().addToBackStack(null).replace(R.id.fragment_container, toCloseRent).commit();
             }
         });
 
@@ -123,8 +124,8 @@ public class ResultFragment extends Fragment implements SensorEventListener, Asy
         report.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //Fragment toCloseRent = new CloseRentFragment();
-                //getFragmentManager().beginTransaction().replace(R.id.fragment_result, toCloseRent).commit();
+                Fragment toReportFragment = new ReportProblemsFragment();
+                getFragmentManager().beginTransaction().addToBackStack(null).replace(R.id.fragment_result, toReportFragment).commit();
             }
         });
 
@@ -164,11 +165,11 @@ public class ResultFragment extends Fragment implements SensorEventListener, Asy
     {
         super.onResume();
         sManager.registerListener(this,stepSensor,SensorManager.SENSOR_DELAY_FASTEST);
-        if ( taskExecuted )
+        if ( prefs.getBoolean(Keys.IN_RENT,false) )
         {
-            if ( rentSucceed )
+            if ( prefs.getInt(Keys.RENT_ID,-1) != -1 )
             {
-                //updateDistance.start();
+                getActivity().findViewById(R.id.resultLayout).setVisibility(View.VISIBLE);
                 if ( prefs.contains(Keys.CHRONOMETER_TIME) )
                     setChronometer();
                 rentTime.start();
@@ -243,23 +244,14 @@ public class ResultFragment extends Fragment implements SensorEventListener, Asy
     }
 
     /**
-     * Metodo che setta visibilità degli item del menu, poichè siamo in noleggio avvenuto bisogna oscurare l'item noleggio
+     * Noleggio in corso, aggiorno il testo della voce nel menu laterale
      */
     private void setNavigationBar() {
         NavigationView mNavigationMenu = (NavigationView) getActivity().findViewById(R.id.nav_view);
         Menu menu = mNavigationMenu.getMenu();
-        MenuItem menuItem0 = menu.getItem(0);
-        menuItem0.setVisible(true);
-        MenuItem menuItem1 = menu.getItem(1);
-        menuItem1.setVisible(true);
         MenuItem menuItem2 = menu.getItem(2);
         menuItem2.setTitle("Noleggio in corso");
         menuItem2.setVisible(true);
-        //menuItem2.setVisible(false);
-        MenuItem menuItem3 = menu.getItem(3);
-        menuItem3.setVisible(true);
-        MenuItem menuItem4 = menu.getItem(4);
-        menuItem4.setVisible(true);
     }
 
     private void rentFailed()
@@ -295,6 +287,26 @@ public class ResultFragment extends Fragment implements SensorEventListener, Asy
         editor.putString(Keys.CURRENT_DATE_TIME, currentDateAndTime);
         editor.putFloat(Keys.TRAVELED_DISTANCE,traveledDistance);
         editor.apply();
+    }
+
+    @Override
+    public void onDetach() {
+        if (prefs.getBoolean(Keys.IN_RENT,false) && prefs.getInt(Keys.RENT_ID,-1) != -1 )
+        {
+            sManager.unregisterListener(this, stepSensor);
+            //Salvo nelle shared pref. data e ora correnti e il tempo registrato dal cronometro
+            //In questo modo sarà possibile tenere sempre traccia del tempo trascorso, anche nel caso in cui l'app dovesse essere killata
+            SharedPreferences.Editor editor = prefs.edit();
+            float traveledDistance = getDistanceRun(steps);
+            long elapsedTime = SystemClock.elapsedRealtime() - rentTime.getBase(); //il tempo registrato dal cronometro, in millisecondi
+            SimpleDateFormat sdf = new SimpleDateFormat(Keys.PATTERN_DATE_TIME, Locale.getDefault());
+            String currentDateAndTime = sdf.format(new Date());
+            editor.putLong(Keys.CHRONOMETER_TIME,elapsedTime);
+            editor.putString(Keys.CURRENT_DATE_TIME, currentDateAndTime);
+            editor.putFloat(Keys.TRAVELED_DISTANCE,traveledDistance);
+            editor.apply();
+        }
+        super.onDetach();
     }
 
     /**
