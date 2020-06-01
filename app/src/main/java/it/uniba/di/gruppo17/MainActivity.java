@@ -258,8 +258,8 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
         switch (itemId)
         {
             case R.id.nav_home:
-                    for (int i = 0; i < getSupportFragmentManager().getBackStackEntryCount(); i++)
-                        getSupportFragmentManager().popBackStack();
+                    Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+                    startActivity(intent);
                 break;
             case R.id.nav_map:
                 getSupportFragmentManager().popBackStack();

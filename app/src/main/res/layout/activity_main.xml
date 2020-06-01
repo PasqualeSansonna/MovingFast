@@ -23,102 +23,158 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent" >
 
-            <ImageView
-                android:id="@+id/imageBG"
+            <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
-                android:layout_height="900dp"
-                android:scaleType="fitXY"
-                android:src="@drawable/bg_home_splash"
-                android:translationY="0dp" />
+                android:layout_height="match_parent">
 
-            <ImageView
-                android:id="@+id/imageLogo"
-                android:layout_width="match_parent"
-                android:layout_height="264dp"
-                android:src="@mipmap/ic_launcher_foreground" />
+                <ImageView
+                    android:id="@+id/imageBG"
+                    android:layout_width="match_parent"
+                    android:layout_height="900dp"
+                    android:scaleType="fitXY"
+                    android:src="@drawable/ic_bg_home_splash"
+                    android:translationY="0dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
 
-            <LinearLayout
-                android:id="@+id/LinearLayoutButton"
-                android:layout_width="match_parent"
-                android:layout_height="323dp"
-                android:layout_gravity="bottom"
-                android:gravity="center|top"
-                android:orientation="vertical">
+                <ImageView
+                    android:id="@+id/imageLogo"
+                    android:layout_width="415dp"
+                    android:layout_height="221dp"
+                    android:src="@mipmap/ic_launcher_foreground"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
 
                 <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal">
+                    android:id="@+id/LinearLayoutButton"
+                    android:layout_width="match_parent"
+                    android:layout_height="323dp"
+                    android:layout_gravity="bottom"
+                    android:layout_marginTop="224dp"
+                    android:gravity="center|top"
+                    android:orientation="vertical"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.0"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="@+id/imageBG"
+                    app:layout_constraintVertical_bias="0.0">
 
                     <LinearLayout
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginRight="50dp"
-                        android:gravity="center"
-                        android:orientation="vertical">
+                        android:orientation="horizontal">
 
-                        <ImageView
-                            android:id="@+id/IV_profile"
-                            android:layout_width="100dp"
-                            android:layout_height="90dp"
-                            android:src="@drawable/ic_profile" />
+                        <androidx.cardview.widget.CardView
+                            android:layout_width="@dimen/card_size"
+                            android:layout_height="@dimen/card_size"
+                            android:backgroundTint="@color/colorAccent"
+                            android:orientation="vertical"
+                            app:cardCornerRadius="12dp"
+                            app:cardElevation="6dp">
 
-                        <TextView
-                            android:layout_width="wrap_content"
+                            <LinearLayout
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center"
+                                android:gravity="center"
+                                android:orientation="vertical">
+
+                                <ImageView
+                                    android:id="@+id/IV_profile"
+                                    android:layout_width="70dp"
+                                    android:layout_height="70dp"
+                                    android:src="@drawable/ic_profile" />
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="@string/menu_profile"
+                                    android:textSize="@dimen/subtitle_card_size" />
+
+
+                            </LinearLayout>
+
+                        </androidx.cardview.widget.CardView>
+
+                        <Space
+                            android:layout_width="40dp"
                             android:layout_height="wrap_content"
-                            android:text="@string/menu_profile"
-                            android:textSize="@dimen/text_dimension" />
+                            android:layout_weight="1" />
+
+                        <androidx.cardview.widget.CardView
+                            android:layout_width="@dimen/card_size"
+                            android:layout_height="@dimen/card_size"
+                            android:backgroundTint="@color/colorAccent"
+                            android:orientation="vertical"
+                            app:cardCornerRadius="12dp"
+                            app:cardElevation="6dp">
+
+                            <LinearLayout
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center"
+                                android:gravity="center"
+                                android:orientation="vertical">
+
+                                <ImageView
+                                    android:id="@+id/IV_wallet"
+                                    android:layout_width="70dp"
+                                    android:layout_height="70dp"
+                                    android:layout_gravity="center"
+                                    android:src="@drawable/ic_wallet" />
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="@string/wallet"
+                                    android:textSize="@dimen/subtitle_card_size" />
+
+                            </LinearLayout>
+
+                        </androidx.cardview.widget.CardView>
 
                     </LinearLayout>
 
-                    <LinearLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:gravity="center"
-                        android:orientation="vertical">
+                    <Space
+                        android:layout_width="match_parent"
+                        android:layout_height="30dp" />
 
-                        <ImageView
-                            android:id="@+id/IV_wallet"
-                            android:layout_width="100dp"
-                            android:layout_height="90dp"
+                    <androidx.cardview.widget.CardView
+                        android:layout_width="120dp"
+                        android:layout_height="@dimen/card_size"
+                        android:backgroundTint="@color/colorAccent"
+                        app:cardCornerRadius="12dp"
+                        app:cardElevation="6dp">
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
                             android:layout_gravity="center"
-                            android:src="@drawable/ic_wallet" />
+                            android:gravity="center"
+                            android:orientation="vertical">
 
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="@string/wallet"
-                            android:textSize="@dimen/text_dimension" />
+                            <ImageView
+                                android:id="@+id/IV_SearchScooter"
+                                android:layout_width="70dp"
+                                android:layout_height="70dp"
+                                android:src="@drawable/ic_map" />
 
-                    </LinearLayout>
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="@string/search_scooter"
+                                android:textSize="@dimen/subtitle_card_size" />
 
+                        </LinearLayout>
 
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:layout_marginTop="40dp"
-                    android:gravity="center"
-                    android:orientation="vertical">
-
-                    <ImageView
-                        android:id="@+id/IV_SearchScooter"
-                        android:layout_width="100dp"
-                        android:layout_height="90dp"
-                        android:src="@drawable/ic_map" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/search_scooter"
-                        android:textSize="@dimen/text_dimension" />
+                    </androidx.cardview.widget.CardView>
 
                 </LinearLayout>
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
-
-            </LinearLayout>
         </FrameLayout>
 
     </LinearLayout>

@@ -9,9 +9,11 @@ import android.os.Bundle;
 
 import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -113,6 +115,18 @@ public class WalletFragment extends Fragment {
                     }).create().show();
         }
 
+        getView().setFocusableInTouchMode(true);
+        getView().requestFocus();
+        getView().setOnKeyListener( new View.OnKeyListener()
+        {
+            @Override
+            public boolean onKey(View v, int keyCode, KeyEvent event) {
+                Intent intent = new Intent(getContext(), MainActivity.class);
+                startActivity(intent);
+                return true;
+            }
+
+        } );
 
         payBt.setOnClickListener(new View.OnClickListener() {
             @Override
