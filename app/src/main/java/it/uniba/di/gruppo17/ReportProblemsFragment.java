@@ -1,10 +1,15 @@
 package it.uniba.di.gruppo17;
 
+import android.app.AlertDialog;
+import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
+import android.nfc.NfcAdapter;
+import android.os.AsyncTask;
 import android.os.Bundle;
+import android.text.InputType;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,16 +23,20 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
+import com.google.android.material.bottomsheet.BottomSheetDialog;
+import com.google.android.material.snackbar.Snackbar;
+
 import java.net.MalformedURLException;
 import java.net.URL;
 
-import it.uniba.di.gruppo17.asynchttp.AsyncAddReport;
+//import it.uniba.di.gruppo17.asynchttp.AsyncAddReport;
 import it.uniba.di.gruppo17.util.Keys;
 import it.uniba.di.gruppo17.util.Reporting;
 
 /** @author Pasquale Sansonna, Sgarra Claudia
  *  Fragment per l'invio della segnalazione di problemi al monopattino da parte dell'utente
  */
+//<--TODO-->Da eliminare perchè creata activity corrispondente
 public class ReportProblemsFragment extends Fragment {
 
     private SharedPreferences prefs;
@@ -39,13 +48,20 @@ public class ReportProblemsFragment extends Fragment {
     private CheckBox otherCheckBox;
     private Button reportButton;
     private Reporting report;
-
     private EditText idScooter;
+
+    private  PendingIntent pendingIntent;
+    private NfcAdapter mNfcAdapter;
+    private AlertDialog mAlertDialog;
+    private BottomSheetDialog mBottomSheetDialog;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         prefs = this.getActivity().getSharedPreferences(Keys.SHARED_PREFERENCES, Context.MODE_PRIVATE);
+        pendingIntent = PendingIntent.getActivity(getContext(),0,
+                new Intent().addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP),0);
+        mNfcAdapter =  NfcAdapter.getDefaultAdapter(getActivity());
     }
 
     @Nullable
@@ -68,22 +84,48 @@ public class ReportProblemsFragment extends Fragment {
         reportButton = getView().findViewById(R.id.buttonConfirmReport);
 
         idScooter = getView().findViewById(R.id.idScooter);
+        idScooter.setInputType(InputType.TYPE_NULL);
+        idScooter.setFocusable(false);
+        idScooter.setClickable(true);
+        idScooter.setTextIsSelectable(true);
+
+        mBottomSheetDialog = new BottomSheetDialog( getContext(), R.style.BottomSheetDialogTheme );
+        mBottomSheetDialog.setContentView(R.layout.bottomsheet_report_activity);
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+        LayoutInflater mInflater = this.getLayoutInflater();
+        builder.setView(mInflater.inflate(R.layout.loading_dialog_layout,null));
+        builder.setCancelable(false);
+        mAlertDialog = builder.create();
     }
 
     @Override
     public void onResume() {
         super.onResume();
 
+        if ( mNfcAdapter != null ) //disabilito il foregound dispatch
+            mNfcAdapter.disableForegroundDispatch(getActivity());
+
+        idScooter.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mBottomSheetDialog.show();
+                mNfcAdapter.enableForegroundDispatch( getActivity(), pendingIntent, null, null);
+            }
+        });
+
         reportButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
-                String id = idScooter.getText().toString();
-
-                String description;
-
-                report = new Reporting(Integer.parseInt(id), 0, prefs.getInt(Keys.USER_ID, 0), 0, 0, 0, 0, 0, 0 );
-
+                if ( !idScooter.getText().toString().equals("") )
+                    report = new Reporting(Integer.parseInt(idScooter.getText().toString()), 0,
+                            prefs.getInt(Keys.USER_ID, 0), 0, 0, 0, 0, 0, 0);
+                else
+                {
+                    Snackbar.make(v,"Codice monopattino mancante",Snackbar.LENGTH_SHORT).show();
+                    return;
+                }
 
                 if(brakesCheckBox.isChecked()){
                     report.setBrakes(1);
@@ -110,18 +152,21 @@ public class ReportProblemsFragment extends Fragment {
                         +"&guasto_freni="+report.isBrakesBroken()+"&guasto_ruote="+report.isWheelsBroken()
                         +"&guasto_manubrio="+report.isHandlebarsBroken()+ "&guasto_acceleratore="+report.isAcceleratorBroken()
                         + "&guasto_blocco="+report.isLockBroken()+ "&guasto_altro="+report.isOtherBroken();
-                try {
+          /*      try {
                     URL url = new URL(server);
                     AsyncAddReport asyncAddReport = new AsyncAddReport();
                     asyncAddReport.execute(url);
                 } catch (MalformedURLException e) {
                     e.printStackTrace();
-                }
+                }*/
 
-                Intent intent = new Intent(getContext(), MainActivity.class);
-                startActivity(intent);
+                //Intent intent = new Intent(getContext(), MainActivity.class);
+               // startActivity(intent);
             }
         });
     }
+
+
+
 }
 

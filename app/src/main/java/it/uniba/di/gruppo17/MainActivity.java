@@ -325,7 +325,7 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
                 break;
             case R.id.nav_reports:
                 getSupportFragmentManager().popBackStack();
-                if ( getSupportFragmentManager().findFragmentByTag("ReportFragment") == null ){
+              /*  if ( getSupportFragmentManager().findFragmentByTag("ReportFragment") == null ){
                     nextFragment = new ReportProblemsFragment();
                     getSupportFragmentManager().beginTransaction().addToBackStack(null)
                             .replace(R.id.fragment_container,nextFragment,"ReportFragment")
@@ -334,7 +334,9 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
                 else
                     getSupportFragmentManager().beginTransaction()
                             .replace(R.id.fragment_container,getSupportFragmentManager().findFragmentByTag("ReportFragment"))
-                            .commit();
+                            .commit();*/
+                Intent reportActivity = new Intent(this, ReportActivity.class);
+                startActivity(reportActivity);
                 break;
             default:
                 throw new IllegalArgumentException("No fragment for the given item");

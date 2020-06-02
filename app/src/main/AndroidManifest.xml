@@ -26,8 +26,10 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="AllowBackup">
-        <activity android:name=".MainMaintainerActivity"
-            android:theme="@style/AppTheme.NoActionBar"/>
+        <activity android:name=".ReportActivity"></activity>
+        <activity
+            android:name=".MainMaintainerActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
         <!--
              The API key for Google Maps-based APIs is defined as a string resource.
              (See the file "res/values/google_maps_api.xml").

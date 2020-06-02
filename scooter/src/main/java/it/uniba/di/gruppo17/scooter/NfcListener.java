@@ -16,6 +16,7 @@ import android.nfc.NdefMessage;
 import android.nfc.NdefRecord;
 import android.nfc.NfcAdapter;
 
+import android.nfc.NfcEvent;
 import android.os.BatteryManager;
 import android.os.Build;
 import android.os.Bundle;
@@ -38,7 +39,7 @@ import java.util.concurrent.ExecutionException;
  * @author Francesco Moramarco
  */
 
-public class NfcListener extends AppCompatActivity {
+public class NfcListener extends AppCompatActivity implements NfcAdapter.CreateNdefMessageCallback, NfcAdapter.OnNdefPushCompleteCallback {
 
     private PendingIntent pendingIntent;
     private  NfcAdapter mNfcAdapter;
@@ -92,6 +93,10 @@ public class NfcListener extends AppCompatActivity {
                     && mCheckInternetConnection.execute().get() )
             {
                 mNfcAdapter.enableForegroundDispatch(this, pendingIntent, null, null);
+                //metodo per il richiamo del sender messaggio NDEF
+                mNfcAdapter.setNdefPushMessageCallback(this, this);
+                //metodo per il richiamo del metodo da eseguire a trasmissione completata
+                mNfcAdapter.setOnNdefPushCompleteCallback(this, this);
                 //Per dare il tempo al servizio di localizazione di partire...
                 new Handler().postDelayed(new Runnable() {
                     @Override
@@ -242,5 +247,17 @@ public class NfcListener extends AppCompatActivity {
 
             return (int) (batteryPct * 100);
         }
+    }
+
+    @Override
+    public NdefMessage createNdefMessage(NfcEvent event) {
+        String sendId = String.valueOf(Keys.SCOOTER_ID);
+        NdefRecord ndefRecord = NdefRecord.createMime("text/plain", sendId.getBytes());
+        NdefMessage ndefMessage = new NdefMessage(ndefRecord);
+        return ndefMessage;
+    }
+
+    @Override
+    public void onNdefPushComplete(NfcEvent event) {
     }
 }

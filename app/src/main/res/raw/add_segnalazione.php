@@ -12,8 +12,6 @@ $guasto_manubrio = $_GET ["guasto_manubrio"];
 $guasto_acceleratore = $_GET ["guasto_acceleratore"];
 $guasto_blocco = $_GET ["guasto_blocco"];
 $guasto_altro = $_GET ["guasto_altro"];
-$descrizione = $_GET ["descrizione"];
-
 
 if ($id_utente != null && $id_monopattino != null) {
 	$conn = mysqli_connect ( $host, $user, $password, $db_name );
@@ -34,9 +32,9 @@ if ($id_utente != null && $id_monopattino != null) {
 
 
 	$queryInsert = "INSERT INTO segnalazioni (id_utente, id_monopattino, guasto_freni, guasto_ruote,
-			  guasto_manubrio, guasto_acceleratore, guasto_blocco, guasto_altro, descrizione)
+			  guasto_manubrio, guasto_acceleratore, guasto_blocco, guasto_altro)
 		      VALUES ('$id_utente', '$id_monopattino', '$guasto_freni', '$guasto_ruote',
-		      '$guasto_manubrio', '$guasto_acceleratore', '$guasto_blocco', '$guasto_altro', '$descrizione')";
+		      '$guasto_manubrio', '$guasto_acceleratore', '$guasto_blocco', '$guasto_altro')";
 
 	$result = mysqli_query ( $conn, $queryInsert );
 
