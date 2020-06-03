@@ -21,9 +21,12 @@ import android.content.Intent;
 import android.content.IntentSender;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
+import android.graphics.Point;
 import android.location.LocationManager;
 import android.os.Build;
 import android.os.Bundle;
+import android.util.Log;
+import android.view.Display;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -119,7 +122,12 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
         bg_anim = AnimationUtils.loadAnimation(this, R.anim.bg_home);
         fromBottom.setDuration(1000);
         linearLayout.startAnimation(fromBottom);
-        image.animate().translationY(-1650).setDuration(800);
+        Display display = getWindowManager().getDefaultDisplay();
+        // display size in pixels
+        Point size = new Point();
+        display.getSize(size);
+        Integer height = size.y;
+        image.animate().translationY((float) (-height*4.7/10)).setDuration(1000);
         logo_anim.setDuration(1000);
         image2.startAnimation(logo_anim);
 

@@ -123,6 +123,7 @@ public class WalletFragment extends Fragment {
             public boolean onKey(View v, int keyCode, KeyEvent event) {
                 Intent intent = new Intent(getContext(), MainActivity.class);
                 startActivity(intent);
+                getActivity().finish();
                 return true;
             }
 

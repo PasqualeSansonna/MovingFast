@@ -10,26 +10,28 @@
         android:id="@+id/idScooter"
         android:layout_width="141dp"
         android:layout_height="26dp"
+        android:layout_marginTop="53dp"
+        android:layout_marginBottom="40dp"
         android:background="@color/white"
         android:clickable="true"
         android:elevation="@dimen/standard_elevation"
         android:ems="10"
         android:hint="ID SCOOTER"
         android:inputType="textEmailAddress"
+        android:textAlignment="center"
         android:textColor="@color/secondaryTextColor"
         android:textColorHint="@color/secondaryTextColor"
-        android:textAlignment="center"
         android:textSize="@dimen/text_dimension"
-        app:layout_constraintBottom_toTopOf="@+id/reportProblemsTextView"
+        app:layout_constraintBottom_toTopOf="@+id/handlebarCheckBox"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.81" />
+        app:layout_constraintTop_toBottomOf="@+id/reportProblemsTextView"
+        app:layout_constraintVertical_bias="1.0" />
 
     <ImageView
         android:id="@+id/scooterImageView"
-        android:layout_width="189dp"
-        android:layout_height="228dp"
+        android:layout_width="137dp"
+        android:layout_height="186dp"
         android:src="@drawable/ic_scooter"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -42,6 +44,8 @@
         android:layout_height="wrap_content"
         android:text="@string/titleBrakes"
         app:layout_constraintBottom_toTopOf="@+id/otherCheckBox"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="@+id/lockCheckBox"
         app:layout_constraintTop_toBottomOf="@+id/lockCheckBox"
         app:layout_constraintVertical_bias="0.548" />
@@ -53,15 +57,13 @@
         android:text="@string/titleHandlebars"
         app:layout_constraintBottom_toTopOf="@+id/scooterImageView"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/reportProblemsTextView"
-        app:layout_constraintVertical_bias="1.0" />
+        app:layout_constraintStart_toStartOf="parent" />
 
     <CheckBox
         android:id="@+id/wheelsCheckBox"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="56dp"
+        android:layout_marginBottom="32dp"
         android:text="@string/titleWheels"
         app:layout_constraintBottom_toTopOf="@+id/otherCheckBox"
         app:layout_constraintStart_toStartOf="@+id/acceleratorCheckBox" />
@@ -71,8 +73,10 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="40dp"
+        android:layout_marginTop="48dp"
         android:text="@string/title_lock"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.125"
         app:layout_constraintStart_toEndOf="@+id/scooterImageView"
         app:layout_constraintTop_toTopOf="@+id/scooterImageView" />
 
@@ -87,21 +91,25 @@
 
     <CheckBox
         android:id="@+id/acceleratorCheckBox"
-        android:layout_width="106dp"
-        android:layout_height="28dp"
-        android:layout_marginTop="40dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="48dp"
         android:text="@string/title_accelerator"
         app:layout_constraintEnd_toStartOf="@+id/scooterImageView"
+        app:layout_constraintHorizontal_bias="0.612"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/scooterImageView" />
 
     <TextView
         android:id="@+id/reportProblemsTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="60dp"
+        android:layout_marginBottom="119dp"
         android:text="@string/titleReportProblems"
         android:textSize="30sp"
         android:textStyle="bold"
-        app:layout_constraintBottom_toTopOf="@+id/scooterImageView"
+        app:layout_constraintBottom_toTopOf="@+id/handlebarCheckBox"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -110,23 +118,22 @@
         android:id="@+id/buttonConfirmReport"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="100dp"
-        android:elevation="10dp"
+        android:layout_marginTop="60dp"
         android:background="@color/colorPrimary"
-        android:textColor="@color/white"
+        android:elevation="10dp"
         android:text="@string/report"
+        android:textColor="@color/white"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="@+id/otherCheckBox"
         app:layout_constraintHorizontal_bias="0.523"
         app:layout_constraintStart_toStartOf="@+id/otherCheckBox"
         app:layout_constraintTop_toBottomOf="@+id/otherCheckBox"
-        app:layout_constraintVertical_bias="0.647" />
+        app:layout_constraintVertical_bias="0.0" />
 
     <ImageView
         android:id="@+id/imageView"
-        android:layout_width="23dp"
-        android:layout_height="19dp"
-        android:layout_marginTop="8dp"
+        android:layout_width="39dp"
+        android:layout_height="33dp"
         android:src="@drawable/ic_line"
         app:layout_constraintStart_toEndOf="@+id/wheelsCheckBox"
         app:layout_constraintTop_toTopOf="@+id/wheelsCheckBox" />
@@ -155,21 +162,22 @@
 
     <ImageView
         android:id="@+id/imageView8"
-        android:layout_width="57dp"
-        android:layout_height="38dp"
-        android:layout_marginEnd="52dp"
-        android:rotation="240"
+        android:layout_width="68dp"
+        android:layout_height="30dp"
+        android:layout_marginEnd="44dp"
+        android:rotation="220"
         android:src="@drawable/ic_line2"
         app:layout_constraintBottom_toTopOf="@+id/brakesCheckBox"
         app:layout_constraintEnd_toEndOf="@+id/brakesCheckBox"
+        app:layout_constraintStart_toStartOf="@+id/imageView6"
         app:layout_constraintTop_toBottomOf="@+id/imageView6"
         app:layout_constraintVertical_bias="1.0" />
 
     <ImageView
         android:id="@+id/imageView9"
-        android:layout_width="98dp"
-        android:layout_height="46dp"
-        android:elevation="10dp"
+        android:layout_width="78dp"
+        android:layout_height="42dp"
+        android:rotation="350"
         android:src="@drawable/ic_line3"
         app:layout_constraintStart_toEndOf="@+id/acceleratorCheckBox"
         app:layout_constraintTop_toTopOf="@+id/acceleratorCheckBox" />
