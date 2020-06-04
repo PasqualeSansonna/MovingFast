@@ -95,7 +95,15 @@ public class PayFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 hideKeyboard(getContext());
-                getPayment();
+                if (Double.parseDouble(amountEt.getText().toString()) <= 0.00)
+                {
+                    Snackbar.make(Objects.requireNonNull(getView()), R.string.amount_lessThanZero, Snackbar.LENGTH_LONG).show();
+                }
+
+                else
+                {
+                    getPayment();
+                }
             }
         });
         super.onResume();

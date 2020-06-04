@@ -1,6 +1,7 @@
 package it.uniba.di.gruppo17.util;
 
-public interface Keys {
+public interface
+Keys {
     String EMAIL = "email";
     String PASSWORD = "password";
     String RENTALS_TOTAL_DURATION = "rentals_total_duration";

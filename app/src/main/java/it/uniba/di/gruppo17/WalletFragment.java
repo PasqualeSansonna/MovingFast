@@ -77,7 +77,6 @@ public class WalletFragment extends Fragment {
         discount_number_TV = (TextView) layout.findViewById(R.id.discountNumber);
         discount_number_TV.setVisibility(View.GONE);
 
-
         return layout;
     }
 
@@ -222,7 +221,15 @@ public class WalletFragment extends Fragment {
 
 
     public static void afterTask(Double aDouble) {
-        String soldiStringa = String.format("%,.2f", aDouble);
+        String soldiStringa;
+        if((aDouble < 0.00) || aDouble == null)
+        {
+            soldiStringa = String.format("%,.2f", 0.00);
+        }
+        else
+        {
+            soldiStringa = String.format("%,.2f", aDouble);
+        }
         amountTv.setText("€ " + soldiStringa);
     }
 
