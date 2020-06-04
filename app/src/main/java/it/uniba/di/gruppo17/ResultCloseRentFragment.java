@@ -102,7 +102,7 @@ public class ResultCloseRentFragment extends Fragment {
 
         float distance = prefs.getFloat(Keys.TRAVELED_DISTANCE, -1 );
         if ( distance > -1 )
-            distanceTextView.setText( String.format("%.2f",distance) );
+            distanceTextView.setText( String.format("%.2f",distance)+" km" );
         else
             distanceTextView.setText("Errore");
 
@@ -124,7 +124,7 @@ public class ResultCloseRentFragment extends Fragment {
         }
 
         if ( amount >= 0 )
-            costTextView.setText( String.format("%.2f",amount) );
+            costTextView.setText( String.format("%.2f",amount)+" €");
         else
             costTextView.setText("Errore");
 
@@ -227,9 +227,9 @@ public class ResultCloseRentFragment extends Fragment {
     private void removeData()
     {
         SharedPreferences.Editor editor = prefs.edit();
-        editor.putLong(Keys.CHRONOMETER_TIME,-1);
+        editor.remove(Keys.TRAVELED_DISTANCE);
+        editor.remove(Keys.CHRONOMETER_TIME);
         editor.putInt(Keys.RENT_ID,-1);
-        editor.putFloat(Keys.TRAVELED_DISTANCE,-1);
         editor.putInt(Keys.SCOOTER_ID,-1);
         editor.putBoolean(Keys.IN_RENT,false);
         editor.apply();

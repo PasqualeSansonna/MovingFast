@@ -80,6 +80,7 @@ public class ResultFragment extends Fragment implements SensorEventListener, Asy
         super.onViewCreated(view, savedInstanceState);
         distanceValue = getView().findViewById(R.id.textViewValueTraveledDistance);
         rentTime = getView().findViewById(R.id.chrono);
+
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         LayoutInflater mInflater = getActivity().getLayoutInflater();
         builder.setView(mInflater.inflate(R.layout.loading_dialog_layout,null));
@@ -93,17 +94,6 @@ public class ResultFragment extends Fragment implements SensorEventListener, Asy
         closeRentButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //Fermo il cronometro e il sensore
-                rentTime.stop();
-                sManager.unregisterListener(ResultFragment.this, stepSensor);
-                //rilevo il tempo segnato sul cronometro e la distanza percorosa
-                long elapsedTime = SystemClock.elapsedRealtime() - rentTime.getBase();
-                float distance = getDistanceRun(steps);
-                //Scrivo nelle shared pref. in modo da poterli utilizzare in seguito
-                SharedPreferences.Editor editor = prefs.edit();
-                editor.putLong(Keys.CHRONOMETER_TIME,elapsedTime);
-                editor.putFloat(Keys.TRAVELED_DISTANCE,distance);
-                editor.apply();
                 //Passo al fragment per la chiusura del noleggio
                 Fragment toCloseRent = new CloseRentFragment();
                 getFragmentManager().beginTransaction().addToBackStack(null).replace(R.id.fragment_container, toCloseRent).commit();
@@ -124,8 +114,9 @@ public class ResultFragment extends Fragment implements SensorEventListener, Asy
         report.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                //Passo al fragment per la segnalazione
                 Fragment toReportFragment = new ReportProblemsFragment();
-                getFragmentManager().beginTransaction().addToBackStack(null).replace(R.id.fragment_result, toReportFragment).commit();
+                getFragmentManager().beginTransaction().addToBackStack(null).replace(R.id.fragment_container, toReportFragment).commit();
             }
         });
 
@@ -173,6 +164,8 @@ public class ResultFragment extends Fragment implements SensorEventListener, Asy
                 if ( prefs.contains(Keys.CHRONOMETER_TIME) )
                     setChronometer();
                 rentTime.start();
+                if ( !updateDistance.isAlive())
+                    updateDistance.start();
             }
             else
             {
@@ -218,9 +211,7 @@ public class ResultFragment extends Fragment implements SensorEventListener, Asy
             rentSucceed = true;
             saveData(idScooter, idRent); //salvo nelle shared Pref. i l'id del monopattino e del noleggio
             getActivity().findViewById(R.id.resultLayout).setVisibility(View.VISIBLE);
-            //distanceValue.setText( String.valueOf(getDistanceRun(steps)));
             updateDistance.start();
-           // rentTime.setBase(SystemClock.elapsedRealtime());
             rentTime.start();
             setNavigationBar();
         }
@@ -238,8 +229,6 @@ public class ResultFragment extends Fragment implements SensorEventListener, Asy
         editor.putBoolean(Keys.IN_RENT, true);
         editor.putInt(Keys.SCOOTER_ID, idScooter);
         editor.putInt(Keys.RENT_ID, idRent);
-        editor.putLong(Keys.CHRONOMETER_TIME,0);
-        editor.putFloat(Keys.TRAVELED_DISTANCE,0);
         editor.apply();
     }
 
@@ -275,12 +264,13 @@ public class ResultFragment extends Fragment implements SensorEventListener, Asy
     @Override
     public void onPause() {
         super.onPause();
+        rentTime.stop();
         sManager.unregisterListener(this, stepSensor);
+        float traveledDistance = getDistanceRun(steps);
+        long elapsedTime = SystemClock.elapsedRealtime() - rentTime.getBase(); //il tempo registrato dal cronometro, in millisecondi
         //Salvo nelle shared pref. data e ora correnti e il tempo registrato dal cronometro
         //In questo modo sarà possibile tenere sempre traccia del tempo trascorso, anche nel caso in cui l'app dovesse essere killata
         SharedPreferences.Editor editor = prefs.edit();
-        float traveledDistance = getDistanceRun(steps);
-        long elapsedTime = SystemClock.elapsedRealtime() - rentTime.getBase(); //il tempo registrato dal cronometro, in millisecondi
         SimpleDateFormat sdf = new SimpleDateFormat(Keys.PATTERN_DATE_TIME, Locale.getDefault());
         String currentDateAndTime = sdf.format(new Date());
         editor.putLong(Keys.CHRONOMETER_TIME,elapsedTime);
@@ -291,21 +281,6 @@ public class ResultFragment extends Fragment implements SensorEventListener, Asy
 
     @Override
     public void onDetach() {
-        if (prefs.getBoolean(Keys.IN_RENT,false) && prefs.getInt(Keys.RENT_ID,-1) != -1 )
-        {
-            sManager.unregisterListener(this, stepSensor);
-            //Salvo nelle shared pref. data e ora correnti e il tempo registrato dal cronometro
-            //In questo modo sarà possibile tenere sempre traccia del tempo trascorso, anche nel caso in cui l'app dovesse essere killata
-            SharedPreferences.Editor editor = prefs.edit();
-            float traveledDistance = getDistanceRun(steps);
-            long elapsedTime = SystemClock.elapsedRealtime() - rentTime.getBase(); //il tempo registrato dal cronometro, in millisecondi
-            SimpleDateFormat sdf = new SimpleDateFormat(Keys.PATTERN_DATE_TIME, Locale.getDefault());
-            String currentDateAndTime = sdf.format(new Date());
-            editor.putLong(Keys.CHRONOMETER_TIME,elapsedTime);
-            editor.putString(Keys.CURRENT_DATE_TIME, currentDateAndTime);
-            editor.putFloat(Keys.TRAVELED_DISTANCE,traveledDistance);
-            editor.apply();
-        }
         super.onDetach();
     }
 
@@ -331,10 +306,10 @@ public class ResultFragment extends Fragment implements SensorEventListener, Asy
     private float getDistanceRun(long steps)
     {
         float distance;
-        if ( prefs.contains(Keys.TRAVELED_DISTANCE) && prefs.getFloat(Keys.TRAVELED_DISTANCE, -1) != -1 )
-            distance = (float) (steps*78)/(float)100000 + prefs.getFloat(Keys.TRAVELED_DISTANCE, 0);
-        else
-            distance = (float) (steps*78)/(float)100000;
+        if ( steps == 0 && prefs.contains(Keys.TRAVELED_DISTANCE) && prefs.getFloat(Keys.TRAVELED_DISTANCE,0.f) != 0 )
+            steps = (long) ( ( (float)100000 * prefs.getFloat(Keys.TRAVELED_DISTANCE,0.f) ) / (float)78 );
+
+        distance = (float) (steps*78)/(float)100000;
         return distance;
     }
 
