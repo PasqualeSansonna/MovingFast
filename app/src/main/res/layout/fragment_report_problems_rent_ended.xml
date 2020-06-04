@@ -102,7 +102,7 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="80dp"
             android:background="@color/colorPrimary"
-            android:elevation="10dp"
+            android:elevation="@dimen/standard_elevation_button"
             android:text="@string/report"
             android:textColor="@color/background"
             app:layout_constraintBottom_toBottomOf="parent"

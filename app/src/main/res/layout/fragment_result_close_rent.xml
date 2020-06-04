@@ -93,6 +93,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="end"
             android:backgroundTint="@color/colorPrimary"
+            android:elevation="@dimen/standard_elevation_button"
             android:text="PROCEDI AL PAGAMENTO"
             android:textColor="@color/white"></Button>
     </LinearLayout>
@@ -117,9 +118,10 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="end"
-            android:backgroundTint="@color/colorAccent"
+            android:backgroundTint="@color/colorPrimary"
+            android:elevation="@dimen/standard_elevation_button"
             android:text="Segnala un problema"
-            android:textColor="@color/textPrimaryColor"></Button>
+            android:textColor="@color/background"></Button>
     </LinearLayout>
 
 </FrameLayout>

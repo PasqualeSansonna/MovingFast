@@ -30,7 +30,7 @@
         android:layout_alignParentEnd="true"
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
-        android:elevation="@dimen/standard_elevation"
+        android:elevation="@dimen/standard_elevation_button"
         android:src="@drawable/nfc" />
 
 </FrameLayout>

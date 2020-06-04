@@ -27,7 +27,7 @@
         android:text="0.00"
         android:textAlignment="center"
         android:textColor="@color/secondaryTextColor"
-        android:elevation="@dimen/standard_elevation"
+        android:elevation="@dimen/standard_elevation_button"
         android:textSize="30dp" />
 
     <Button
@@ -38,11 +38,11 @@
         android:layout_centerHorizontal="true"
         android:layout_marginTop="47dp"
         android:background="@color/colorPrimary"
+        android:elevation="@dimen/standard_elevation_button"
+        android:hyphenationFrequency="full"
         android:text="@string/add_to_amount"
         android:textColor="@color/white"
-        android:textSize="@dimen/text_dimension"
-        android:hyphenationFrequency="full"
-        android:elevation="@dimen/standard_elevation" />
+        android:textSize="@dimen/text_dimension" />
 
     <TextView
         android:id="@+id/payingPaypal"

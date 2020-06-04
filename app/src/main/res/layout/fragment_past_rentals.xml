@@ -56,6 +56,7 @@
                 android:layout_marginStart="8dp"
                 android:text=""
                 android:textSize="@dimen/subtitle_card_size"
+                app:layout_constraintBottom_toBottomOf="@+id/titleTotalDurationTextView"
                 app:layout_constraintStart_toEndOf="@+id/titleTotalDurationTextView"
                 app:layout_constraintTop_toBottomOf="@+id/titleRentals" />
 
@@ -73,16 +74,12 @@
                 android:id="@+id/valueTotalRentalTextView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="20dp"
+                android:layout_marginStart="8dp"
                 android:text=""
                 android:textSize="@dimen/subtitle_card_size"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.048"
+                app:layout_constraintBottom_toBottomOf="@+id/titleTotalRentalsTextView"
                 app:layout_constraintStart_toEndOf="@+id/titleTotalRentalsTextView"
-                app:layout_constraintTop_toTopOf="@+id/valueDurationTextView"
-                app:layout_constraintVertical_bias="0.062" />
+                app:layout_constraintTop_toTopOf="@+id/titleTotalRentalsTextView" />
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>

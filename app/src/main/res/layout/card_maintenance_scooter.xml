@@ -21,6 +21,7 @@
             android:layout_height="289dp"
             android:background="@color/background"
             android:backgroundTint="@color/colorAccent"
+            android:elevation="@dimen/standard_elevation_card"
             android:padding="@dimen/card_padding">
 
 
@@ -104,7 +105,7 @@
                 android:id="@+id/imageButton_confirm"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:elevation="10dp"
+                android:elevation="@dimen/standard_elevation_button"
                 app:layout_constraintEnd_toEndOf="@+id/maintenance_confirm_textview"
                 app:layout_constraintHorizontal_bias="0.52"
                 app:layout_constraintStart_toStartOf="@+id/maintenance_confirm_textview"
