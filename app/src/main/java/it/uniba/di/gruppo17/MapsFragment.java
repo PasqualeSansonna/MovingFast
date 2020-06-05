@@ -15,6 +15,7 @@ import android.location.Geocoder;
 import android.location.Location;
 import android.net.Uri;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -176,7 +177,9 @@ public class MapsFragment extends Fragment {
                            } catch (IOException e) {
                                e.printStackTrace();
                            }
-                           battery.setText(marker.getSnippet().substring(15));
+                           battery.setText(marker.getSnippet());
+
+                           Log.d("problema", marker.getSnippet());
 
                            mBottomSheetDialog.findViewById(R.id.directionsButton).setOnClickListener(new View.OnClickListener() {
                                @Override

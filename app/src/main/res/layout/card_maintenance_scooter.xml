@@ -76,7 +76,7 @@
 
             <CheckBox
                 android:id="@+id/title_brakes"
-                android:layout_width="88dp"
+                android:layout_width="wrap_content"
                 android:layout_height="22dp"
                 android:layout_marginStart="16dp"
                 android:text="@string/titleBrakes"
@@ -85,7 +85,7 @@
 
             <CheckBox
                 android:id="@+id/title_handlebars"
-                android:layout_width="88dp"
+                android:layout_width="wrap_content"
                 android:layout_height="22dp"
                 android:text="@string/titleHandlebars"
                 app:layout_constraintStart_toStartOf="@+id/title_wheels"
@@ -93,7 +93,7 @@
 
             <CheckBox
                 android:id="@+id/title_wheels"
-                android:layout_width="88dp"
+                android:layout_width="wrap_content"
                 android:layout_height="22dp"
                 android:layout_marginTop="1dp"
                 android:text="@string/titleWheels"
@@ -125,7 +125,7 @@
 
             <CheckBox
                 android:id="@+id/title_accelerator"
-                android:layout_width="88dp"
+                android:layout_width="wrap_content"
                 android:layout_height="22dp"
                 android:text="@string/title_accelerator"
                 app:layout_constraintStart_toStartOf="@+id/title_handlebars"
@@ -133,7 +133,7 @@
 
             <CheckBox
                 android:id="@+id/title_lock"
-                android:layout_width="88dp"
+                android:layout_width="wrap_content"
                 android:layout_height="22dp"
                 android:text="@string/title_lock"
                 app:layout_constraintStart_toStartOf="@+id/title_accelerator"
@@ -141,7 +141,7 @@
 
             <CheckBox
                 android:id="@+id/title_other"
-                android:layout_width="88dp"
+                android:layout_width="wrap_content"
                 android:layout_height="22dp"
                 android:text="@string/title_other"
                 app:layout_constraintStart_toStartOf="@+id/title_lock"
