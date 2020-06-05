@@ -22,6 +22,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.Chronometer;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -86,9 +87,9 @@ public class ResultFragment extends Fragment implements SensorEventListener, Asy
         builder.setCancelable(false);
         mAlertDialog = builder.create();
 
-        LinearLayout closeRentButton = getView().findViewById(R.id.closeRentButton);
-        LinearLayout googleMaps = getView().findViewById(R.id.openMapButton);
-        LinearLayout report = getView().findViewById(R.id.reportButton);
+        Button closeRentButton = getView().findViewById(R.id.closeRentButton);
+        Button googleMaps = getView().findViewById(R.id.openMapButton);
+        Button report = getView().findViewById(R.id.reportButton);
 
         closeRentButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -114,7 +115,7 @@ public class ResultFragment extends Fragment implements SensorEventListener, Asy
             @Override
             public void onClick(View view) {
                 //Passo al fragment per la segnalazione
-                Fragment toReportFragment = new ReportProblemsFragment();
+                Fragment toReportFragment = new ReportProblemsRentEndedFragment();
                 getFragmentManager().beginTransaction().addToBackStack(null).replace(R.id.fragment_container, toReportFragment).commit();
             }
         });

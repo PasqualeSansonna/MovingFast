@@ -10,6 +10,7 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.text.format.DateUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -50,7 +51,6 @@ public class ResultCloseRentFragment extends Fragment {
     private Button paymentButton;
     private Button reportAproblemButton;
     private float denaroMancante = -1;
-    private boolean completed = false;
 
     private int userId;
 
@@ -90,8 +90,7 @@ public class ResultCloseRentFragment extends Fragment {
     {
         super.onResume();
         long time = prefs.getLong(Keys.CHRONOMETER_TIME, -1);
-        final String timeString = String.format("%02d:%02d:%02d",
-                            TimeUnit.MILLISECONDS.toHours(time), TimeUnit.MILLISECONDS.toMinutes(time), TimeUnit.MILLISECONDS.toSeconds(time), TimeUnit.MILLISECONDS.toSeconds(time));
+        final String timeString = DateUtils.formatElapsedTime( time / 1000 );
         int discount = 0;
 
         if ( time > -1 )
@@ -205,7 +204,6 @@ public class ResultCloseRentFragment extends Fragment {
 
     private void paymentSuccess()
     {
-        completed = true;
         removeData();
         new AlertDialog.Builder(getContext())
                 .setCancelable(false)

@@ -8,6 +8,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.CheckBox;
+import android.widget.Toast;
+import android.widget.Toolbar;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -17,6 +19,7 @@ import androidx.fragment.app.FragmentTransaction;
 
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.concurrent.ExecutionException;
 
 import it.uniba.di.gruppo17.asynchttp.AsyncAddReport;
 import it.uniba.di.gruppo17.util.Keys;
@@ -73,8 +76,6 @@ public class ReportProblemsRentEndedFragment extends Fragment {
             @Override
             public void onClick(View v) {
 
-                String description;
-
                 report = new Reporting(prefs.getInt(Keys.SCOOTER_ID,0), 0, prefs.getInt(Keys.USER_ID, 0), 0, 0, 0, 0, 0, 0 );
                 if(brakesCheckBox.isChecked()){
                     report.setBrakes(1);
@@ -95,21 +96,26 @@ public class ReportProblemsRentEndedFragment extends Fragment {
                     report.setOther(1);
                 }
 
+                boolean ok = false;
                 String server = Keys.SERVER + "add_segnalazione.php?id_utente="+report.getIdUser()+"&id_monopattino="+report.getIdScooter()+"&guasto_freni="+report.isBrakesBroken()+"&guasto_ruote="+report.isWheelsBroken() +"&guasto_manubrio="+report.isHandlebarsBroken()+ "&guasto_acceleratore="+report.isAcceleratorBroken()+ "&guasto_blocco="+report.isLockBroken()+ "&guasto_altro="+report.isOtherBroken();
                 try {
                     URL url = new URL(server);
                     AsyncAddReport asyncAddReport = new AsyncAddReport();
-                    asyncAddReport.execute(url);
+                    ok = asyncAddReport.execute(url).get();
                 } catch (MalformedURLException e) {
+                    e.printStackTrace();
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                } catch (ExecutionException e) {
                     e.printStackTrace();
                 }
 
-                FragmentManager fragmentManager = getFragmentManager();
-                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-                Fragment nextFragment = new ResultCloseRentFragment();
-                fragmentTransaction.replace(R.id.fragment_container, nextFragment);
-                fragmentTransaction.commit();
+                if ( ok )
+                    Toast.makeText(getContext(), "Segnalazione completata", Toast.LENGTH_SHORT).show();
+                else
+                    Toast.makeText(getContext(), "Errore nella segnalazione. Riprovare", Toast.LENGTH_SHORT).show();
 
+                getFragmentManager().popBackStack();
             }
         });
 

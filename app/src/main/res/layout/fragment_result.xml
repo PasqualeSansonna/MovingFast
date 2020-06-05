@@ -15,14 +15,14 @@
         android:layout_marginStart="50dp"
         android:layout_marginEnd="50dp"
         android:orientation="vertical"
-        android:visibility="gone">
+        >
         <TextView
             android:id="@+id/textViewChronometer"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/ridingTime"
             android:textSize="18sp"
-            android:textColor="@color/colorAccent"
+            android:textColor="@color/colorPrimaryDark"
             android:textAlignment="center">
        </TextView>
         <Chronometer
@@ -31,7 +31,7 @@
             android:layout_height="wrap_content"
             android:textSize="30sp"
             android:gravity="center_horizontal"
-            android:textColor="@color/colorAccent">
+            android:textColor="@color/textPrimaryColor">
         </Chronometer>
 
         <LinearLayout
@@ -45,7 +45,7 @@
                 android:layout_height="wrap_content"
                 android:text="@string/traveledDistance"
                 android:textAlignment="center"
-                android:textColor="@color/colorAccent"
+                android:textColor="@color/colorPrimaryDark"
                 android:textSize="18sp">
             </TextView>
             <TextView
@@ -54,69 +54,41 @@
                 android:layout_height="wrap_content"
                 android:textAlignment="center"
                 android:textSize="30sp"
-                android:textColor="@color/colorAccent"
+                android:textColor="@color/textPrimaryColor"
                 android:text="0">
             </TextView>
         </LinearLayout>
 
-        <LinearLayout
+        <Button
             android:id="@+id/openMapButton"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="30dp"
-            android:background="@drawable/directionsbutton_background"
-            android:clickable="true"
             android:gravity="center"
-            android:orientation="horizontal"
-            android:padding="10dp"
-            android:focusable="true">
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="15dp"
-                android:text="@string/GMapButton"
-                android:textColor="@color/background"
-                android:textSize="18sp"
-                android:textStyle="bold"></TextView>
-        </LinearLayout>
-        <LinearLayout
+            android:backgroundTint="@color/colorPrimary"
+            android:elevation="@dimen/standard_elevation_button"
+            android:textColor="@color/white"
+            android:text="@string/GMapButton"></Button>
+        <Button
             android:id="@+id/closeRentButton"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
-            android:background="@drawable/directionsbutton_background"
-            android:clickable="true"
-            android:gravity="center"
-            android:orientation="horizontal"
-            android:padding="10dp"
-            android:focusable="true">
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/closeRentButton"
-                android:textColor="@color/background"
-                android:textSize="18sp"
-                android:textStyle="bold"></TextView>
-        </LinearLayout>
-        <LinearLayout
+            android:backgroundTint="@color/colorPrimary"
+            android:elevation="@dimen/standard_elevation_button"
+            android:textColor="@color/white"
+            android:text="@string/closeRentButton"
+            android:gravity="center">
+        </Button>
+        <Button
             android:id="@+id/reportButton"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
-            android:background="@drawable/directionsbutton_background"
-            android:clickable="true"
-            android:gravity="center"
-            android:orientation="horizontal"
-            android:padding="10dp"
-            android:focusable="true">
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/reportButton"
-                android:textColor="@color/background"
-                android:textSize="18sp"
-                android:textStyle="bold">
-            </TextView>
-        </LinearLayout>
+            android:backgroundTint="@color/colorPrimary"
+            android:elevation="@dimen/standard_elevation_button"
+            android:textColor="@color/white"
+            android:text="@string/reportButton"
+            android:gravity="center"></Button>
     </LinearLayout>
 </FrameLayout>
