@@ -134,6 +134,7 @@
     <string name="loading_connection_msgWallet">Connection. Updating Wallet</string>
     <string name="discount_text">Discount for the next rental: </string>
     <string name="no_discount"> You don\'t have any discount. Rent as much as possible to get it! </string>
+    <string name="wallet_recharge">"Recharge "</string>
 
     <!-- Strings in payFragment -->
     <string name="paying_paypal">You will be directed to the paypal screen for payment</string>
@@ -191,6 +192,7 @@
     <string name="report">Report</string>
     <string name="titleReportProblems">Report problems</string>
     <string name="menu_report">Report problems</string>
+
 
 
 </resources>

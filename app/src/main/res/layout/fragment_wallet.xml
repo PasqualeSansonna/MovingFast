@@ -62,7 +62,7 @@
                 android:layout_marginTop="43dp"
                 android:background="@color/colorPrimary"
                 android:elevation="@dimen/standard_elevation_button"
-                android:text="@string/pay_now"
+                android:text="@string/wallet_recharge"
                 android:textColor="@color/white"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"

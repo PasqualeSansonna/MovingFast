@@ -101,7 +101,7 @@
     <string name="androidBeamIsOff_title">Android Beam non è attivo</string>
     <string name="androidBeamIsOff_message">Attiva Android Beam dalle impostazioni</string>
     <string name="no_server_response">Il server non risponde. Riprova più tardi</string>
-    <string name="loading_message">Caricamento...</string>
+    <string name="loading_message">Mappa</string>
     <string name="reportButton">Segnala un problema</string>
     <string name="closeRentButton">Chiudi noleggio</string>
     <string name="GMapButton">Apri Google Maps</string>
@@ -143,4 +143,5 @@
     <string name="report">Segnala</string>
     <string name="titleReportProblems">Segnalazioni</string>
     <string name="menu_report">Segnalazione problemi</string>
+    <string name="wallet_recharge">Ricarica</string>
 </resources>
