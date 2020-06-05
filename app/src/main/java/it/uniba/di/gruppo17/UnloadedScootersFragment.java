@@ -14,6 +14,10 @@ import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
+
+import com.google.android.material.card.MaterialCardView;
 
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -37,15 +41,22 @@ public class UnloadedScootersFragment extends Fragment {
 
     ArrayList<Scooter> unloadedScooters = null;
     RecyclerView recyclerView;
-    UnloadedScootersAdapter unloadedScootersAdapter;
     View view;
 
     SwipeRefreshLayout swipeRefreshLayout;
+    Animation anim;
+    MaterialCardView titleCard;
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_unloaded_scooters, container, false);
+
+        titleCard = view.findViewById(R.id.titleUnloadedScootersCard);
+        anim = AnimationUtils.loadAnimation(getContext(), R.anim.translate_horizontal);
+        anim.setDuration(200);
+        titleCard.startAnimation(anim);
+
         swipeRefreshLayout = view.findViewById(R.id.swipeRefreshLayout);
 
         swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {

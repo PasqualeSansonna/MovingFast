@@ -81,6 +81,17 @@
                 app:layout_constraintStart_toEndOf="@+id/titleTotalRentalsTextView"
                 app:layout_constraintTop_toTopOf="@+id/titleTotalRentalsTextView" />
 
+            <ImageView
+                android:id="@+id/imageView12"
+                android:layout_width="46dp"
+                android:layout_height="47dp"
+                android:src="@drawable/ic_history_black"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.686"
+                app:layout_constraintStart_toEndOf="@+id/titleRentals"
+                app:layout_constraintTop_toTopOf="parent" />
+
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

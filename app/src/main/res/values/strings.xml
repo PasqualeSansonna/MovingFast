@@ -176,7 +176,7 @@
     <string name="hello_blank_fragment" translatable="false">Hello blank fragment</string>
 
     <!--Strings in Maintainence Fragmente -->
-    <string name="titleMaintenance">Scooters with maintenance needed</string>
+    <string name="titleMaintenance">Scooters need maintenance</string>
     <string name="titleBrakes"> Brakes </string>
     <string name="titleWheels"> Wheels </string>
     <string name="titleHandlebars"> Handlebars </string>

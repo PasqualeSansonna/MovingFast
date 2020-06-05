@@ -7,14 +7,17 @@ import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.TextView;
+
+import com.google.android.material.card.MaterialCardView;
+
 import java.net.URL;
 import java.util.ArrayList;
-import java.util.Iterator;
 import it.uniba.di.gruppo17.asynchttp.AsyncPastRentals;
 
 import it.uniba.di.gruppo17.util.Keys;
@@ -23,7 +26,6 @@ import it.uniba.di.gruppo17.util.Rental;
 
 import static android.content.Context.MODE_PRIVATE;
 import static it.uniba.di.gruppo17.util.Keys.USER_ID;
-import static it.uniba.di.gruppo17.util.Keys.RENTALS_TOTAL_DURATION;
 
 /** @author Pasquale, sgarra
  *  Fragment contenente la cardView che mostrerò il totale del tempo trascorso
@@ -39,6 +41,8 @@ public class PastRentalsFragment extends Fragment {
     RecyclerView recyclerView;
     PastRentalsAdapter pastRentalsAdapter;
     View view;
+    Animation anim;
+    MaterialCardView titleCard;
 
 
     @Override
@@ -47,6 +51,12 @@ public class PastRentalsFragment extends Fragment {
 
 
         view = inflater.inflate(R.layout.fragment_past_rentals, container, false);
+
+        titleCard = view.findViewById(R.id.statisticsCard);
+        anim = AnimationUtils.loadAnimation(getContext(), R.anim.translate_horizontal);
+        anim.setDuration(200);
+        titleCard.startAnimation(anim);
+
         TV_total_duration = (TextView) view.findViewById(R.id.valueDurationTextView);
         TV_num_rentals = (TextView) view.findViewById(R.id.valueTotalRentalTextView);
 

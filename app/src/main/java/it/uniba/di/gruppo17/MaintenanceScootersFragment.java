@@ -1,21 +1,23 @@
 package it.uniba.di.gruppo17;
 
-import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
+
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
+
+import com.google.android.material.card.MaterialCardView;
 
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -43,12 +45,19 @@ public class MaintenanceScootersFragment extends Fragment {
     View view;
     AsyncGetReportings getScooters = null;
     SwipeRefreshLayout swipeRefreshLayout;
+    Animation anim;
+    MaterialCardView titleCard;
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
         view = inflater.inflate(R.layout.fragment_maintenance_scooters, container, false);
+
+        titleCard = view.findViewById(R.id.titleMaintenanceScootersCard);
+        anim = AnimationUtils.loadAnimation(getContext(), R.anim.translate_horizontal);
+        anim.setDuration(200);
+        titleCard.startAnimation(anim);
 
         swipeRefreshLayout = view.findViewById(R.id.swipeRefreshLayout);
 

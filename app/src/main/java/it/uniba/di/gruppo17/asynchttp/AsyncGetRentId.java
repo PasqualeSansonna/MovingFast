@@ -1,21 +1,11 @@
 package it.uniba.di.gruppo17.asynchttp;
 
-import android.app.Activity;
-import android.app.AlertDialog;
 import android.os.AsyncTask;
 import android.util.Log;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.widget.ProgressBar;
-
 import org.json.JSONException;
 import org.json.JSONObject;
-
 import java.net.URL;
-
 import it.uniba.di.gruppo17.AsyncResponse;
-import it.uniba.di.gruppo17.R;
-import it.uniba.di.gruppo17.RentFragment;
 
 public class AsyncGetRentId extends AsyncTask<URL, Integer, Integer[]> {
 

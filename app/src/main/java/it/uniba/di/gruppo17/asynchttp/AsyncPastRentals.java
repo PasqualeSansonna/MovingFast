@@ -6,7 +6,6 @@ import android.util.Log;
 import org.json.JSONObject;
 
 import java.net.URL;
-import java.sql.Time;
 import java.util.ArrayList;
 
 import it.uniba.di.gruppo17.util.Rental;
