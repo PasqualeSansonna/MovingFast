@@ -6,6 +6,18 @@
     android:layout_height="match_parent"
     tools:context=".ReportActivity">
 
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbarReportActivity"
+        android:layout_width="match_parent"
+        android:background="@color/colorPrimary"
+        android:elevation="@dimen/standard_elevation_app_bar"
+        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+    </androidx.appcompat.widget.Toolbar>
+
     <EditText
         android:id="@+id/idScooter"
         android:layout_width="141dp"
@@ -99,20 +111,6 @@
         app:layout_constraintHorizontal_bias="0.612"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/scooterImageView" />
-
-    <TextView
-        android:id="@+id/reportProblemsTextView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="60dp"
-        android:layout_marginBottom="119dp"
-        android:text="@string/titleReportProblems"
-        android:textSize="30sp"
-        android:textStyle="bold"
-        app:layout_constraintBottom_toTopOf="@+id/handlebarCheckBox"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
 
     <Button
         android:id="@+id/buttonConfirmReport"

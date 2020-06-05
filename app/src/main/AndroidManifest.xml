@@ -28,7 +28,8 @@
         tools:ignore="AllowBackup">
         <activity
             android:name=".ReportActivity"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:theme="@style/AppTheme.NoActionBar"
+            android:parentActivityName=".MainActivity"></activity>
         <activity
             android:name=".MainMaintainerActivity"
             android:theme="@style/AppTheme.NoActionBar" />

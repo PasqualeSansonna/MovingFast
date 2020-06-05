@@ -1,6 +1,7 @@
 package it.uniba.di.gruppo17;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 
 import android.app.AlertDialog;
 import android.app.PendingIntent;
@@ -62,6 +63,12 @@ public class ReportActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_report);
+
+        Toolbar toolbar = findViewById(R.id.toolbarReportActivity);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setTitle("Segnalazione");
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
         prefs = this.getSharedPreferences(Keys.SHARED_PREFERENCES, Context.MODE_PRIVATE);
 
         mNfcAdapter =  NfcAdapter.getDefaultAdapter(this);
