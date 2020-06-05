@@ -12,8 +12,8 @@
     <com.google.android.material.card.MaterialCardView
         android:id="@+id/balanceCard"
         style="@style/Widget.MaterialComponents.CardView"
-        android:layout_width="716dp"
-        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:layout_height="120dp"
         android:layout_marginLeft="@dimen/mtrl_card_spacing"
         android:layout_marginTop="@dimen/mtrl_card_spacing"
         android:layout_marginRight="@dimen/mtrl_card_spacing"
