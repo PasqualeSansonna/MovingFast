@@ -66,7 +66,7 @@
     <string name="titleTotalDuration">Totale durata:</string>
     <string name="titleStartHour">Inizio ora:</string>
     <string name="titleEndhour">Fine ora:</string>
-    <string name="titleRentals">Tuo storico noleggi</string>
+    <string name="titleRentals">Il tuo storico noleggi</string>
     <string name="titleNumRentals">Noleggi totali:</string>
     <string name="titleDuration">Durata:</string>
     <string name="titleAmount">Importo dovuto:</string>

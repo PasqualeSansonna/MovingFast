@@ -70,6 +70,9 @@
     <string name="cancel">Cancel</string>
     <string name="not_valid_name">Insert a valid name</string>
     <string name="not_valid_surname">Insert a valid surname</string>
+    <string name="departure"> Departure: </string>
+    <string name="arrival"> Arrival: </string>
+
 
     <!--String bottom sheet-->
     <string name="title_bottomsheet">Information about selected scooter</string>
@@ -192,8 +195,6 @@
     <string name="report">Report</string>
     <string name="titleReportProblems">Report problems</string>
     <string name="menu_report">Report problems</string>
-    <string name="departure"> Departure: </string>
-    <string name="arrival"> Arrival: </string>
 
 
 </resources>
