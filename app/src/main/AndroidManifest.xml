@@ -32,7 +32,8 @@
             android:parentActivityName=".MainActivity"></activity>
         <activity
             android:name=".MainMaintainerActivity"
-            android:theme="@style/AppTheme.NoActionBar" />
+            android:theme="@style/AppTheme.NoActionBar"
+            android:configChanges="orientation|screenSize|keyboardHidden"/>
         <!--
              The API key for Google Maps-based APIs is defined as a string resource.
              (See the file "res/values/google_maps_api.xml").
@@ -66,7 +67,8 @@
         </activity>
         <activity
             android:name=".MainActivity"
-            android:theme="@style/AppTheme.NoActionBar" /> <!-- Per definire un servizio come tale -->
+            android:theme="@style/AppTheme.NoActionBar"
+            android:configChanges="orientation|screenSize|keyboardHidden"/> <!-- Per definire un servizio come tale -->
         <service
             android:name=".services.LocationService"
             android:stopWithTask="true" />

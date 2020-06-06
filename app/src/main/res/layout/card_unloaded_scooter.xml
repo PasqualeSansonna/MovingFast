@@ -86,6 +86,7 @@
                 android:id="@+id/imageButton_recharge_unl"
                 android:layout_width="48dp"
                 android:layout_height="38dp"
+                android:backgroundTint="@color/background"
                 android:elevation="@dimen/standard_elevation_button"
                 app:layout_constraintEnd_toEndOf="@+id/recharge_unl_textview"
                 app:layout_constraintStart_toStartOf="@+id/recharge_unl_textview"
