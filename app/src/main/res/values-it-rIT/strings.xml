@@ -144,4 +144,6 @@
     <string name="titleReportProblems">Segnalazioni</string>
     <string name="menu_report">Segnalazione problemi</string>
     <string name="wallet_recharge">Ricarica</string>
+    <string name="departure">Partenza:</string>
+    <string name="arrival">Arrivo:</string>
 </resources>

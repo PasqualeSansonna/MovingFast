@@ -192,7 +192,8 @@
     <string name="report">Report</string>
     <string name="titleReportProblems">Report problems</string>
     <string name="menu_report">Report problems</string>
-
+    <string name="departure"> Departure: </string>
+    <string name="arrival"> Arrival: </string>
 
 
 </resources>

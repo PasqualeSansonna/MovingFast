@@ -2,6 +2,7 @@ package it.uniba.di.gruppo17;
 
 import androidx.fragment.app.FragmentActivity;
 
+import android.location.Geocoder;
 import android.os.Bundle;
 import android.widget.Toast;
 
@@ -12,6 +13,9 @@ import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
+
+import java.io.IOException;
+import java.util.Locale;
 
 import it.uniba.di.gruppo17.util.Rental;
 
@@ -53,12 +57,25 @@ public class MapsActivityPastRentals extends FragmentActivity implements OnMapRe
         /** Prendo il noleggio di riferimento dalla cardView **/
         Bundle dati_passati = getIntent().getExtras();
         rental = (Rental) dati_passati.getParcelable("rental");
+        Geocoder mGeocoder = new Geocoder(getApplicationContext(), Locale.ITALY);
 
         /** Setto le coordinate ed aggiungo i marker**/
         LatLng partenza = new LatLng(Double.parseDouble(rental.getLatitudine_partenza()), Double.parseDouble(rental.getLongitudine_partenza()));
-        mMap.addMarker(new MarkerOptions().position(partenza).title("Departure"));
+        try {
+            mMap.addMarker(new MarkerOptions().position(partenza).title(getString(R.string.departure) + mGeocoder.getFromLocation(partenza.latitude, partenza.longitude, 1).get(0).getAddressLine(0)));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        Geocoder mGeocoder2 = new Geocoder(getApplicationContext(), Locale.ITALY);
         LatLng arrivo = new LatLng(Double.parseDouble(rental.getLatitudine_arrivo()), Double.parseDouble(rental.getLongitudine_arrivo()));
-        mMap.addMarker(new MarkerOptions().position(arrivo).title("Arrival"));
+        try {
+            mMap.addMarker(new MarkerOptions().position(arrivo).title(getString(R.string.arrival) + mGeocoder2.getFromLocation(partenza.latitude, partenza.longitude, 1).get(0).getAddressLine(0)));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+
         mMap.moveCamera(CameraUpdateFactory.newLatLng(partenza));
         mMap.moveCamera(CameraUpdateFactory.newLatLng(arrivo));
         CameraUpdate cameraUpdate = CameraUpdateFactory.newLatLngZoom(partenza, ZOOM);
