@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import android.os.Handler;
+import android.os.Parcelable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -39,6 +40,7 @@ import static it.uniba.di.gruppo17.util.Keys.SERVER;
  */
 public class UnloadedScootersFragment extends Fragment {
 
+    UnloadedScootersAdapter unloadedScootersAdapter;
     ArrayList<Scooter> unloadedScooters = null;
     RecyclerView recyclerView;
     View view;
@@ -50,11 +52,12 @@ public class UnloadedScootersFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        view = inflater.inflate(R.layout.fragment_unloaded_scooters, container, false);
 
+        super.onCreate(savedInstanceState);
+        view = inflater.inflate(R.layout.fragment_unloaded_scooters, container, false);
         titleCard = view.findViewById(R.id.titleUnloadedScootersCard);
         anim = AnimationUtils.loadAnimation(getContext(), R.anim.translate_horizontal);
-        anim.setDuration(200);
+        anim.setDuration(700);
         titleCard.startAnimation(anim);
 
         swipeRefreshLayout = view.findViewById(R.id.swipeRefreshLayout);
@@ -75,7 +78,6 @@ public class UnloadedScootersFragment extends Fragment {
         });
 
         getUnloadedScooters();
-
 
         return view;
     }
@@ -98,7 +100,11 @@ public class UnloadedScootersFragment extends Fragment {
         for (Scooter s : Scooter.nearScooters)
             unloadedScooters.add(s);
 
-        UnloadedScootersAdapter unloadedScootersAdapter = new UnloadedScootersAdapter(unloadedScooters);
+        displayData();
+    }
+
+    public void displayData(){
+        unloadedScootersAdapter = new UnloadedScootersAdapter(unloadedScooters);
 
         //Creo cardview con adapter e card
         recyclerView = (RecyclerView) view.findViewById(R.id.unloadedScootersRecyclerView);
@@ -106,4 +112,5 @@ public class UnloadedScootersFragment extends Fragment {
         recyclerView.setItemAnimator(new DefaultItemAnimator());
         recyclerView.setAdapter(unloadedScootersAdapter);
     }
+
 }

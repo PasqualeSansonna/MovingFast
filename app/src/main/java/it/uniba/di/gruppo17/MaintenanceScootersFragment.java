@@ -56,7 +56,7 @@ public class MaintenanceScootersFragment extends Fragment {
 
         titleCard = view.findViewById(R.id.titleMaintenanceScootersCard);
         anim = AnimationUtils.loadAnimation(getContext(), R.anim.translate_horizontal);
-        anim.setDuration(200);
+        anim.setDuration(700);
         titleCard.startAnimation(anim);
 
         swipeRefreshLayout = view.findViewById(R.id.swipeRefreshLayout);
