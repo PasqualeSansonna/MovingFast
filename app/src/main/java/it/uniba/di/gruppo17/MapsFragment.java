@@ -221,7 +221,7 @@ public class MapsFragment extends Fragment {
         if ( LocationService.realTimeDeviceLocation() != null )
           {
               cameraAnimation( LocationService.realTimeDeviceLocation() );
-              Snackbar.make(getView(),R.string.device_position_retrieved_message, Snackbar.LENGTH_LONG).show();
+              Snackbar.make(getView(), R.string.device_position_retrieved_message, Snackbar.LENGTH_LONG).show();
           }
         else
           {
@@ -323,7 +323,7 @@ public class MapsFragment extends Fragment {
     {
         if ( Scooter.nearScooters == null )
         {
-            Snackbar.make(getView(),R.string.no_scooter_message,Snackbar.LENGTH_INDEFINITE)
+            Snackbar.make(getView(),R.string.no_scooter_message,Snackbar.LENGTH_LONG)
                     .setAction(R.string.snackbar_action, new View.OnClickListener() {
                         @Override
                         public void onClick(View view) {
@@ -336,7 +336,7 @@ public class MapsFragment extends Fragment {
         }
         if ( Scooter.nearScooters.isEmpty() )
         {
-            Snackbar.make(getView(),R.string.no_scooter_message,Snackbar.LENGTH_INDEFINITE)
+            Snackbar.make(getView(),R.string.no_scooter_message,Snackbar.LENGTH_LONG)
                     .setAction(R.string.snackbar_action, new View.OnClickListener() {
                         @Override
                         public void onClick(View view) {

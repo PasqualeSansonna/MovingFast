@@ -68,10 +68,10 @@ public class MainMaintainerActivity extends AppCompatActivity implements GoogleA
 
         Fragment mapFragment = new MapsFragment();
 
-        getSupportFragmentManager().popBackStack();
+
         getSupportFragmentManager().beginTransaction()
                 .addToBackStack(null)
-                .replace(R.id.fragment_container_maint, mapFragment)
+                .replace(R.id.fragment_container_maint, mapFragment,"MapsFragment")
                 .commit();
 
 
@@ -176,7 +176,7 @@ public class MainMaintainerActivity extends AppCompatActivity implements GoogleA
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
         } else {
-            if (getSupportFragmentManager().getBackStackEntryCount() < 1 )
+            if (getSupportFragmentManager().getBackStackEntryCount() <= 1 )
                 this.finish();
             else
                 getSupportFragmentManager().popBackStack();
@@ -206,8 +206,14 @@ public class MainMaintainerActivity extends AppCompatActivity implements GoogleA
             default:
                 throw new IllegalArgumentException("No fragment for the given item");
         }
-        getSupportFragmentManager().popBackStack();
-        getSupportFragmentManager().beginTransaction()
+        if ( nextFragment instanceof MapsFragment )
+        {
+            for ( int i = 0; i<getSupportFragmentManager().getBackStackEntryCount(); i++ )
+                getSupportFragmentManager().popBackStack();
+            getSupportFragmentManager().beginTransaction().addToBackStack(null).replace(R.id.fragment_container_maint,nextFragment).commit();
+        }
+        else
+            getSupportFragmentManager().beginTransaction()
                 .addToBackStack(null)
                 .replace(R.id.fragment_container_maint, nextFragment)
                 .commit();

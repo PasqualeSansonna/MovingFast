@@ -93,7 +93,7 @@ public class MaintenanceScootersFragment extends Fragment {
             getScooters = new AsyncGetReportings();
             maintenanceScooters = new ArrayList<>();
             maintenanceScooters = getScooters.execute(urlScooters).get();
-            Thread.sleep(500);
+           // Thread.sleep(500);
 
             maintenanceScootersAdapter = new MaintenanceScootersAdapter(maintenanceScooters);
 

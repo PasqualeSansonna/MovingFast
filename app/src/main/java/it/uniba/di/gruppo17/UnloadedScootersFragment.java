@@ -23,6 +23,7 @@ import com.google.android.material.card.MaterialCardView;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.concurrent.ExecutionException;
 
 import it.uniba.di.gruppo17.asynchttp.AsyncGetUnloadedScooters;
 import it.uniba.di.gruppo17.services.LocationService;
@@ -90,9 +91,10 @@ public class UnloadedScootersFragment extends Fragment {
         try{
             URL urlScooters = new URL (serverAddress);
             getScooters = new AsyncGetUnloadedScooters();
-            getScooters.execute(urlScooters);
-            Thread.sleep(1000);
+            getScooters.execute(urlScooters).get();
         } catch (MalformedURLException | InterruptedException e) {
+            e.printStackTrace();
+        } catch (ExecutionException e) {
             e.printStackTrace();
         }
         unloadedScooters = new ArrayList<>();
