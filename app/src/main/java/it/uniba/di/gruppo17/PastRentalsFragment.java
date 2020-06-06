@@ -54,7 +54,7 @@ public class PastRentalsFragment extends Fragment {
 
         titleCard = view.findViewById(R.id.statisticsCard);
         anim = AnimationUtils.loadAnimation(getContext(), R.anim.translate_horizontal);
-        anim.setDuration(200);
+        anim.setDuration(700);
         titleCard.startAnimation(anim);
 
         TV_total_duration = (TextView) view.findViewById(R.id.valueDurationTextView);
