@@ -16,7 +16,10 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
+import java.io.UnsupportedEncodingException;
 import java.net.URL;
+import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
 
 import it.uniba.di.gruppo17.asynchttp.AsyncEditProfile;
 import it.uniba.di.gruppo17.asynchttp.AsyncViewProfile;
@@ -157,7 +160,12 @@ public class ProfileFragment extends Fragment {
 
                     preferences = getActivity().getSharedPreferences("MovingFastPreferences", Context.MODE_PRIVATE);
                     user_ID = Integer.parseInt(preferences.getAll().get(USER_ID).toString());
-                    String str = Keys.SERVER + "update_utente.php?id=" + user_ID + "&nome=" + name + "&cognome=" + surname + "&email=" + email;
+                    String str = null;
+                    try {
+                        str = Keys.SERVER + "update_utente.php?id=" + user_ID + "&nome=" + URLEncoder.encode(name, String.valueOf(StandardCharsets.UTF_8)) + "&cognome=" + URLEncoder.encode(surname, String.valueOf(StandardCharsets.UTF_8)) + "&email=" + URLEncoder.encode(email, String.valueOf(StandardCharsets.UTF_8));
+                    } catch (UnsupportedEncodingException e) {
+                        e.printStackTrace();
+                    }
 
 
                     if (name.matches("")){

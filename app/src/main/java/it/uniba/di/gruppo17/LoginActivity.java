@@ -17,8 +17,11 @@ import android.widget.EditText;
 import android.widget.Switch;
 import android.widget.Toast;
 
+import java.io.UnsupportedEncodingException;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
 import java.util.concurrent.ExecutionException;
 
 import it.uniba.di.gruppo17.asynchttp.AsyncCheckConnection;
@@ -146,12 +149,16 @@ public class LoginActivity extends AppCompatActivity {
                         String password = ETpassword.getText().toString();
                         if (Patterns.EMAIL_ADDRESS.matcher(email).matches()) /* Check the email address pattern*/
                         {
-                            if (checkValues(email, password)) {
-                                if (isChecked())
-                                    writePreferences(email, password);
-                                login();
-                            } else {
-                                wrongCredentials();
+                            try {
+                                if (checkValues(email, password)) {
+                                    if (isChecked())
+                                        writePreferences(email, password);
+                                    login();
+                                } else {
+                                    wrongCredentials();
+                                }
+                            } catch (UnsupportedEncodingException e) {
+                                e.printStackTrace();
                             }
                         }
                         else
@@ -229,12 +236,11 @@ public class LoginActivity extends AppCompatActivity {
      * @param password password inserita
      * @return true se credenziali corrette, false credenziali sbagliate
      */
-    private boolean checkValues(String email, String password)
-    {
+    private boolean checkValues(String email, String password) throws UnsupportedEncodingException {
         boolean checked = false;
         if (!email.equals("") && !password.equals(""))
         {
-            String str = Keys.SERVER + "login.php?email=" + email + "&pw=" + password;
+            String str = Keys.SERVER + "login.php?email=" + URLEncoder.encode(email, String.valueOf(StandardCharsets.UTF_8)) + "&pw=" + URLEncoder.encode(password, String.valueOf(StandardCharsets.UTF_8));
             try {
                 SharedPreferences.Editor editor = preferences.edit();
                 URL url = new URL(str);

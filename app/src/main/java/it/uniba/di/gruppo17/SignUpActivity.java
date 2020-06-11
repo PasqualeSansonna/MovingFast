@@ -11,12 +11,16 @@ import android.os.Bundle;
 import android.util.Patterns;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
+import android.webkit.URLUtil;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import java.io.UnsupportedEncodingException;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
 import java.util.concurrent.ExecutionException;
 import java.util.regex.Pattern;
 
@@ -112,14 +116,18 @@ public class SignUpActivity extends AppCompatActivity {
                             if (ConnectionUtil.checkInternetConn(SignUpActivity.this))
                             {
                                 /*Eseguo signup*/
-                                if (signUp(email, name, surname, password))
-                                {
-                                    goToLogin();  /*Avvenuto con successo, passo a schermata login*/
-                                }
-                                else
-                                {
-                                    /*Errore email già usata (chiave nella tabella db, segnalo*/
-                                    alreadyUsedEmail(ETemail);
+                                try {
+                                    if (signUp(email, name, surname, password))
+                                    {
+                                        goToLogin();  /*Avvenuto con successo, passo a schermata login*/
+                                    }
+                                    else
+                                    {
+                                        /*Errore email già usata (chiave nella tabella db, segnalo*/
+                                        alreadyUsedEmail(ETemail);
+                                    }
+                                } catch (UnsupportedEncodingException e) {
+                                    e.printStackTrace();
                                 }
                             }
                             else
@@ -175,13 +183,13 @@ public class SignUpActivity extends AppCompatActivity {
      * @param password password del nuovo utente.
      * @return true se l'operazione è andata a buon fine, false altrimenti.
      */
-    private boolean signUp(String email, String name, String surname, String password) {
+    private boolean signUp(String email, String name, String surname, String password) throws UnsupportedEncodingException {
         boolean result = false;
         String str = Keys.SERVER
-                .concat("add_utente.php?pw=").concat(password)
-                .concat("&nome=").concat(name)
-                .concat("&cognome=").concat(surname)
-                .concat("&email=").concat(email);
+                .concat("add_utente.php?pw=").concat(URLEncoder.encode(password, String.valueOf(StandardCharsets.UTF_8)))
+                .concat("&nome=").concat(URLEncoder.encode(name, String.valueOf(StandardCharsets.UTF_8)))
+                .concat("&cognome=").concat(URLEncoder.encode(surname, String.valueOf(StandardCharsets.UTF_8)))
+                .concat("&email=").concat(URLEncoder.encode(email, String.valueOf(StandardCharsets.UTF_8)));
         try {
             URL url = new URL(str);
             AsyncSignUp signUp = new AsyncSignUp();
