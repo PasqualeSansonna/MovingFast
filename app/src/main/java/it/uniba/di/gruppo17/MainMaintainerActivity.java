@@ -10,6 +10,7 @@ import androidx.core.app.ActivityCompat;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 
 import android.Manifest;
 import android.app.ActivityManager;
@@ -71,7 +72,7 @@ public class MainMaintainerActivity extends AppCompatActivity implements GoogleA
 
         getSupportFragmentManager().beginTransaction()
                 .addToBackStack(null)
-                .replace(R.id.fragment_container_maint, mapFragment,"MapsFragment")
+                .replace(R.id.fragment_container_maint, mapFragment,"MapsFragment").setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
                 .commit();
 
 
@@ -210,12 +211,12 @@ public class MainMaintainerActivity extends AppCompatActivity implements GoogleA
         {
             for ( int i = 0; i<getSupportFragmentManager().getBackStackEntryCount(); i++ )
                 getSupportFragmentManager().popBackStack();
-            getSupportFragmentManager().beginTransaction().addToBackStack(null).replace(R.id.fragment_container_maint,nextFragment).commit();
+            getSupportFragmentManager().beginTransaction().addToBackStack(null).replace(R.id.fragment_container_maint,nextFragment).setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN).commit();
         }
         else
             getSupportFragmentManager().beginTransaction()
                 .addToBackStack(null)
-                .replace(R.id.fragment_container_maint, nextFragment)
+                .replace(R.id.fragment_container_maint, nextFragment).setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
                 .commit();
     }
 

@@ -10,10 +10,12 @@ import androidx.core.app.ActivityCompat;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 
 import android.Manifest;
 import android.app.Activity;
 import android.app.ActivityManager;
+import android.app.ActivityOptions;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -137,11 +139,11 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
             public void onClick(View v) {
                 if ( getSupportFragmentManager().findFragmentByTag("MapsFragment") == null ){
                     Fragment nextFragment = new MapsFragment();
-                    getSupportFragmentManager().beginTransaction().addToBackStack(null).replace(R.id.fragment_container,nextFragment).commit();
+                    getSupportFragmentManager().beginTransaction().addToBackStack(null).replace(R.id.fragment_container,nextFragment).setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN).commit();
                 }
                 else
                     getSupportFragmentManager().beginTransaction()
-                            .replace(R.id.fragment_container, getSupportFragmentManager().findFragmentByTag("MapsFragment")).commit();
+                            .replace(R.id.fragment_container, getSupportFragmentManager().findFragmentByTag("MapsFragment")).setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN).commit();
 
             }
         });
@@ -153,11 +155,11 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
             public void onClick(View v) {
                 if ( getSupportFragmentManager().findFragmentByTag("ProfileFragment") == null ){
                     Fragment nextFragment = new ProfileFragment();
-                    getSupportFragmentManager().beginTransaction().addToBackStack(null).replace(R.id.fragment_container,nextFragment).commit();
+                    getSupportFragmentManager().beginTransaction().addToBackStack(null).replace(R.id.fragment_container,nextFragment).setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN).commit();
                 }
                 else
                     getSupportFragmentManager().beginTransaction()
-                            .replace(R.id.fragment_container, getSupportFragmentManager().findFragmentByTag("ProfileFragment")).commit();
+                            .replace(R.id.fragment_container, getSupportFragmentManager().findFragmentByTag("ProfileFragment")).setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN).commit();
 
             }
         });
@@ -170,11 +172,11 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
             public void onClick(View v) {
                 if ( getSupportFragmentManager().findFragmentByTag("WalletFragment") == null ){
                     Fragment nextFragment = new WalletFragment();
-                    getSupportFragmentManager().beginTransaction().addToBackStack(null).replace(R.id.fragment_container,nextFragment).commit();
+                    getSupportFragmentManager().beginTransaction().addToBackStack(null).replace(R.id.fragment_container,nextFragment).setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN).commit();
                 }
                 else
                     getSupportFragmentManager().beginTransaction()
-                            .replace(R.id.fragment_container, getSupportFragmentManager().findFragmentByTag("WalletFragment")).commit();
+                            .replace(R.id.fragment_container, getSupportFragmentManager().findFragmentByTag("WalletFragment")).setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN).commit();
 
             }
         });
@@ -274,12 +276,12 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
                 {
                     nextFragment = new MapsFragment();
                     getSupportFragmentManager().beginTransaction().addToBackStack(null)
-                            .replace(R.id.fragment_container, nextFragment,"MapsFragment")
+                            .replace(R.id.fragment_container, nextFragment,"MapsFragment").setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
                             .commit();
                 }
                 else
                     getSupportFragmentManager().beginTransaction()
-                            .replace(R.id.fragment_container, getSupportFragmentManager().findFragmentByTag("MapsFragment"))
+                            .replace(R.id.fragment_container, getSupportFragmentManager().findFragmentByTag("MapsFragment")).setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
                             .commit();
                 break;
             case R.id.nav_profile:
@@ -288,12 +290,12 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
                 {
                     nextFragment = new ProfileFragment();
                     getSupportFragmentManager().beginTransaction().addToBackStack(null)
-                            .replace(R.id.fragment_container, nextFragment,"ProfileFragment")
+                            .replace(R.id.fragment_container, nextFragment,"ProfileFragment").setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
                             .commit();
                 }
                 else
                     getSupportFragmentManager().beginTransaction()
-                            .replace(R.id.fragment_container, getSupportFragmentManager().findFragmentByTag("ProfileFragment"))
+                            .replace(R.id.fragment_container, getSupportFragmentManager().findFragmentByTag("ProfileFragment")).setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
                             .commit();
                 break;
             case R.id.nav_rent:
@@ -303,14 +305,14 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
                 {
                     nextFragment = new ResultFragment();
                     getSupportFragmentManager().beginTransaction().addToBackStack(null)
-                            .replace(R.id.fragment_container,nextFragment).commit();
+                            .replace(R.id.fragment_container,nextFragment).setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE).commit();
                     break;
                 }
                 //Nessun noleggio
                 if ( getSupportFragmentManager().findFragmentByTag("RentFragment") == null ){
                     nextFragment = new RentFragment();
                     getSupportFragmentManager().beginTransaction().addToBackStack(null)
-                            .replace(R.id.fragment_container,nextFragment,"RentFragment")
+                            .replace(R.id.fragment_container,nextFragment,"RentFragment").setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
                             .commit();
                 }
                 else
@@ -322,12 +324,12 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
                 if ( getSupportFragmentManager().findFragmentByTag("WalletFragment") == null ){
                     nextFragment = new WalletFragment();
                     getSupportFragmentManager().beginTransaction().addToBackStack(null)
-                            .replace(R.id.fragment_container,nextFragment,"WalletFragment")
+                            .replace(R.id.fragment_container,nextFragment,"WalletFragment").setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
                             .commit();
                 }
                 else
                     getSupportFragmentManager().beginTransaction()
-                            .replace(R.id.fragment_container,getSupportFragmentManager().findFragmentByTag("WalletFragment"))
+                            .replace(R.id.fragment_container,getSupportFragmentManager().findFragmentByTag("WalletFragment")).setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
                             .commit();
                 break;
             case R.id.nav_reports:

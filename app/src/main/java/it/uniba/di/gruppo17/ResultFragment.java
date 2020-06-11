@@ -15,6 +15,7 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 
 import android.os.SystemClock;
 import android.view.LayoutInflater;
@@ -253,7 +254,7 @@ public class ResultFragment extends Fragment implements SensorEventListener, Asy
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
                         Fragment toRentFragment = new RentFragment();
-                        getFragmentManager().beginTransaction().replace(R.id.fragment_result, toRentFragment).commit();
+                        getFragmentManager().beginTransaction().replace(R.id.fragment_result, toRentFragment).setTransition(FragmentTransaction.TRANSIT_FRAGMENT_CLOSE).commit();
                         ResultFragment.this.onDestroy();
                     }
                 })

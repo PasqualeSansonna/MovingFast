@@ -118,7 +118,7 @@ public class ProfileFragment extends Fragment {
                     FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
                     Fragment nextFragment = new PastRentalsFragment();
                     fragmentTransaction.addToBackStack(null);
-                    fragmentTransaction.replace(R.id.fragment_container, nextFragment);
+                    fragmentTransaction.replace(R.id.fragment_container, nextFragment).setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
                     fragmentTransaction.commit();
                 }
             });
