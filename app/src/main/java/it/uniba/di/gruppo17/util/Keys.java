@@ -5,7 +5,8 @@ Keys {
     String EMAIL = "email";
     String PASSWORD = "password";
     String RENTALS_TOTAL_DURATION = "rentals_total_duration";
-    String SERVER = "http://192.168.1.87/";
+    String SERVER = "http://movinguniba.altervista.org/";
+    String SERVER_HOME = "http://movinguniba.altervista.org/login.php";
     String USER_AGENT = "Mozilla/5.0";
     String USER_ID = "id";
     String USER_TYPE = "type";
@@ -39,4 +40,5 @@ Keys {
     //result close fragment
     float UNLOCK_COST = 1.00f;
     float COST_PER_MINUTE = 0.10f;
+
 }

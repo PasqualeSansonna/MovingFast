@@ -39,7 +39,7 @@ public class AsyncCheckConnection extends AsyncTask <Void,Void,Boolean>{
         if ( isConnectionAvailable( this.mContext ) )
         {
             try {
-                URL url = new URL(Keys.SERVER);
+                URL url = new URL(Keys.SERVER_HOME);
                 HttpURLConnection connection = (HttpURLConnection) url.openConnection();
                 connection.setConnectTimeout(Keys.TIMEOUT);
                 connection.connect();

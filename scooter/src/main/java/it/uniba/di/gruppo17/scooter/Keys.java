@@ -6,7 +6,8 @@ package it.uniba.di.gruppo17.scooter;
 
 public interface Keys {
 
-    String SERVER = "http://192.168.1.87/";
+    String SERVER = "http://movinguniba.altervista.org/";
+    String SERVER_HOME = "http://movinguniba.altervista.org/login.php";
     int SCOOTER_ID = 10;
     int TIMEOUT = 10000;
     int ACTION = 0;
