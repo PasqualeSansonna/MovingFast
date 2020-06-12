@@ -68,7 +68,7 @@
         <activity
             android:name=".MainActivity"
             android:theme="@style/AppTheme.NoActionBar"
-            android:configChanges="orientation|screenSize|keyboardHidden"/> <!-- Per definire un servizio come tale -->
+            android:configChanges="screenSize|keyboardHidden"/> <!-- Per definire un servizio come tale -->
         <service
             android:name=".services.LocationService"
             android:stopWithTask="true" />
