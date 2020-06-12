@@ -234,6 +234,8 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
                         editor.remove(Keys.USER_ID);
                         editor.apply();
                         Intent intent = new Intent(MainActivity.this, LoginActivity.class);
+                        //Cancellazione stack activity
+                        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK |Intent.FLAG_ACTIVITY_CLEAR_TOP);
                         startActivity(intent);
                         finish();
                     }
