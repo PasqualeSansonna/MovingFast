@@ -135,7 +135,7 @@ public class MapsFragment extends Fragment {
                            } catch (IOException e) {
                                e.printStackTrace();
                            }
-                           battery.setText(marker.getSnippet().substring(15));
+                           battery.setText(marker.getSnippet());
 
                            mBottomSheetDialog.findViewById(R.id.directionsButton_maintainer).setOnClickListener(new View.OnClickListener() {
                                @Override
