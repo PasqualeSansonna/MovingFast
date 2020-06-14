@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">MovingFast</string>
     <string name="login_text">ACCEDI</string>
     <string name="sign_up">REGISTRATI</string>
     <string name="new_user_text">Nuovo utente?</string>
@@ -146,4 +145,12 @@
     <string name="wallet_recharge">Ricarica</string>
     <string name="departure">Partenza:</string>
     <string name="arrival">Arrivo:</string>
+    <string name="reportCompleted_title">Segnalazione completata</string>
+    <string name="reportCompleted_text">Segnalazione completata con successo. Grazie del supporto.</string>
+    <string name="reportFailed_title">Segnalazione fallita</string>
+    <string name="reportFailed_text">Segnalazione non inviata. Riprova.</string>
+    <string name="nfcBumpFailed">Bump fallito. Riprova.</string>
+    <string name="nfcBumpNoDataReceived">Nessun dato ricevuto dopo il bump.</string>
+    <string name="reportingActvityName">Segnalazione</string>
+    <string name="reportScooterIdError">ID del monopattino assente.</string>
 </resources>

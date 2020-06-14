@@ -14,8 +14,6 @@ import android.widget.Toolbar;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
 
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -102,18 +100,14 @@ public class ReportProblemsRentEndedFragment extends Fragment {
                     URL url = new URL(server);
                     AsyncAddReport asyncAddReport = new AsyncAddReport();
                     ok = asyncAddReport.execute(url).get();
-                } catch (MalformedURLException e) {
-                    e.printStackTrace();
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                } catch (ExecutionException e) {
+                } catch (MalformedURLException | InterruptedException | ExecutionException e) {
                     e.printStackTrace();
                 }
 
                 if ( ok )
-                    Toast.makeText(getContext(), "Segnalazione completata", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getContext(), R.string.reportCompleted_title, Toast.LENGTH_SHORT).show();
                 else
-                    Toast.makeText(getContext(), "Errore nella segnalazione. Riprovare", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getContext(), R.string.reportFailed_text, Toast.LENGTH_SHORT).show();
 
                 getFragmentManager().popBackStack();
             }

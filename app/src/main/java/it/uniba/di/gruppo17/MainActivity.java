@@ -13,15 +13,12 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
 import android.Manifest;
-import android.app.Activity;
 import android.app.ActivityManager;
-import android.app.ActivityOptions;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentSender;
 import android.content.SharedPreferences;
-import android.content.pm.ActivityInfo;
 import android.content.pm.PackageManager;
 import android.graphics.Point;
 import android.location.LocationManager;
@@ -111,12 +108,12 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
             mResolvingError = savedInstanceState.getBoolean(RESOLVING_ERROR_STATE_KEY, false);
 
 
-        IV_searchScooter = (ImageView) findViewById(R.id.IV_SearchScooter);
-        IV_profile = (ImageView) findViewById(R.id.IV_profile);
-        IV_wallet = (ImageView) findViewById(R.id.IV_wallet);
-        image = (ImageView) findViewById(R.id.imageBG);
-        image2 = (ImageView) findViewById(R.id.imageLogo);
-        linearLayout = (LinearLayout) findViewById(R.id.LinearLayoutButton);
+        IV_searchScooter = findViewById(R.id.IV_SearchScooter);
+        IV_profile =  findViewById(R.id.IV_profile);
+        IV_wallet = findViewById(R.id.IV_wallet);
+        image = findViewById(R.id.imageBG);
+        image2 = findViewById(R.id.imageLogo);
+        linearLayout = findViewById(R.id.LinearLayoutButton);
 
         fromBottom = AnimationUtils.loadAnimation(this, R.anim.frombottom);
         logo_anim = AnimationUtils.loadAnimation(this, R.anim.logo_scale);
@@ -265,12 +262,13 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
     {
         prefs = getSharedPreferences(Keys.SHARED_PREFERENCES, Context.MODE_PRIVATE);
         int itemId = menuItem.getItemId();
-        Fragment nextFragment = null;
+        Fragment nextFragment;
         switch (itemId)
         {
             case R.id.nav_home:
                     Intent intent = new Intent(getApplicationContext(), MainActivity.class);
                     startActivity(intent);
+                    this.finish();
                 break;
             case R.id.nav_map:
                 getSupportFragmentManager().popBackStack();
@@ -323,6 +321,7 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
                             .commit();
                 break;
             case R.id.nav_wallet:
+                getSupportFragmentManager().popBackStack();
                 if ( getSupportFragmentManager().findFragmentByTag("WalletFragment") == null ){
                     nextFragment = new WalletFragment();
                     getSupportFragmentManager().beginTransaction().addToBackStack(null)
@@ -336,16 +335,6 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
                 break;
             case R.id.nav_reports:
                 getSupportFragmentManager().popBackStack();
-              /*  if ( getSupportFragmentManager().findFragmentByTag("ReportFragment") == null ){
-                    nextFragment = new ReportProblemsFragment();
-                    getSupportFragmentManager().beginTransaction().addToBackStack(null)
-                            .replace(R.id.fragment_container,nextFragment,"ReportFragment")
-                            .commit();
-                }
-                else
-                    getSupportFragmentManager().beginTransaction()
-                            .replace(R.id.fragment_container,getSupportFragmentManager().findFragmentByTag("ReportFragment"))
-                            .commit();*/
                 Intent reportActivity = new Intent(this, ReportActivity.class);
                 startActivity(reportActivity);
                 break;

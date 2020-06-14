@@ -12,7 +12,6 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
 import android.util.Log;
-import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -69,11 +68,11 @@ public class WalletFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View layout =  inflater.inflate(R.layout.fragment_wallet, container, false);
-        amountTv = (TextView) layout.findViewById(R.id.walletAmount);
-        payBt = (Button) layout.findViewById(R.id.ricarica);
-        displayDiscountBt = (Button) layout.findViewById(R.id.displayDiscountButton);
-        discount_TV = (TextView) layout.findViewById(R.id.discountTextView);
-        discount_number_TV = (TextView) layout.findViewById(R.id.discountNumber);
+        amountTv = layout.findViewById(R.id.walletAmount);
+        payBt = layout.findViewById(R.id.ricarica);
+        displayDiscountBt = layout.findViewById(R.id.displayDiscountButton);
+        discount_TV = layout.findViewById(R.id.discountTextView);
+        discount_number_TV = layout.findViewById(R.id.discountNumber);
         discount_number_TV.setVisibility(View.GONE);
 
         return layout;
@@ -113,19 +112,20 @@ public class WalletFragment extends Fragment {
                     }).create().show();
         }
 
-        getView().setFocusableInTouchMode(true);
+        /* getView().setFocusableInTouchMode(true);
         getView().requestFocus();
-        getView().setOnKeyListener( new View.OnKeyListener()
+       getView().setOnKeyListener( new View.OnKeyListener()
         {
             @Override
             public boolean onKey(View v, int keyCode, KeyEvent event) {
-                Intent intent = new Intent(getContext(), MainActivity.class);
-                startActivity(intent);
-                getActivity().finish();
+               // Intent intent = new Intent(getContext(), MainActivity.class);
+              //  startActivity(intent);
+              //  getActivity().finish();
+               getFragmentManager().popBackStack();
                 return true;
             }
 
-        } );
+        } );*/
 
         payBt.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -145,16 +145,14 @@ public class WalletFragment extends Fragment {
                 id = preferences.getInt(Keys.USER_ID, -1);
 
 
-                /**calcolo la durata totale**/
+                //calcolo la durata totale
                 int durata_totale = 0;
                 Integer ora_totale = 0;
                 ArrayList<Rental> rentals;
 
-                /**
-                 * Creo url connessione
-                 **/
+                //Creo url connessione
                 String str = Keys.SERVER + "view_past_rentals.php?id=" + id;
-                URL url = null;
+                URL url;
 
                 try {
                     url = new URL(str);
@@ -163,7 +161,7 @@ public class WalletFragment extends Fragment {
 
                     Log.d("prova", rentals.toString());
 
-                    /**Calcolo durata totale noleggi**/
+                    //Calcolo durata totale noleggi
                     for (int i =0; i<rentals.size(); i++) {
 
                         durata_totale += rentals.get(i).getDurata();

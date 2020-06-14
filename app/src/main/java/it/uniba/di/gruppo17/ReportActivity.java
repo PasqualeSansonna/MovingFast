@@ -66,7 +66,7 @@ public class ReportActivity extends AppCompatActivity {
 
         Toolbar toolbar = findViewById(R.id.toolbarReportActivity);
         setSupportActionBar(toolbar);
-        getSupportActionBar().setTitle("Segnalazione");
+        getSupportActionBar().setTitle(R.string.reportingActvityName);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         prefs = this.getSharedPreferences(Keys.SHARED_PREFERENCES, Context.MODE_PRIVATE);
@@ -129,7 +129,7 @@ public class ReportActivity extends AppCompatActivity {
                         prefs.getInt(Keys.USER_ID, 0), 0, 0, 0, 0, 0, 0);
                 else
                 {
-                    Snackbar.make(v,"Codice monopattino mancante",Snackbar.LENGTH_SHORT).show();
+                    Snackbar.make(v,R.string.reportScooterIdError,Snackbar.LENGTH_SHORT).show();
                     return;
                 }
 
@@ -162,7 +162,7 @@ public class ReportActivity extends AppCompatActivity {
                     if ( ConnectionUtil.checkInternetConn(ReportActivity.this) )
                         asyncAddReport.execute(url);
                     else
-                        Snackbar.make(v,"Errore connessione di rete",
+                        Snackbar.make(v,R.string.networkConnectionError_tile,
                                 Snackbar.LENGTH_INDEFINITE).setAction(R.string.snackbar_action, new View.OnClickListener() {
                             @Override
                             public void onClick(View v) {
@@ -181,13 +181,13 @@ public class ReportActivity extends AppCompatActivity {
     {
         if (result)
             new AlertDialog.Builder(this)
-                    .setTitle("Segnalazione completata")
-                    .setMessage("La segnalazione è stata inviata con successo. Grazie del supporto")
+                    .setTitle(R.string.reportCompleted_title)
+                    .setMessage(R.string.reportCompleted_text)
                     .create().show();
         else
             new AlertDialog.Builder(this)
-                    .setTitle("Segnalazione fallita")
-                    .setMessage("Errore nell'invio della segnalazione. Riprova")
+                    .setTitle(R.string.reportFailed_title)
+                    .setMessage(R.string.reportFailed_text)
                     .create().show();
     }
 
@@ -208,10 +208,10 @@ public class ReportActivity extends AppCompatActivity {
                 idScooter.setText(receivedData);
             }
             else
-                Toast.makeText(this,"Errore. Nessun dato ricevuto",Toast.LENGTH_LONG).show();
+                Toast.makeText(this,R.string.nfcBumpNoDataReceived,Toast.LENGTH_LONG).show();
         }
         else
-            Toast.makeText(this,"Errore. Riprova",Toast.LENGTH_LONG).show();
+            Toast.makeText(this,R.string.nfcBumpFailed,Toast.LENGTH_LONG).show();
         mBottomSheetDialog.dismiss();
     }
 

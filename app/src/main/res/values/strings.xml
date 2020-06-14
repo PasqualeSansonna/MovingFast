@@ -48,8 +48,8 @@
     <string name="deny_button_deviceLocation_alert_dialog">No</string>
 
     <!-- Strings MapsFragment-->
-    <string name="device_position_retrieved_message">Device postion retrieved</string>
-    <string name="device_position_NOT_retrieved_message">Device postion NOT retrieved. Check your location settings</string>
+    <string name="device_position_retrieved_message">Device position retrieved</string>
+    <string name="device_position_NOT_retrieved_message">Device position NOT retrieved. Check your location settings</string>
     <string name="loading_scooter_message">Loading near scooters</string>
     <string name="completed">Completed</string>
     <string name="title_marker_map">Scooter</string>
@@ -142,7 +142,7 @@
     <!-- Strings in payFragment -->
     <string name="paying_paypal">You will be directed to the paypal screen for payment</string>
     <string name="amount_lessThanZero">Please insert a value greater than zero</string>
-    <string name="success_transaction">Transaction succesfully completed</string>
+    <string name="success_transaction">Transaction successfully completed</string>
     <string name="failure_transaction">Error!! Transaction failure</string>
     <string name="add_to_amount">LOAD TO THE BALANCE</string>
     <string name="toast_password">The password must contain more than 5 characters, a lowercase and uppercase letter, a number and a special character @ $ *% ^ &amp; amp; + =</string>
@@ -196,5 +196,13 @@
     <string name="titleReportProblems">Report problems</string>
     <string name="menu_report">Report problems</string>
 
-
+    <!--Strings about reporting-->
+    <string name="reportCompleted_title">Report completed </string>
+    <string name="reportCompleted_text">Report received successfully. Thanks for your help.</string>
+    <string name="reportFailed_title">Report failed</string>
+    <string name="reportFailed_text">Report not received. Please try again.</string>
+    <string name="nfcBumpFailed">Bump failed. Try again.</string>
+    <string name="nfcBumpNoDataReceived">No data received after bump.</string>
+    <string name="reportingActvityName">Reporting</string>
+    <string name="reportScooterIdError">Scooter ID not retrieved.</string>
 </resources>

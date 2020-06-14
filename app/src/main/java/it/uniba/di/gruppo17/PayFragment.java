@@ -82,8 +82,8 @@ public class PayFragment extends Fragment {
         // Inflate the layout for this fragment
         View layout = inflater.inflate(R.layout.fragment_pay, container, false);
 
-        payBt = (Button) layout.findViewById(R.id.addBalanceButton);
-        amountEt = (EditText) layout.findViewById(R.id.valueAddBalance);
+        payBt = layout.findViewById(R.id.addBalanceButton);
+        amountEt = layout.findViewById(R.id.valueAddBalance);
 
         return layout;
     }
@@ -206,7 +206,8 @@ public class PayFragment extends Fragment {
                                 @Override
                                 public void onClick(DialogInterface dialog, int which) {
                                     // Faccio tornare al fragment Wallet
-                                    goToFragment(new WalletFragment());
+                                 //   goToFragment(new WalletFragment());
+                                    getFragmentManager().popBackStack();
                                 }
                             }).create().show();
                 }
@@ -253,7 +254,8 @@ public class PayFragment extends Fragment {
         if (okTransaction) {
             Toast.makeText(this.getView().getContext(), R.string.success_transaction, Toast.LENGTH_LONG).show();
             if (setWalletValue())
-                goToFragment(new WalletFragment());
+              //  goToFragment(new WalletFragment());
+                getFragmentManager().popBackStack();
         } else {
             Toast.makeText(this.getView().getContext(), R.string.failure_transaction, Toast.LENGTH_LONG).show();
         }
