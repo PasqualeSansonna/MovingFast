@@ -153,4 +153,9 @@
     <string name="nfcBumpNoDataReceived">Nessun dato ricevuto dopo il bump.</string>
     <string name="reportingActvityName">Segnalazione</string>
     <string name="reportScooterIdError">ID del monopattino assente.</string>
+    <string name="totalRidingTime_textView">Durata totale noleggio</string>
+    <string name="totalTraveledDistance_textView">Distanza totale percorsa</string>
+    <string name="totalPayment_textView">Totale</string>
+    <string name="paymentButton">Procedi al pagamento</string>
+    <string name="hadProblem_textView">Hai riscontrato problemi?</string>
 </resources>

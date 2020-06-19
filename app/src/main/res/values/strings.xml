@@ -174,7 +174,12 @@
     <string name="charged_scooter">The scooter has been recharged</string>
     <string name="not_charged_scooter">The scooter has not been recharged</string>
 
-    <!--Strings in Maintainence Fragmente -->
+    <!--Strings in ResultCloseRentFragment Fragment -->
+    <string name="totalRidingTime_textView">Total riding time</string>
+    <string name="totalTraveledDistance_textView">Total traveled distance</string>
+    <string name="totalPayment_textView">Total</string>
+    <string name="paymentButton">Proceed to payment</string>
+    <string name="hadProblem_textView">Had some troubles?</string>
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment" translatable="false">Hello blank fragment</string>
