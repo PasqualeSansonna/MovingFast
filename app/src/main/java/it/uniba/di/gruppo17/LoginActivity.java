@@ -1,6 +1,8 @@
 package it.uniba.di.gruppo17;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.security.crypto.EncryptedSharedPreferences;
+import androidx.security.crypto.MasterKeys;
 
 import android.app.AlertDialog;
 import android.content.Context;
@@ -17,11 +19,13 @@ import android.widget.EditText;
 import android.widget.Switch;
 import android.widget.Toast;
 
+import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
+import java.security.GeneralSecurityException;
 import java.util.concurrent.ExecutionException;
 
 import it.uniba.di.gruppo17.asynchttp.AsyncCheckConnection;
@@ -48,6 +52,12 @@ public class LoginActivity extends AppCompatActivity {
     private boolean saveCredential = false;
     private SharedPreferences preferences;
 
+    /*
+    Credenziali criptate in shared Prefrences (password)
+     */
+    private String masterKey;
+    private SharedPreferences encryptedSharedPreferences;
+
     private AsyncCheckConnection mCheckInternet;
 
 
@@ -56,12 +66,30 @@ public class LoginActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+
         /* Campi txt email e password*/
         ETemail = (EditText) findViewById(R.id.email_login);
         ETpassword = (EditText) findViewById(R.id.password_login);
+
         /* Bottoni per Login e Registrazione */
         BTlogin = (Button) findViewById(R.id.login_button);
         BTSignUp = (Button) findViewById(R.id.button_sign_up);
+
+        //Creazione shared prefs criptate
+        try {
+            masterKey = MasterKeys.getOrCreate(MasterKeys.AES256_GCM_SPEC);
+            encryptedSharedPreferences = EncryptedSharedPreferences.create(
+                    Keys.ENCRYPTED_SHARED_PREFERENCES,
+                    masterKey,
+                    this,
+                    EncryptedSharedPreferences.PrefKeyEncryptionScheme.AES256_SIV,
+                    EncryptedSharedPreferences.PrefValueEncryptionScheme.AES256_GCM
+            );
+        } catch (GeneralSecurityException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
@@ -102,7 +130,8 @@ public class LoginActivity extends AppCompatActivity {
         }
         /* Controllo delle sharedPref per eventuali credenziali salvate*/
         preferences = getSharedPreferences("MovingFastPreferences", Context.MODE_PRIVATE);
-        if (preferences.contains(EMAIL) && preferences.contains(PASSWORD)) {
+        encryptedSharedPreferences = getSharedPreferences(Keys.ENCRYPTED_SHARED_PREFERENCES, Context.MODE_PRIVATE);
+        if (preferences.contains(EMAIL) && encryptedSharedPreferences.contains(PASSWORD)) {
             /*Bisogna controllare la connessione, se c'è è possibile fare il login*/
             if (ConnectionUtil.checkInternetConn(LoginActivity.this))
             {
@@ -198,11 +227,13 @@ public class LoginActivity extends AppCompatActivity {
      * @param password password dell'utente.
      */
     private void writePreferences(String email, String password) {
-        if (!(preferences.contains(EMAIL)) && !(preferences.contains(Keys.PASSWORD))) {
+        if (!(preferences.contains(EMAIL)) && !(encryptedSharedPreferences.contains(Keys.PASSWORD))) {
             SharedPreferences.Editor editor = preferences.edit();
+            SharedPreferences.Editor encryptedEditor = encryptedSharedPreferences.edit();
             editor.putString(EMAIL, email);
-            editor.putString(PASSWORD, password);
+            encryptedEditor.putString(PASSWORD, password);
             editor.apply();
+            encryptedEditor.apply();
         }
     }
 
@@ -285,6 +316,7 @@ public class LoginActivity extends AppCompatActivity {
 
     /**
      * Login effettuato -> passaggio all'act principale
+     * A seconda del tipo di utente cambia l'intent
      */
     private void login()
     {

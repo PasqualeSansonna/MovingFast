@@ -11,6 +11,8 @@ import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
+import androidx.security.crypto.EncryptedSharedPreferences;
+import androidx.security.crypto.MasterKeys;
 
 import android.Manifest;
 import android.app.ActivityManager;
@@ -40,6 +42,9 @@ import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.location.LocationServices;
 import com.google.android.material.navigation.NavigationView;
 
+import java.io.IOException;
+import java.security.GeneralSecurityException;
+
 import it.uniba.di.gruppo17.services.LocationService;
 import it.uniba.di.gruppo17.util.Keys;
 
@@ -53,6 +58,12 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
     private NavigationView mNavingationView;
     private ActionBarDrawerToggle mDrawerToggle;
     private SharedPreferences prefs;
+
+    /*
+   Credenziali criptate in shared Prefrences (password)
+    */
+    private String masterKey;
+    private SharedPreferences encryptedSharedPreferences;
 
     //Per controllo Google play services
     private boolean mResolvingError;
@@ -177,6 +188,22 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
 
             }
         });
+
+        //Creazione shared prefs criptate
+        try {
+            masterKey = MasterKeys.getOrCreate(MasterKeys.AES256_GCM_SPEC);
+            encryptedSharedPreferences = EncryptedSharedPreferences.create(
+                    Keys.ENCRYPTED_SHARED_PREFERENCES,
+                    masterKey,
+                    this,
+                    EncryptedSharedPreferences.PrefKeyEncryptionScheme.AES256_SIV,
+                    EncryptedSharedPreferences.PrefValueEncryptionScheme.AES256_GCM
+            );
+        } catch (GeneralSecurityException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     /**
@@ -225,11 +252,14 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         prefs = getSharedPreferences(Keys.SHARED_PREFERENCES, Context.MODE_PRIVATE);
+                        encryptedSharedPreferences = getSharedPreferences(Keys.ENCRYPTED_SHARED_PREFERENCES, Context.MODE_PRIVATE);
                         SharedPreferences.Editor editor = prefs.edit();
+                        SharedPreferences.Editor encryptedEditor = encryptedSharedPreferences.edit();
                         editor.remove(Keys.EMAIL);
-                        editor.remove(Keys.PASSWORD);
+                        encryptedEditor.remove(Keys.PASSWORD);
                         editor.remove(Keys.USER_ID);
                         editor.apply();
+                        encryptedEditor.apply();
                         Intent intent = new Intent(MainActivity.this, LoginActivity.class);
                         //Cancellazione stack activity
                         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK |Intent.FLAG_ACTIVITY_CLEAR_TOP);

@@ -12,6 +12,7 @@ Keys {
     String USER_TYPE = "type";
     String WALLET = "wallet" ;
     String SHARED_PREFERENCES = "MovingFastPreferences";
+    String ENCRYPTED_SHARED_PREFERENCES = "MovingFastEncryptedPreferences";
     //Per check conn
     int TIMEOUT = 2500;
     //Per controllo Google play services e permessi geolocalizzazione
