@@ -158,4 +158,5 @@
     <string name="totalPayment_textView">Totale</string>
     <string name="paymentButton">Procedi al pagamento</string>
     <string name="hadProblem_textView">Hai riscontrato problemi?</string>
+    <string name="id_scooter">Seleziona monopattino</string>
 </resources>

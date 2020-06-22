@@ -200,6 +200,7 @@
     <string name="report">Report</string>
     <string name="titleReportProblems">Report problems</string>
     <string name="menu_report">Report problems</string>
+    <string name="id_scooter">Select scooter</string>
 
     <!--Strings about reporting-->
     <string name="reportCompleted_title">Report completed </string>

@@ -21,6 +21,7 @@
             android:ems="10"
             android:hint="ID SCOOTER"
             android:inputType="textEmailAddress"
+            android:text="@string/id_scooter"
             android:textColor="@color/secondaryTextColor"
             android:textColorHint="@color/secondaryTextColor"
             android:textSize="@dimen/text_dimension"
