@@ -26,9 +26,9 @@ import it.uniba.di.gruppo17.util.Keys;
 
 
 /**
- * Classe che implemente il fragment per la creazione del noleggio
+ * Classe che implemente il fragment per l'avvio del noleggio
  * Include l'uso dell'NFC con messaggi NDEF e Android Beam
- * @author Andrea Montemurro
+ * @author Andrea Montemurro e Francesco Moramarco
  */
 public class RentFragment extends Fragment implements NfcAdapter.CreateNdefMessageCallback, NfcAdapter.OnNdefPushCompleteCallback {
 
@@ -63,9 +63,9 @@ public class RentFragment extends Fragment implements NfcAdapter.CreateNdefMessa
                 //Controllo la connessione a Internet
                 if ( checkInternetConnection() )
                 {
-                    //metodo per il richiamo del sender messaggio NDEF
+                    //metodo di callback relativo all'invio del messaggio NDEF
                     nfcAdapter.setNdefPushMessageCallback(this, getActivity());
-                    //metodo per il richiamo del metodo da eseguire a trasmissione completata
+                    //metodo di callback che consente di notificare che la tramissione del messaggio tramite NFC è stato completato
                     nfcAdapter.setOnNdefPushCompleteCallback(this, getActivity());
                 }
             }
@@ -154,7 +154,6 @@ public class RentFragment extends Fragment implements NfcAdapter.CreateNdefMessa
     /**
      * Metodo che controlla se la funzione android beam è attiva
      * @return true se android beam è attivo, false altrimenti
-     *
      */
     private boolean androidBeamIsOn()
     {
@@ -178,9 +177,8 @@ public class RentFragment extends Fragment implements NfcAdapter.CreateNdefMessa
 
     /**
      * Metodo che crea il messaggio da mandare tramite nfc
-     *
-     * @param event
-     * @return messaggio da mandare con proto nfc
+     * @param event, oggetto che specifica un evento relativo all'NFC
+     * @return NdefMessage cioè lo standard utilizzato per l'invio di dati tramite NFC
      */
     @Override
     public NdefMessage createNdefMessage(NfcEvent event) {
@@ -192,6 +190,8 @@ public class RentFragment extends Fragment implements NfcAdapter.CreateNdefMessa
         return ndefMessage;
     }
 
+    /* Specifichiamo l'operazione da eseguire dopo che l'invio del messaggio è stato completato.
+       L'operazione da eseguire sarà il passaggio al fragment successivo */
     @Override
     public void onNdefPushComplete(NfcEvent event) {
         changeFragment(new ResultFragment());

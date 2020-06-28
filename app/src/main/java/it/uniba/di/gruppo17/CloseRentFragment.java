@@ -96,7 +96,7 @@ public class CloseRentFragment extends Fragment implements NfcAdapter.CreateNdef
     }
 
     /**
-     * Metodo eseguito subito dopo che il bump è stato eseguito
+     * Metodo eseguito subito dopo che il beam è stato eseguito. Si passa alla schermata di riepilogo di chiusura del noleggio
      * @param nfcEvent
      */
     @Override

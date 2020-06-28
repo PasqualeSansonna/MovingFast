@@ -72,6 +72,8 @@ public class ReportActivity extends AppCompatActivity {
         prefs = this.getSharedPreferences(Keys.SHARED_PREFERENCES, Context.MODE_PRIVATE);
 
         mNfcAdapter =  NfcAdapter.getDefaultAdapter(this);
+        /*Il pending intent permette all'activity dell'app di avere una priorità maggiore nel momento in cui viene sollevato un intent
+           relativo all'NFC. Questo è possibile abilitando il sistema di "foregound dispatch", che sarà abilitato in onResume() e disabilitato in onPause()*/
         pendingIntent = PendingIntent.getActivity(this, 0,
                 new Intent(this, this.getClass())
                         .addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP),0);
@@ -104,7 +106,7 @@ public class ReportActivity extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
 
-        if ( mNfcAdapter != null ) //disabilito il foregound dispatch
+        if ( mNfcAdapter != null ) //disabilito il foregound dispatch se nfc non è più disponibile
             mNfcAdapter.disableForegroundDispatch(this);
 
         idScooter.setOnClickListener(new View.OnClickListener() {
@@ -191,18 +193,25 @@ public class ReportActivity extends AppCompatActivity {
                     .create().show();
     }
 
+    /*
+       Consente di gestire l'intent sollevato relativo all'NFC, cioè di elaborare i dati ottenuti
+     */
     @Override
     public void onNewIntent(Intent intent) {
         super.onNewIntent(intent);
         String action = intent.getAction();
+        //Quando il sistema riceva un NDEF messaggio, viene sollevato un intent, che può essere di questi 3 tipi
         if (NfcAdapter.ACTION_NDEF_DISCOVERED.equals(action) || NfcAdapter.ACTION_TECH_DISCOVERED.equals(action)
                 || NfcAdapter.ACTION_TAG_DISCOVERED.equals(action))
         {
+            //Consente di ottenere i dati contenuti nell'intent
             Parcelable[] rawMessages = intent.getParcelableArrayExtra(NfcAdapter.EXTRA_NDEF_MESSAGES);
+            //NdefMessage è lo standard con cui sono inviati i messaggi tramite tecnologia NFC
             NdefMessage mNdefMessage;
             if (rawMessages != null)
             {
                 mNdefMessage = (NdefMessage)rawMessages[0];
+                //Un NdefMessage può essere costituito da più NdefRecord. Nel nostro caso, all'interno dell'NDEF vi è un solo NdefRecord
                 NdefRecord[] mNdefRecord  = mNdefMessage.getRecords();
                 String receivedData = new String( mNdefRecord[0].getPayload() );
                 idScooter.setText(receivedData);
