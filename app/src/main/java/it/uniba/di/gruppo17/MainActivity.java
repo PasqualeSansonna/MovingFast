@@ -140,6 +140,7 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
         logo_anim.setDuration(1000);
         image2.startAnimation(logo_anim);
 
+        //Listenere per click su ricerca monopattino
         IV_searchScooter.setOnClickListener(new View.OnClickListener() {
 
 
@@ -156,6 +157,7 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
             }
         });
 
+        //Listener per clicl su profilo
         IV_profile.setOnClickListener(new View.OnClickListener() {
 
 
@@ -173,6 +175,7 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
         });
 
 
+        //Listener per click su portafogli
         IV_wallet.setOnClickListener(new View.OnClickListener() {
 
 
@@ -207,7 +210,7 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
     }
 
     /**
-     * Metodo che crea il secondo menu (laterale)
+     * Metodo che crea l'options menu nella toolbar
      * @param menu
      * @return true creazione menu
      */
@@ -220,7 +223,7 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
 
 
     /**
-     * Metodo che gestisce la selezione degli item del menu dx di impostazioni
+     * Metodo che gestisce la selezione degli item dall'options menu nella toolbar
      * @param item
      * @return
      */
@@ -251,13 +254,15 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
                 .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
+                        //Cancellazione dalle shared prefs dei dati relativi all'utente
                         prefs = getSharedPreferences(Keys.SHARED_PREFERENCES, Context.MODE_PRIVATE);
                         encryptedSharedPreferences = getSharedPreferences(Keys.ENCRYPTED_SHARED_PREFERENCES, Context.MODE_PRIVATE);
                         SharedPreferences.Editor editor = prefs.edit();
                         SharedPreferences.Editor encryptedEditor = encryptedSharedPreferences.edit();
-                        editor.remove(Keys.EMAIL);
+                        //editor.remove(Keys.EMAIL);
                         encryptedEditor.remove(Keys.PASSWORD);
-                        editor.remove(Keys.USER_ID);
+                       // editor.remove(Keys.USER_ID);
+                        editor.clear().commit();
                         editor.apply();
                         encryptedEditor.apply();
                         Intent intent = new Intent(MainActivity.this, LoginActivity.class);
@@ -280,7 +285,6 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
                 this.finish();
             else
                 getSupportFragmentManager().popBackStack();
-            //super.onBackPressed();
         }
     }
 

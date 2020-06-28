@@ -1,4 +1,4 @@
-package it.uniba.di.gruppo17;
+package it.uniba.di.gruppo17.maintainer;
 
 import android.os.Bundle;
 import android.os.Handler;
@@ -24,6 +24,7 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.concurrent.ExecutionException;
 
+import it.uniba.di.gruppo17.R;
 import it.uniba.di.gruppo17.asynchttp.AsyncGetReportings;
 import it.uniba.di.gruppo17.services.LocationService;
 import it.uniba.di.gruppo17.util.MaintenanceScootersAdapter;
@@ -93,7 +94,6 @@ public class MaintenanceScootersFragment extends Fragment {
             getScooters = new AsyncGetReportings();
             maintenanceScooters = new ArrayList<>();
             maintenanceScooters = getScooters.execute(urlScooters).get();
-           // Thread.sleep(500);
 
             maintenanceScootersAdapter = new MaintenanceScootersAdapter(maintenanceScooters);
 

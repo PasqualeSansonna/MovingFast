@@ -37,7 +37,7 @@ import static it.uniba.di.gruppo17.util.Keys.EMAIL;
 public class SignUpActivity extends AppCompatActivity {
 
     /*
-     * Regex per controllo password
+     * Regex per controllo password, la password deve avere questi requisiti per essere valida
      */
     private static final Pattern PASSWORD_PATTERN =
             Pattern.compile("^" +

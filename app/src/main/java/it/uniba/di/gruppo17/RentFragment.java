@@ -26,7 +26,7 @@ import it.uniba.di.gruppo17.util.Keys;
 
 
 /**
- * Classe che implemente il fragment per l'avvio del noleggio
+ * Classe che implementa il fragment per l'avvio del noleggio
  * Include l'uso dell'NFC con messaggi NDEF e Android Beam
  * @author Andrea Montemurro e Francesco Moramarco
  */

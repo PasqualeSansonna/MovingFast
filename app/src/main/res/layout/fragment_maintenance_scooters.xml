@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:background="@color/colorAccent"
     android:orientation="vertical"
-    tools:context=".MaintenanceScootersFragment">
+    tools:context=".maintainer.MaintenanceScootersFragment">
 
     <com.google.android.material.card.MaterialCardView
         android:id="@+id/titleMaintenanceScootersCard"

@@ -55,7 +55,7 @@ public class PayFragment extends Fragment {
     private Double newAmount; //indica il valore del saldo del portafoglio dopo la transazione
     private URL url;
 
-    //PAYPAL id
+    //PAYPAL chiave per la connessione
     private static final String PAYPAL_CLIENT_ID = "AWJQ57yZHenTTO5TnZ523QMWfDMzqhdg7VAbbOg-OfUNAarfWdvWThYjTfB8VNWcfRHQo0AmeNeLxInp";
     //Paypal intent request code to track onActivityResult method
     public static final int PAYPAL_REQUEST_CODE = 123;
@@ -111,7 +111,7 @@ public class PayFragment extends Fragment {
 
     @Override
     public void onDestroy() {
-        //Destroy also the paypal serv
+        //Destroy also the paypal service
         getActivity().stopService(new Intent(getContext(), PayPalService.class));
         super.onDestroy();
     }
@@ -165,10 +165,6 @@ public class PayFragment extends Fragment {
 
                         //Se il pagamento va a buon fine posso anche aggiornare il portafogli nel database dell'app
                         setCreditDb();
-                        /*Starting a new activity for the payment details and also putting the payment details with intent
-                        startActivity(new Intent(getContext(), ConfirmationActivity.class)
-                                .putExtra("PaymentDetails", paymentDetails)
-                                .putExtra("PaymentAmount", paymentAmount)); */
 
                     } catch (JSONException e) {
                         Log.e("paymentExample", "an extremely unlikely failure occurred: ", e);
@@ -229,17 +225,6 @@ public class PayFragment extends Fragment {
             Snackbar.make(Objects.requireNonNull(getView()), R.string.no_connection_message, Snackbar.LENGTH_LONG).show();
         }
     }
-
-    /**
-     * Metodo che fa cambiare fragment
-     * @param nextFragment prossimo fragment
-     */
-    private void goToFragment(Fragment nextFragment) {
-        FragmentTransaction fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
-        fragmentTransaction.replace(R.id.fragment_container, nextFragment);
-        fragmentTransaction.commit();
-    }
-
 
 
     public static void afterTask(boolean ok){

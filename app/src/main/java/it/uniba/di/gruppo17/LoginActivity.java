@@ -30,6 +30,7 @@ import java.util.concurrent.ExecutionException;
 
 import it.uniba.di.gruppo17.asynchttp.AsyncCheckConnection;
 import it.uniba.di.gruppo17.asynchttp.AsyncLogin;
+import it.uniba.di.gruppo17.maintainer.MainMaintainerActivity;
 import it.uniba.di.gruppo17.util.ConnectionUtil;
 import it.uniba.di.gruppo17.util.Keys;
 import it.uniba.di.gruppo17.util.UserProfile;

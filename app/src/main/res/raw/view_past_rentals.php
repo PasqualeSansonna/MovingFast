@@ -36,23 +36,22 @@ if ($id != null) {
         while ( $number = mysqli_fetch_array ( $result ) ) {
 			$data = $number ['data'];
 			$importo = $number ['importo'];
-                        $durata_totale = $number ['durata_totale'];
+            $durata_totale = $number ['durata_totale'];
 			$ora_inizio = $number ['ora_inizio'];
 			$ora_fine = $number ['ora_fine'];
 			$latitudine_partenza = $number ['latitudine_partenza' ];
 			$longitudine_partenza = $number ['longitudine_partenza' ];
 			$latitudine_arrivo = $number ['latitudine_arrivo' ];
 			$longitudine_arrivo = $number ['longitudine_arrivo' ];
-
 			$data_array[] = $data;
 			$durata_totale_array[] = $durata_totale;
 			$importo_array[] = $importo;
 			$ora_inizio_array[] = $ora_inizio;
-        		$ora_fine_array[] = $ora_fine;
-        		$latitudine_partenza_array[] = $latitudine_partenza;
-        		$longitudine_partenza_array[] = $longitudine_partenza;
-        		$latitudine_arrivo_array[] = $latitudine_arrivo;
-        		$longitudine_arrivo_array[] = $longitudine_arrivo;
+            $ora_fine_array[] = $ora_fine;
+        	$latitudine_partenza_array[] = $latitudine_partenza;
+       		$longitudine_partenza_array[] = $longitudine_partenza;
+       		$latitudine_arrivo_array[] = $latitudine_arrivo;
+       		$longitudine_arrivo_array[] = $longitudine_arrivo;
 	}
 	
         $post_data = json_encode ( array (

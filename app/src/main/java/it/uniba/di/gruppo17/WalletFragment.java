@@ -112,20 +112,7 @@ public class WalletFragment extends Fragment {
                     }).create().show();
         }
 
-        /* getView().setFocusableInTouchMode(true);
-        getView().requestFocus();
-       getView().setOnKeyListener( new View.OnKeyListener()
-        {
-            @Override
-            public boolean onKey(View v, int keyCode, KeyEvent event) {
-               // Intent intent = new Intent(getContext(), MainActivity.class);
-              //  startActivity(intent);
-              //  getActivity().finish();
-               getFragmentManager().popBackStack();
-                return true;
-            }
 
-        } );*/
 
         payBt.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -134,6 +121,7 @@ public class WalletFragment extends Fragment {
             }
         });
 
+        //Cliccando sul pulsante visualizza si ha accesso alle info sugli sconti
         displayDiscountBt.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -217,6 +205,7 @@ public class WalletFragment extends Fragment {
     }
 
 
+    //Metodo che aggiorna testo nelle textview dopo che l'app ha reperito i dati dal server
     public static void afterTask(Double aDouble) {
         String soldiStringa;
         if((aDouble < 0.00) || aDouble == null)

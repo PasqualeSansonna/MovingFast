@@ -1,4 +1,4 @@
-package it.uniba.di.gruppo17;
+package it.uniba.di.gruppo17.maintainer;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -33,6 +33,9 @@ import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.location.LocationServices;
 import com.google.android.material.navigation.NavigationView;
 
+import it.uniba.di.gruppo17.LoginActivity;
+import it.uniba.di.gruppo17.MapsFragment;
+import it.uniba.di.gruppo17.R;
 import it.uniba.di.gruppo17.services.LocationService;
 import it.uniba.di.gruppo17.util.Keys;
 

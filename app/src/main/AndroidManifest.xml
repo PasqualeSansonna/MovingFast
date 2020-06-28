@@ -31,7 +31,7 @@
             android:theme="@style/AppTheme.NoActionBar"
             android:parentActivityName=".MainActivity"></activity>
         <activity
-            android:name=".MainMaintainerActivity"
+            android:name=".maintainer.MainMaintainerActivity"
             android:theme="@style/AppTheme.NoActionBar"
             android:configChanges="orientation|screenSize|keyboardHidden"/>
         <!--

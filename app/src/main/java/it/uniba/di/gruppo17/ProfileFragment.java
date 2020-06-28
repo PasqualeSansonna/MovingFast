@@ -79,7 +79,7 @@ public class ProfileFragment extends Fragment {
         R_confirmEdit.setVisibility(View.GONE);
         R_cancelEdit.setVisibility(View.GONE);
 
-        /**Visualizzo il profilo nelle EditText disabilitate**/
+        /*Visualizzo il profilo nelle EditText disabilitate**/
         viewProfile();
 
         return view;
@@ -88,7 +88,7 @@ public class ProfileFragment extends Fragment {
 
     private void viewProfile(){
 
-        /**Acquisisco ID dell'utente autenticato per visualizzazarne nome,cognome ed email
+        /**Acquisisco ID dell'utente autenticato per visualizzarne nome,cognome ed email
          * e creo url connessione
          **/
         preferences = getActivity().getSharedPreferences("MovingFastPreferences", Context.MODE_PRIVATE);
