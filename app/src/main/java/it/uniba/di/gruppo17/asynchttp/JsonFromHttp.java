@@ -13,6 +13,11 @@ import java.net.URL;
 
 import it.uniba.di.gruppo17.util.Keys;
 
+/**
+ * Classe che si occupa di effettuare la connessione al server
+ * tramite HTTP/FTP restituendo il JSON Object risultato della query
+ * al database posto sul server
+ */
 public class JsonFromHttp {
 
     public static JSONObject getJsonObject(URL param) {
