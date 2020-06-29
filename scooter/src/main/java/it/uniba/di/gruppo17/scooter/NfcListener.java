@@ -61,6 +61,11 @@ public class NfcListener extends AppCompatActivity implements NfcAdapter.CreateN
         super.onStart();
     }
 
+    /*
+        Metodo che consente di aggiornare i dati del monopattino sul server, inviando la sua posizione attuale e la carica della batteria
+        Se esiste nel db un monopattino con l'ID corrente, viene effettuata una operazione di update
+        Nel caso in cui nel db non esiste un monopattino con l'ID corrente, esso viene inserito
+     */
     public boolean checkScooter()
     {
         boolean ok;
@@ -125,14 +130,14 @@ public class NfcListener extends AppCompatActivity implements NfcAdapter.CreateN
             mNfcAdapter.disableForegroundDispatch(this);
     }
 
-    //viene chiamato quando l'nfc rileva una nfc card o tag.
-    // VEDIAMO qual è l'azione
-    //se l'azione è ACTION_TAG_DISCOVERED, ACTION_TECH_DISCOVERED or ACTION_NDEF_DISCOVERED
-    //allora ottieno il dato contenuto nell'intent, usando  getParcelableArrayExtra con parametro EXTRA_NDEF_MESSAGES
-    //Se EXTRA_NDEF_MESSAGES non è nullo, creiamo l'oggetto NdefMessage da questi dati
-    //Altrimenti cerchiamo di ottenere i dati dal content EXTRA_ID dall'intent chiamando getByteArrayExtra
-    //Otteniamo anche il Tag object. Poi chiamo dumpTagData con parametro questa istanza di tag.
-    //Poi creiamo NdefRecord con i dati ricevuti. poi creiamo NdefMessage
+    /*
+    Viene chiamato quando il sistema riceve un intent relativo a nfc (lettura di un tag o ricezione di un messaggio NDEF tramite Android Beam)
+    Si controlla prima l'azione specificata dall'intent: ACTION_TAG_DISCOVERED, ACTION_TECH_DISCOVERED o ACTION_NDEF_DISCOVERED
+    Successivamente, si ottiene il dato contenuto nell'intent, usando  getParcelableArrayExtra con parametro EXTRA_NDEF_MESSAGES
+    Se EXTRA_NDEF_MESSAGES non è nullo, creiamo l'oggetto NdefMessage, in caso contrario ci sarà stato un errore nella trasmissione.
+    L'oggetto NdefRecord rappresenterà i dati contenuti all'interno del NDEF message.
+    In base al suo contenuto si effetturà l'operazione di noleggio o chiusura del noleggio
+    */
     @Override
     public void onNewIntent(Intent intent) {
         super.onNewIntent(intent);
@@ -140,13 +145,8 @@ public class NfcListener extends AppCompatActivity implements NfcAdapter.CreateN
         if (NfcAdapter.ACTION_NDEF_DISCOVERED.equals(action) || NfcAdapter.ACTION_TECH_DISCOVERED.equals(action)
                 || NfcAdapter.ACTION_TAG_DISCOVERED.equals(action)) {
             Parcelable[] rawMessages = intent.getParcelableArrayExtra(NfcAdapter.EXTRA_NDEF_MESSAGES);
-            //NdefMessage[] message;
             NdefMessage mNdefMessage;
             if (rawMessages != null) {
-                /* message = new NdefMessage[rawMessages.length];
-                for (int i = 0; i < rawMessages.length; i++) {
-                    message[i] = (NdefMessage) rawMessages[i];
-                }*/
                 mNdefMessage = (NdefMessage)rawMessages[0];
                 NdefRecord[] mNdefRecord  = mNdefMessage.getRecords();
                 String receivedData = new String( mNdefRecord[0].getPayload() );
@@ -154,10 +154,10 @@ public class NfcListener extends AppCompatActivity implements NfcAdapter.CreateN
                 String requestedOperation = data[Keys.ACTION];
                 switch (requestedOperation)
                 {
-                    case Keys.RENT: //noleggio
+                    case Keys.RENT: //l'operazione da effettuare è di noleggio
                         startRent(data);
                         break;
-                    case Keys.CLOSE_RENT: //chiudi noleggio
+                    case Keys.CLOSE_RENT: //l'operazione da effettuare è di chiusura noleggio
                         closeRent(data);
                         break;
                     default:
@@ -170,6 +170,9 @@ public class NfcListener extends AppCompatActivity implements NfcAdapter.CreateN
         }
     }
 
+    /*
+        Metodo per l'avvio del noleggio
+     */
     private void startRent(String[] data)
     {
         Calendar mCalendar = Calendar.getInstance();
@@ -198,6 +201,9 @@ public class NfcListener extends AppCompatActivity implements NfcAdapter.CreateN
         }
     }
 
+    /*
+        Metodo per la chiusura del noleggio
+     */
     private void closeRent(String[] data)
     {
         Calendar mCalendar = Calendar.getInstance();

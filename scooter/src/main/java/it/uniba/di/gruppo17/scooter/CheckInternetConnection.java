@@ -20,6 +20,9 @@ public class CheckInternetConnection extends AsyncTask<Void,Void,Boolean> {
         this.mContext = context;
     }
 
+    /*
+        Controlla se la connessione dati o il wi-fi sono attivi
+     */
     private boolean isConnectionAvailable(Context context)
     {
         ConnectivityManager connectivityManager
@@ -31,6 +34,9 @@ public class CheckInternetConnection extends AsyncTask<Void,Void,Boolean> {
             return false;
     }
 
+    /*
+        Metodo che consente di pingare il server per verificare se questo è disponibile
+     */
     @Override
     protected Boolean doInBackground(Void... voids) {
         boolean success = false;
