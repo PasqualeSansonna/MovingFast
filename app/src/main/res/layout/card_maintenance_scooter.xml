@@ -20,7 +20,7 @@
             android:layout_width="match_parent"
             android:layout_height="289dp"
             android:background="@color/background"
-            android:backgroundTint="@color/colorAccent"
+            android:backgroundTint="@color/lightColorPrimary"
             android:elevation="@dimen/standard_elevation_card"
             android:padding="@dimen/card_padding">
 

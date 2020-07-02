@@ -13,8 +13,8 @@
             android:id="@+id/header"
             android:layout_width="match_parent"
             android:layout_height="200dp"
-            android:background="@color/colorAccent"
-            android:backgroundTint="@color/colorAccent"
+            android:background="@color/lightColorPrimary"
+            android:backgroundTint="@color/lightColorPrimary"
             android:orientation="vertical" />
 
         <ImageButton

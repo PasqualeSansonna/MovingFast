@@ -67,7 +67,7 @@
                         <androidx.cardview.widget.CardView
                             android:layout_width="@dimen/card_size"
                             android:layout_height="@dimen/card_size"
-                            android:backgroundTint="@color/colorAccent"
+                            android:backgroundTint="@color/lightColorPrimary"
                             android:orientation="vertical"
                             app:cardCornerRadius="12dp"
                             app:cardElevation="6dp">
@@ -104,7 +104,7 @@
                         <androidx.cardview.widget.CardView
                             android:layout_width="@dimen/card_size"
                             android:layout_height="@dimen/card_size"
-                            android:backgroundTint="@color/colorAccent"
+                            android:backgroundTint="@color/lightColorPrimary"
                             android:orientation="vertical"
                             app:cardCornerRadius="12dp"
                             app:cardElevation="6dp">
@@ -141,7 +141,7 @@
                         <androidx.cardview.widget.CardView
                             android:layout_width="120dp"
                             android:layout_height="@dimen/card_size"
-                            android:backgroundTint="@color/colorAccent"
+                            android:backgroundTint="@color/lightColorPrimary"
                             app:cardCornerRadius="12dp"
                             app:cardElevation="6dp">
 
