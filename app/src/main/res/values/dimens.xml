@@ -18,10 +18,7 @@
     <dimen name="edit_text_distance">40dp</dimen>
     <dimen name="edit_text_width">200dp</dimen>
     <dimen name="buttonConfirm">100dp</dimen>
-
-    <!-- ALCUNI SONO DA CANCELLARE-->
-    <dimen name="getTorrette_distance">135dp</dimen>
-    <dimen name="getUtenti_distance">75dp</dimen>
+    
 
     <dimen name="input_width_landscape">250dp</dimen>
     <array name="radius_dimen">
